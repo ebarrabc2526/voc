@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOC – English Vocabulary Master</title>
+  <meta name="description" content="Aprende vocabulario inglés jugando a ¿Quién quiere ser millonario?">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer
+          onload="initGoogleSignIn()"></script>
+</head>
+<body>
+
+<!-- ────────────────────────────────────────────────
+     SCREEN 1: HOME
+──────────────────────────────────────────────────── -->
+<div id="screen-home" class="screen active">
+  <div class="home-inner">
+
+    <div class="logo-ring">
+      <div class="logo-inner">
+        <h1>VOC</h1>
+      </div>
+    </div>
+
+    <div>
+      <div class="home-title">English Vocabulary Master</div>
+      <div class="home-subtitle" style="margin-top:.5rem">
+        ¿Quién quiere ser millonario… en inglés?<br>
+        Niveles A1–C2 · Pronunciación UK &amp; US · Hall of Fame
+      </div>
+    </div>
+
+    <!-- Estado: no autenticado -->
+    <div id="home-loggedout">
+      <p class="home-subtitle">Inicia sesión para jugar</p>
+      <div id="google-signin-btn"></div>
+    </div>
+
+    <!-- Estado: autenticado -->
+    <div id="home-loggedin" style="display:none">
+      <div class="user-info">
+        <img id="user-avatar" class="user-avatar" src="" alt="">
+        <span id="user-name" class="user-name"></span>
+      </div>
+      <button class="btn-forget" onclick="logout()">Cerrar sesión</button>
+    </div>
+
+    <div class="home-buttons">
+      <button id="btn-play" class="btn-primary" style="display:none" onclick="showSetup()">🎮 JUGAR</button>
+      <button class="btn-secondary" onclick="showHallOfFame()">🏆 Hall of Fame</button>
+    </div>
+
+    <div class="home-copyright">© 2026 Eduardo Barra Balao</div>
+
+  </div>
+</div>
+
+<!-- ────────────────────────────────────────────────
+     SCREEN 2: SETUP
+──────────────────────────────────────────────────── -->
+<div id="screen-setup" class="screen">
+  <div class="setup-inner">
+
+    <h2>Configurar Partida</h2>
+
+    <!-- Mode -->
+    <div class="setup-section">
+      <h3>Modo de Juego</h3>
+      <div class="toggle-group">
+        <button class="mode-btn" data-mode="en-es" onclick="setMode('en-es')">
+          🇬🇧 Inglés → Español
+        </button>
+        <button class="mode-btn" data-mode="es-en" onclick="setMode('es-en')">
+          🇪🇸 Español → Inglés
+        </button>
+      </div>
+    </div>
+
+    <!-- Level -->
+    <div class="setup-section">
+      <h3>Nivel CEFR</h3>
+      <div class="level-row">
+        <button class="level-btn" data-level="A1" onclick="setLevel('A1')">A1</button>
+        <button class="level-btn" data-level="A2" onclick="setLevel('A2')">A2</button>
+        <button class="level-btn" data-level="B1" onclick="setLevel('B1')">B1</button>
+        <button class="level-btn" data-level="B2" onclick="setLevel('B2')">B2</button>
+        <button class="level-btn" data-level="C1" onclick="setLevel('C1')">C1</button>
+        <button class="level-btn" data-level="C2" onclick="setLevel('C2')">C2</button>
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="setup-section">
+      <h3>Categoría</h3>
+      <div id="cat-container"><!-- populated by JS --></div>
+    </div>
+
+    <!-- Challenge -->
+    <div class="setup-section">
+      <h3>Tipo de Reto</h3>
+      <div class="challenge-row">
+        <button class="challenge-btn" id="ch-10"       onclick="setChallenge('10')">⚡ Reto 10</button>
+        <button class="challenge-btn" id="ch-100"      onclick="setChallenge('100')">🔥 Reto 100</button>
+        <button class="challenge-btn" id="ch-1000"     onclick="setChallenge('1000')">💎 Reto 1000</button>
+        <button class="challenge-btn" id="ch-infinite" onclick="setChallenge('infinite')">♾️ Infinito</button>
+      </div>
+    </div>
+
+    <div class="setup-footer">
+      <button class="btn-secondary" onclick="showHome()">← Volver</button>
+      <button class="btn-primary" onclick="startGame()">¡COMENZAR! →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ────────────────────────────────────────────────
+     SCREEN 3: GAME
+──────────────────────────────────────────────────── -->
+<div id="screen-game" class="screen">
+
+  <!-- Prize Ladder / Score Panel -->
+  <div id="prize-ladder" class="prize-ladder">
+    <!-- built by JS -->
+  </div>
+
+  <!-- Main Game -->
+  <div class="game-main">
+
+    <!-- Lifelines -->
+    <div class="lifelines">
+      <button class="lifeline-btn" id="lifeline-fifty" onclick="useLifeline('fifty')">
+        <span class="lifeline-icon">✂️</span>
+        <span class="lifeline-label">50:50</span>
+      </button>
+      <button class="lifeline-btn" id="lifeline-audience" onclick="useLifeline('audience')">
+        <span class="lifeline-icon">👥</span>
+        <span class="lifeline-label">Público</span>
+      </button>
+      <button class="lifeline-btn" id="lifeline-expert" onclick="useLifeline('expert')">
+        <span class="lifeline-icon">📞</span>
+        <span class="lifeline-label">Experto</span>
+      </button>
+
+      <button class="lifeline-btn" id="btn-exit-game" onclick="exitGame()"
+              style="margin-left:auto; border-color:rgba(255,50,50,.3); color:#ff6666">
+        <span class="lifeline-icon">🚪</span>
+        <span class="lifeline-label">Salir</span>
+      </button>
+    </div>
+
+    <!-- Counter & Prize -->
+    <div class="question-header">
+      <span id="question-number">Pregunta 1</span>
+      <span id="current-prize">€0</span>
+    </div>
+
+    <!-- Question Card -->
+    <div id="question-card">
+      <div id="word-text" class="word-text"></div>
+
+      <!-- IPA Row -->
+      <div id="ipa-row" class="ipa-row">
+        <div class="ipa-item">
+          <span class="ipa-flag">🇬🇧</span>
+          <span class="ipa-label">UK</span>
+          <span id="ipa-uk" class="ipa-text"></span>
+          <button class="btn-audio" onclick="playAudio('uk')" title="Pronunciación UK">🔊</button>
+        </div>
+        <div class="ipa-item">
+          <span class="ipa-flag">🇺🇸</span>
+          <span class="ipa-label">US</span>
+          <span id="ipa-us" class="ipa-text"></span>
+          <button class="btn-audio" onclick="playAudio('us')" title="Pronunciación US">🔊</button>
+        </div>
+      </div>
+
+      <!-- Audio hint row in ES→EN mode -->
+      <div id="audio-row" class="ipa-row" style="display:none;">
+        <!-- shown/hidden by JS in en-es mode the ipa-row covers this -->
+      </div>
+    </div><!-- /#question-card -->
+
+    <!-- Answers -->
+    <div class="answers-grid">
+      <button class="answer-btn" id="answer-A" onclick="selectAnswer(0)">
+        <span class="answer-label">A</span>
+        <span class="answer-text"></span>
+      </button>
+      <button class="answer-btn" id="answer-B" onclick="selectAnswer(1)">
+        <span class="answer-label">B</span>
+        <span class="answer-text"></span>
+      </button>
+      <button class="answer-btn" id="answer-C" onclick="selectAnswer(2)">
+        <span class="answer-label">C</span>
+        <span class="answer-text"></span>
+      </button>
+      <button class="answer-btn" id="answer-D" onclick="selectAnswer(3)">
+        <span class="answer-label">D</span>
+        <span class="answer-text"></span>
+      </button>
+    </div>
+
+  </div><!-- /.game-main -->
+</div><!-- /#screen-game -->
+
+<!-- ────────────────────────────────────────────────
+     SCREEN 4: RESULT
+──────────────────────────────────────────────────── -->
+<div id="screen-result" class="screen">
+  <div class="result-inner">
+    <div id="result-title"></div>
+    <div id="result-message"></div>
+    <div id="result-score"></div>
+
+    <div id="hof-save-section" class="hof-save">
+      <p id="hof-save-info" class="hof-save-info"></p>
+      <button class="btn-primary" onclick="saveToHallOfFame()">🏆 Guardar en Hall of Fame</button>
+    </div>
+
+    <div class="result-footer">
+      <button class="btn-primary" onclick="showSetup()">🔄 Jugar de nuevo</button>
+      <button class="btn-secondary" onclick="showHome()">🏠 Inicio</button>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────────────────────────────────────
+     SCREEN 5: HALL OF FAME
+──────────────────────────────────────────────────── -->
+<div id="screen-halloffame" class="screen">
+  <div class="hof-inner">
+
+    <div class="hof-title">🏆 Hall of Fame</div>
+
+    <div class="hof-filters">
+      <button class="hof-filter-btn active" data-hof="global" onclick="filterHof('global')">🌍 Global</button>
+      <button class="hof-filter-btn"        data-hof="A1"     onclick="filterHof('A1')">A1</button>
+      <button class="hof-filter-btn"        data-hof="A2"     onclick="filterHof('A2')">A2</button>
+      <button class="hof-filter-btn"        data-hof="B1"     onclick="filterHof('B1')">B1</button>
+      <button class="hof-filter-btn"        data-hof="B2"     onclick="filterHof('B2')">B2</button>
+      <button class="hof-filter-btn"        data-hof="C1"     onclick="filterHof('C1')">C1</button>
+      <button class="hof-filter-btn"        data-hof="C2"     onclick="filterHof('C2')">C2</button>
+    </div>
+
+    <div id="hof-list"><!-- populated by JS --></div>
+
+    <div style="text-align:center">
+      <button class="btn-secondary" onclick="showHome()">← Volver</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ────────────────────────────────────────────────
+     MODAL: Audience
+──────────────────────────────────────────────────── -->
+<div id="overlay" class="overlay" onclick="closeModal()"></div>
+
+<div id="modal-audience" class="modal">
+  <h3>👥 Ayuda del Público</h3>
+  <div id="audience-chart" class="audience-chart"></div>
+  <div class="modal-footer">
+    <button class="btn-secondary" onclick="closeModal()">Cerrar</button>
+  </div>
+</div>
+
+<!-- ────────────────────────────────────────────────
+     MODAL: Expert
+──────────────────────────────────────────────────── -->
+<div id="modal-expert" class="modal">
+  <h3>📞 Llamada al Experto</h3>
+  <div id="expert-message" class="expert-message"></div>
+  <div class="modal-footer">
+    <button class="btn-secondary" onclick="closeModal()">Colgar</button>
+  </div>
+</div>
+
+<!-- Confetti -->
+<div id="confetti-container"></div>
+
+<!-- Scripts -->
+<script src="js/vocabulary.js"></script>
+<script src="js/game.js"></script>
+<script>
+  // exitGame helper
+  function exitGame() {
+    if (confirm('¿Salir de la partida?')) {
+      State.currentPrize = State.safeZonePrize || 0;
+      showResultScreen(false,
+        '🚪 Partida abandonada',
+        'Has salido de la partida voluntariamente.',
+        State.currentPrize || State.score || 0
+      );
+    }
+  }
+</script>
+</body>
+</html>
