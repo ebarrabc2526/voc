@@ -6,6 +6,7 @@
   <title>VOC – English Vocabulary Master</title>
   <meta name="description" content="Aprende vocabulario inglés jugando a ¿Quién quiere ser millonario?">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer
           onload="initGoogleSignIn()"></script>
 </head>
@@ -48,6 +49,7 @@
 
     <div class="home-buttons">
       <button id="btn-play" class="btn-primary" style="display:none" onclick="showSetup()">🎮 JUGAR</button>
+      <button id="btn-profile" class="btn-secondary" style="display:none" onclick="showProfile()">👤 Mi Perfil</button>
       <button class="btn-secondary" onclick="showHallOfFame()">🏆 Hall of Fame</button>
     </div>
 
@@ -277,11 +279,61 @@
   </div>
 </div>
 
+<!-- ────────────────────────────────────────────────
+     SCREEN 6: PROFILE
+──────────────────────────────────────────────────── -->
+<div id="screen-profile" class="screen">
+  <div class="profile-inner">
+
+    <div class="profile-header">
+      <img id="profile-avatar" class="user-avatar" style="width:56px;height:56px" src="" alt="">
+      <div>
+        <div id="profile-name" class="profile-name"></div>
+        <div class="score-label" style="margin-top:2px">MI PERFIL</div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div id="stat-games"    class="stat-value">—</div>
+        <div class="stat-label">Partidas</div>
+      </div>
+      <div class="stat-card">
+        <div id="stat-best"     class="stat-value">—</div>
+        <div class="stat-label">Mejor premio</div>
+      </div>
+<div class="stat-card">
+        <div id="stat-streak"   class="stat-value">—</div>
+        <div class="stat-label">Racha máx.</div>
+      </div>
+    </div>
+
+    <div class="chart-section">
+      <div class="chart-title">📈 Historial de premios</div>
+      <div class="chart-wrap"><canvas id="chart-history"></canvas></div>
+    </div>
+
+    <div class="chart-section">
+      <div class="chart-title">🎯 Precisión por categoría</div>
+      <div class="chart-wrap"><canvas id="chart-categories"></canvas></div>
+    </div>
+
+    <div class="chart-section">
+      <div class="chart-title">🏅 Partidas por nivel</div>
+      <div class="chart-wrap chart-wrap-sm"><canvas id="chart-levels"></canvas></div>
+    </div>
+
+    <div style="text-align:center">
+      <button class="btn-secondary" onclick="showHome()">← Volver</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- Confetti -->
 <div id="confetti-container"></div>
 
 <!-- Scripts -->
-<script src="js/vocabulary.js"></script>
 <script src="js/game.js"></script>
 <script>
   // exitGame helper

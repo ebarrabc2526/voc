@@ -196,7 +196,10 @@ html, body {
   border-radius: var(--radius); color: var(--grey);
   font-size: 1rem; font-weight: 800; cursor: pointer;
   transition: all var(--trans);
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
 }
+.level-btn .btn-label { font-size: 1rem; font-weight: 800; }
+.level-btn .btn-count { font-size: 0.65rem; font-weight: 500; opacity: 0.7; }
 .level-btn.active {
   background: linear-gradient(135deg, #1e1e8e, #3333cc);
   border-color: var(--blue-glow); color: var(--white);
@@ -204,6 +207,9 @@ html, body {
 }
 .level-btn:hover:not(.active) {
   border-color: var(--blue-glow); color: var(--white);
+}
+.level-btn:disabled {
+  opacity: 0.3; cursor: not-allowed; pointer-events: none;
 }
 
 #cat-container {
@@ -229,6 +235,7 @@ html, body {
   background: rgba(100,100,255,0.2); border-color: var(--blue-glow); color: var(--white);
 }
 .cat-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--white); }
+.cat-count { font-size: 0.7em; opacity: 0.6; margin-left: 4px; }
 
 .challenge-btn {
   flex: 1; min-width: 100px; padding: 0.85rem 0.5rem;
@@ -270,6 +277,26 @@ html, body {
   display: flex; flex-direction: column; gap: 2px;
   overflow-y: auto;
 }
+.prize-ladder.has-phases {
+  overflow-y: hidden;
+  padding: 0;
+}
+.phase-score {
+  flex-shrink: 0;
+  padding: 0.7rem 0.5rem;
+  gap: 0.3rem;
+}
+.phase-score .score-value { font-size: 1.5rem; }
+.phase-score .lives-row { font-size: 1.1rem; }
+.phase-divider { height: 1px; background: rgba(255,215,0,0.2); margin: 0 0.5rem; flex-shrink: 0; }
+.phase-list {
+  display: flex; flex-direction: column; gap: 2px;
+  overflow-y: auto; flex: 1; min-height: 0;
+  padding: 0.4rem 0.3rem;
+}
+.phase-list .ladder-item.reached { background: rgba(0,230,118,0.06); }
+.phase-list .ladder-item.reached .ladder-num,
+.phase-list .ladder-item.reached .ladder-prize { color: var(--green); }
 
 .score-panel {
   display: flex; flex-direction: column; align-items: center;
@@ -510,21 +537,28 @@ html, body {
 .hof-filter-btn.active { background: rgba(255,215,0,0.15); border-color: var(--gold); color: var(--gold); }
 .hof-filter-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--white); }
 
-.hof-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.hof-list { display: flex; flex-direction: column; gap: 0.4rem; }
 .hof-entry {
-  display: flex; align-items: center; gap: 1rem;
+  display: flex; align-items: center; gap: 0.7rem;
   background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius); padding: 1rem 1.2rem;
+  border-radius: var(--radius); padding: 0.55rem 0.9rem;
   transition: border-color 0.2s;
 }
 .hof-entry:hover { border-color: rgba(255,215,0,0.2); }
-.hof-rank { font-size: 1.5rem; min-width: 32px; text-align: center; }
-.hof-info { flex: 1; }
-.hof-name { font-weight: 800; font-size: 1rem; color: var(--white); }
-.hof-meta { font-size: 0.75rem; color: var(--grey); margin-top: 2px; }
-.hof-score-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
-.hof-score { font-size: 1.2rem; font-weight: 900; color: var(--gold); white-space: nowrap; }
-.hof-score-label { font-size: 0.65rem; color: var(--grey); text-transform: uppercase; letter-spacing: 1px; }
+.hof-rank { font-size: 1.1rem; min-width: 26px; text-align: center; }
+.hof-info { flex: 1; min-width: 0; }
+.hof-name { font-weight: 800; font-size: 0.9rem; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hof-meta { font-size: 0.7rem; color: var(--grey); margin-top: 1px; }
+.hof-levels { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 4px; }
+.hof-level-badge {
+  font-size: 0.6rem; font-weight: 800; letter-spacing: 0.5px;
+  padding: 1px 5px; border-radius: 3px;
+  background: rgba(100,100,255,0.2); border: 1px solid rgba(100,100,255,0.4);
+  color: #aaaaff;
+}
+.hof-score-wrap { display: flex; flex-direction: row; align-items: baseline; gap: 4px; flex-shrink: 0; }
+.hof-score { font-size: 1.1rem; font-weight: 900; color: var(--gold); white-space: nowrap; }
+.hof-score-label { font-size: 0.6rem; color: var(--grey); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
 
 /* Top-3 entry highlights */
 .hof-top1 { border-color: rgba(255, 215,   0, 0.35) !important; background: rgba(255,215,0,0.05); }
@@ -633,6 +667,49 @@ html, body {
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
+/* ── PROFILE SCREEN ── */
+#screen-profile {
+  padding: 1.5rem 1rem 3rem;
+  background: radial-gradient(ellipse at top, #0a1a4e 0%, #080820 70%);
+}
+.profile-inner {
+  position: relative; z-index: 1;
+  max-width: 680px; width: 100%;
+  display: flex; flex-direction: column; gap: 1.4rem;
+}
+.profile-header {
+  display: flex; align-items: center; gap: 1rem;
+}
+.profile-name {
+  font-size: 1.3rem; font-weight: 900; color: var(--white);
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem;
+}
+.stat-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius); padding: 0.9rem 0.5rem;
+  text-align: center;
+}
+.stat-value {
+  font-size: 1.3rem; font-weight: 900; color: var(--gold);
+  text-shadow: 0 0 12px var(--gold-glow);
+}
+.stat-label {
+  font-size: 0.65rem; color: var(--grey); text-transform: uppercase;
+  letter-spacing: 1px; margin-top: 4px;
+}
+.chart-section {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 1rem;
+}
+.chart-title {
+  font-size: 0.85rem; font-weight: 700; color: var(--white);
+  margin-bottom: 0.8rem; letter-spacing: 0.5px;
+}
+.chart-wrap { position: relative; height: 200px; }
+.chart-wrap-sm { height: 240px; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 640px) {
   .prize-ladder { width: 120px; min-width: 120px; }
@@ -640,7 +717,7 @@ html, body {
   .answers-grid { grid-template-columns: 1fr; }
   .game-main { padding: 0.8rem; }
   #word-text { font-size: 1.8rem; }
-  .hof-entry { flex-direction: column; align-items: flex-start; }
+  .hof-entry { padding: 0.45rem 0.6rem; gap: 0.5rem; }
 }
 
 @media (max-width: 400px) {

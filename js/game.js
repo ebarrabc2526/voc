@@ -1,5 +1,58 @@
 'use strict';
 
+// ─── Category Names ───────────────────────────────────────────────────────────
+const CATEGORY_NAMES = {
+  all:                'Todas las categorías',
+  actions:            'Acciones',
+  animals:            'Animales',
+  body:               'Cuerpo humano',
+  clothes:            'Ropa',
+  colours:            'Colores',
+  descriptions:       'Descripciones',
+  family_and_friends: 'Familia y amigos',
+  feelings:           'Sentimientos',
+  food_and_drink:     'Comida y bebida',
+  general:            'General',
+  grammar:            'Gramática',
+  miscellaneous:      'Miscelánea',
+  numbers_and_time:   'Números y tiempo',
+  places:             'Lugares',
+  school:             'Colegio',
+  sports_and_leisure: 'Deportes y ocio',
+  the_home:           'El hogar',
+  toys_and_technology:'Juguetes y tecnología',
+  transport:          'Transporte',
+  weather_and_nature: 'Tiempo y naturaleza',
+  work:               'Trabajo',
+};
+
+// ─── Words Cache ──────────────────────────────────────────────────────────────
+const WordsCache = {};
+
+async function fetchWordsForLevel(level) {
+  if (WordsCache[level]) return WordsCache[level];
+  const r = await fetch(`/api/words?level=${encodeURIComponent(level)}`);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  WordsCache[level] = await r.json();
+  return WordsCache[level];
+}
+
+function getWordsForLevel(level) {
+  return WordsCache[level] || [];
+}
+
+function getWordsForLevelAndCategory(level, category) {
+  const words = getWordsForLevel(level);
+  if (category === 'all') return words;
+  return words.filter(w => w.category === category);
+}
+
+function getCategoriesForLevel(level) {
+  const words = getWordsForLevel(level);
+  const cats = [...new Set(words.map(w => w.category))].sort();
+  return ['all', ...cats];
+}
+
 // ─── Audio Engine ──────────────────────────────────────────────────────────────
 const Audio = {
   ctx: null,
@@ -155,6 +208,7 @@ function updateHomeUI() {
   document.getElementById('home-loggedout').style.display = loggedIn ? 'none' : 'block';
   document.getElementById('home-loggedin').style.display  = loggedIn ? 'flex'  : 'none';
   document.getElementById('btn-play').style.display       = loggedIn ? ''      : 'none';
+  document.getElementById('btn-profile').style.display    = loggedIn ? ''      : 'none';
   if (loggedIn) {
     document.getElementById('user-name').textContent  = Auth.user.name;
     document.getElementById('user-avatar').src        = Auth.user.picture;
@@ -184,9 +238,13 @@ const State = {
   hofFilter: 'global'
 };
 
-// Prize ladder for Reto 10 (points)
-const PRIZE_LADDER = [1000, 2000, 3000, 5000, 10000, 20000, 50000, 100000, 500000, 1000000];
-const SAFE_ZONES = [3, 6]; // 0-indexed
+// Dynamic prize ladder: €10 increments per question, accumulates across phases
+const SAFE_ZONES = [3, 6]; // 0-indexed positions within each phase
+
+function getPhasePrizes(phase) {
+  const base = phase * 100;
+  return Array.from({ length: 10 }, (_, i) => base + (i + 1) * 10);
+}
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 function showScreen(id) {
@@ -194,9 +252,26 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
 }
 function showHome() { showScreen('screen-home'); }
-function showSetup() {
-  populateCategories();
-  updateSetupUI();
+async function showSetup() {
+  try {
+    const counts = await fetch('/api/levels').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    document.querySelectorAll('.level-btn').forEach(btn => {
+      const lvl = btn.dataset.level;
+      const n = counts[lvl] || 0;
+      btn.disabled = n < 10;
+      btn.title = n < 10 ? 'Próximamente' : '';
+      btn.innerHTML = `<span class="btn-label">${lvl}</span><span class="btn-count">${n > 0 ? n : '—'}</span>`;
+    });
+    if ((counts[State.level] || 0) < 10) {
+      const first = Object.keys(counts).find(l => counts[l] >= 10);
+      if (first) State.level = first;
+    }
+    await fetchWordsForLevel(State.level);
+    populateCategories();
+    updateSetupUI();
+  } catch (e) {
+    console.error('[showSetup]', e);
+  }
   showScreen('screen-setup');
 }
 function showHallOfFame() { displayHallOfFame(); showScreen('screen-halloffame'); }
@@ -207,10 +282,11 @@ function setMode(mode) {
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
 }
-function setLevel(level) {
+async function setLevel(level) {
   State.level = level;
   document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`[data-level="${level}"]`).classList.add('active');
+  await fetchWordsForLevel(level);
   populateCategories();
   State.category = 'all';
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -229,13 +305,15 @@ function setChallenge(type) {
 
 function populateCategories() {
   const cats = getCategoriesForLevel(State.level);
+  const words = getWordsForLevel(State.level);
   const container = document.getElementById('cat-container');
   container.innerHTML = '';
   cats.forEach(cat => {
+    const n = cat === 'all' ? words.length : words.filter(w => w.category === cat).length;
     const btn = document.createElement('button');
     btn.className = 'cat-btn' + (cat === State.category ? ' active' : '');
     btn.dataset.cat = cat;
-    btn.textContent = CATEGORY_NAMES[cat] || cat;
+    btn.innerHTML = `${CATEGORY_NAMES[cat] || cat} <span class="cat-count">${n}</span>`;
     btn.onclick = () => setCategory(cat);
     container.appendChild(btn);
   });
@@ -272,9 +350,10 @@ function updateSetupUI() {
 }
 
 // ─── Game Init ────────────────────────────────────────────────────────────────
-function startGame() {
+async function startGame() {
   Audio.init();
-  savePrefs(); // persist last-used settings
+  savePrefs();
+  await fetchWordsForLevel(State.level);
   const pool = getWordsForLevelAndCategory(State.level, State.category);
   if (pool.length < 4) {
     alert('¡No hay suficientes palabras en esta categoría y nivel! Prueba con "Todas las categorías".');
@@ -283,9 +362,11 @@ function startGame() {
   State.questions = shuffleArray([...pool]);
   State.currentIndex = 0;
   State.currentPrize = 0;
+  State.totalPrize   = 0;
   State.lives = 3;
   State.score = 0;
   State.streak = 0;
+  State.maxStreak = 0;
   State.lifelines = { fifty: true, audience: true, expert: true };
   State.safeZonePrize = 0;
   State.eliminatedOptions = [];
@@ -308,20 +389,19 @@ function loadQuestion() {
   if (State.challengeType !== '10' && State.lives <= 0) {
     endGame(); return;
   }
-  const limit = { '10': 10, '100': 100, '1000': 1000, 'infinite': Infinity };
-  if (State.currentIndex >= (limit[State.challengeType] || 10) && State.challengeType !== 'infinite') {
-    if (State.challengeType === '10') winGame();
-    else endGame();
-    return;
-  }
 
-  // Wrap around if we ran out of questions (for long modes)
-  if (State.currentIndex >= State.questions.length) {
+  // Reshuffle pool if exhausted (phase modes cycle through questions)
+  const qIdx = State.currentIndex % State.questions.length;
+  if (qIdx === 0 && State.currentIndex > 0) {
     State.questions = shuffleArray([...getWordsForLevelAndCategory(State.level, State.category)]);
-    State.currentIndex = 0;
   }
 
-  const word = State.questions[State.currentIndex];
+  // Refresh ladder prices at start of each new phase
+  if (State.challengeType !== '10' && State.currentIndex % 10 === 0) {
+    refreshLadderPrizes(Math.floor(State.currentIndex / 10));
+  }
+
+  const word = State.questions[State.challengeType === '10' ? State.currentIndex : qIdx];
   State.eliminatedOptions = [];
   State.answering = false;
 
@@ -332,19 +412,28 @@ function loadQuestion() {
 }
 
 function generateOptions(word) {
-  // Pool for distractors: same level, all categories
-  const pool = getWordsForLevel(State.level).filter(w => w.word !== word.word);
+  const needSameCat = State.category !== 'all' || word.category === 'actions';
+  const allWords = getWordsForLevel(State.level).filter(w => w.word !== word.word);
+  const pool = needSameCat ? allWords.filter(w => w.category === word.category) : allWords;
   const distractors = shuffleArray(pool).slice(0, 3);
 
-  // If not enough distractors, pull from adjacent levels
+  // If not enough distractors, pull from adjacent levels (same category if required)
   if (distractors.length < 3) {
     const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
     for (const lvl of levels) {
       if (lvl === State.level) continue;
-      const extra = getWordsForLevel(lvl).filter(w => w.word !== word.word);
+      const extra = getWordsForLevel(lvl)
+        .filter(w => w.word !== word.word && (!needSameCat || w.category === word.category));
       distractors.push(...shuffleArray(extra).slice(0, 3 - distractors.length));
       if (distractors.length >= 3) break;
     }
+  }
+
+  // Last resort fallback: any category
+  if (distractors.length < 3) {
+    const used = new Set(distractors.map(w => w.word));
+    const extra = allWords.filter(w => !used.has(w.word));
+    distractors.push(...shuffleArray(extra).slice(0, 3 - distractors.length));
   }
 
   const allOptions = [word, ...distractors.slice(0, 3)];
@@ -412,47 +501,64 @@ function revealAnswer(selectedIndex) {
 
   document.getElementById(`answer-${labels[State.currentCorrectIndex]}`).classList.add('correct');
 
+  const isPhaseMode = State.challengeType !== '10';
+  const pos = isPhaseMode ? State.currentIndex % 10 : State.currentIndex;
+
   if (isCorrect) {
     document.getElementById(`answer-${labels[selectedIndex]}`).classList.add('correct');
     Audio.playCorrect();
     State.totalCorrect++;
     State.streak++;
+    if (State.streak > State.maxStreak) State.maxStreak = State.streak;
 
-    if (State.challengeType === '10') {
-      State.currentPrize = PRIZE_LADDER[State.currentIndex];
-      if (SAFE_ZONES.includes(State.currentIndex)) {
-        State.safeZonePrize = State.currentPrize;
-        setTimeout(() => Audio.playSafe(), 400);
-      }
-      updatePrizeDisplay();
-      updatePrizeLadder();
-    } else {
-      const bonus = State.streak >= 5 ? 2 : 1;
-      State.score += 10 * bonus;
-      updateScoreDisplay();
+    const prizes = getPhasePrizes(Math.floor(State.currentIndex / 10));
+    State.currentPrize = prizes[pos];
+    if (SAFE_ZONES.includes(pos)) {
+      State.safeZonePrize = State.currentPrize;
+      setTimeout(() => Audio.playSafe(), 400);
     }
+    updatePrizeDisplay();
+    updatePrizeLadder();
 
     State.currentIndex++;
     State.totalAnswered++;
-    setTimeout(() => loadQuestion(), 1500);
+
+    if (isPhaseMode && State.currentIndex % 10 === 0) {
+      // Phase complete — add full prize and start next phase
+      State.totalPrize += prizes[9];
+      State.safeZonePrize = 0;
+      State.currentPrize  = 0;
+      updateTotalPrizeDisplay();
+      const phasesDone = State.currentIndex / 10;
+      const maxPhases  = State.challengeType === '100' ? 10 : State.challengeType === '1000' ? 100 : Infinity;
+      setTimeout(() => { if (phasesDone >= maxPhases) winGame(); else loadQuestion(); }, 1500);
+    } else {
+      setTimeout(() => loadQuestion(), 1500);
+    }
   } else {
     document.getElementById(`answer-${labels[selectedIndex]}`).classList.add('wrong');
     Audio.playWrong();
     State.streak = 0;
     State.totalAnswered++;
 
-    if (State.challengeType === '10') {
-      State.currentPrize = State.safeZonePrize;
-      updatePrizeDisplay();
-      updatePrizeLadder();
+    State.currentPrize = State.safeZonePrize;
+    updatePrizeDisplay();
+    updatePrizeLadder();
+
+    if (!isPhaseMode) {
       setTimeout(() => endGame(), 1800);
     } else {
+      // Phase fail — lock safe zone into total, move to next phase
+      State.totalPrize += State.safeZonePrize;
+      updateTotalPrizeDisplay();
       State.lives--;
       updateLivesDisplay();
       if (State.lives <= 0) {
         setTimeout(() => endGame(), 1800);
       } else {
-        State.currentIndex++;
+        State.currentIndex  = (Math.floor(State.currentIndex / 10) + 1) * 10;
+        State.safeZonePrize = 0;
+        State.currentPrize  = 0;
         setTimeout(() => loadQuestion(), 1800);
       }
     }
@@ -549,44 +655,72 @@ function closeModal() {
 }
 
 // ─── Prize Ladder ─────────────────────────────────────────────────────────────
+function buildLadderItems(container, prizes) {
+  const reversed = prizes.slice().reverse();
+  reversed.forEach((prize, i) => {
+    const idx = prizes.length - 1 - i;
+    const div = document.createElement('div');
+    div.className = 'ladder-item';
+    div.id = `ladder-${idx}`;
+    if (SAFE_ZONES.includes(idx)) div.classList.add('safe');
+    div.innerHTML = `<span class="ladder-num">${idx + 1}</span><span class="ladder-prize">${formatPrize(prize)}</span>`;
+    container.appendChild(div);
+  });
+}
+
+function refreshLadderPrizes(phase) {
+  const prizes = getPhasePrizes(phase);
+  prizes.forEach((prize, i) => {
+    const el = document.getElementById(`ladder-${i}`);
+    if (el) el.querySelector('.ladder-prize').textContent = formatPrize(prize);
+  });
+}
+
 function buildPrizeLadder() {
   const ladder = document.getElementById('prize-ladder');
   ladder.innerHTML = '';
+  ladder.classList.remove('has-phases');
 
   if (State.challengeType !== '10') {
-    ladder.innerHTML = `
-      <div class="score-panel">
-        <div class="score-label">Puntuación</div>
-        <div id="score-value" class="score-value">0</div>
-        <div id="lives-row" class="lives-row"></div>
-        <div class="streak-label">Racha: <span id="streak-count">0</span></div>
-      </div>`;
+    ladder.classList.add('has-phases');
+    const header = document.createElement('div');
+    header.className = 'score-panel phase-score';
+    header.innerHTML = `
+      <div class="score-label">FASE <span id="phase-number">1</span></div>
+      <div id="lives-row" class="lives-row"></div>
+      <div class="score-label" style="margin-top:6px">TOTAL</div>
+      <div id="total-prize-value" class="score-value" style="font-size:1.1rem">€0</div>`;
+    ladder.appendChild(header);
+    const divider = document.createElement('div');
+    divider.className = 'phase-divider';
+    ladder.appendChild(divider);
+    buildLadderItems(ladder, getPhasePrizes(0));
     updateLivesDisplay();
     return;
   }
 
-  const items = PRIZE_LADDER.slice().reverse();
-  items.forEach((prize, i) => {
-    const realIndex = PRIZE_LADDER.length - 1 - i; // 9..0
-    const div = document.createElement('div');
-    div.className = 'ladder-item';
-    div.id = `ladder-${realIndex}`;
-    if (SAFE_ZONES.includes(realIndex)) div.classList.add('safe');
-    div.innerHTML = `<span class="ladder-num">${realIndex + 1}</span><span class="ladder-prize">${formatPrize(prize)}</span>`;
-    ladder.appendChild(div);
-  });
+  buildLadderItems(ladder, getPhasePrizes(0));
 }
 
 function updatePrizeLadder() {
-  if (State.challengeType !== '10') return;
-  PRIZE_LADDER.forEach((_, i) => {
+  const pos = State.challengeType === '10' ? State.currentIndex : State.currentIndex % 10;
+  for (let i = 0; i < 10; i++) {
     const el = document.getElementById(`ladder-${i}`);
-    if (!el) return;
+    if (!el) continue;
     el.classList.remove('current', 'reached');
-    if (i < State.currentIndex) el.classList.add('reached');
-    if (i === State.currentIndex) el.classList.add('current');
-  });
+    if (i < pos) el.classList.add('reached');
+    if (i === pos) el.classList.add('current');
+  }
   updatePrizeDisplay();
+  if (State.challengeType !== '10') {
+    const phaseEl = document.getElementById('phase-number');
+    if (phaseEl) phaseEl.textContent = Math.floor(State.currentIndex / 10) + 1;
+  }
+}
+
+function updateTotalPrizeDisplay() {
+  const el = document.getElementById('total-prize-value');
+  if (el) el.textContent = formatPrize(State.totalPrize);
 }
 
 function updatePrizeDisplay() {
@@ -612,11 +746,11 @@ function updateQuestionCounter() {
   if (!el) return;
   if (State.challengeType === '10') {
     el.textContent = `Pregunta ${State.currentIndex + 1} de 10`;
-  } else if (State.challengeType === 'infinite') {
-    el.textContent = `Pregunta ${State.currentIndex + 1} · Racha: ${State.streak}`;
   } else {
-    const limit = { '100': 100, '1000': 1000 }[State.challengeType];
-    el.textContent = `Pregunta ${State.currentIndex + 1} de ${limit}`;
+    const phase    = Math.floor(State.currentIndex / 10) + 1;
+    const posLabel = (State.currentIndex % 10) + 1;
+    const totalLabel = State.challengeType === '100' ? '/10' : State.challengeType === '1000' ? '/100' : '';
+    el.textContent = `Fase ${phase}${totalLabel} · Pregunta ${posLabel}/10`;
   }
 }
 
@@ -643,9 +777,13 @@ function playAudio(dialect) {
 function winGame() {
   Audio.playWin();
   launchConfetti();
-  const finalPrize = PRIZE_LADDER[9];
-  State.currentPrize = finalPrize;
-  showResultScreen(true, '🏆 ¡GANASTE!', `¡Increíble! Has llegado al millón.`, finalPrize);
+  if (State.challengeType === '10') {
+    State.currentPrize = getPhasePrizes(0)[9];
+    showResultScreen(true, '🏆 ¡GANASTE!', `¡Increíble! Has completado el reto.`, State.currentPrize);
+  } else {
+    const phases = State.currentIndex / 10;
+    showResultScreen(true, '🏆 ¡GANASTE!', `¡Has completado las ${phases} fases!`, State.totalPrize);
+  }
 }
 
 function endGame() {
@@ -659,22 +797,36 @@ function endGame() {
     prize = reached;
   } else {
     title = State.lives <= 0 ? '💔 ¡Sin vidas!' : '🏁 ¡Reto completado!';
-    msg = `Has respondido ${State.totalCorrect} de ${State.totalAnswered} preguntas correctamente.`;
-    prize = State.score;
-    if (State.totalCorrect === State.totalAnswered && State.totalAnswered > 0) {
-      Audio.playWin();
-      launchConfetti();
-    }
+    const phases = Math.floor(State.currentIndex / 10);
+    msg = `${phases} fase${phases !== 1 ? 's' : ''} completada${phases !== 1 ? 's' : ''} · ${State.totalCorrect}/${State.totalAnswered} correctas`;
+    prize = State.totalPrize;
   }
   showResultScreen(false, title, msg, prize);
 }
 
+function saveGameStats(prize) {
+  if (!Auth.isLoggedIn()) return;
+  fetch('/api/stats', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${Auth.token}` },
+    body: JSON.stringify({
+      level:      State.level,
+      mode:       State.mode === 'en-es' ? 'EN→ES' : 'ES→EN',
+      challenge:  `Reto ${State.challengeType === 'infinite' ? '∞' : State.challengeType}`,
+      category:   State.category,
+      prize:      prize,
+      correct:    State.totalCorrect,
+      total:      State.totalAnswered,
+      max_streak: State.maxStreak,
+    }),
+  }).catch(e => console.error('[stats]', e));
+}
+
 function showResultScreen(won, title, msg, prize) {
+  saveGameStats(prize);
   document.getElementById('result-title').textContent = title;
   document.getElementById('result-message').textContent = msg;
-  document.getElementById('result-score').textContent = State.challengeType === '10'
-    ? `Premio: ${formatPrize(prize)}`
-    : `Puntuación: ${prize.toLocaleString('es-ES')} pts · Correctas: ${State.totalCorrect}/${State.totalAnswered}`;
+  document.getElementById('result-score').textContent = `Premio: ${formatPrize(prize)}`;
 
   const saveSection = document.getElementById('hof-save-section');
   const saveInfo    = document.getElementById('hof-save-info');
@@ -699,7 +851,7 @@ function saveToHallOfFame() {
     mode:      State.mode === 'en-es' ? 'EN→ES' : 'ES→EN',
     challenge: `Reto ${State.challengeType === 'infinite' ? '∞' : State.challengeType}`,
     category:  CATEGORY_NAMES[State.category] || State.category,
-    score:     State.challengeType === '10' ? State.currentPrize : State.score,
+    score:     State.challengeType === '10' ? State.currentPrize : State.totalPrize,
     correct:   State.totalCorrect,
     total:     State.totalAnswered,
   };
@@ -725,6 +877,183 @@ function saveToHallOfFame() {
       alert('No se pudo guardar. Inténtalo de nuevo.');
       if (btn) { btn.disabled = false; btn.textContent = '🏆 Guardar en Hall of Fame'; }
     });
+}
+
+// ─── Profile ──────────────────────────────────────────────────────────────────
+const _charts = {};
+
+function destroyCharts() {
+  Object.keys(_charts).forEach(k => { _charts[k].destroy(); delete _charts[k]; });
+}
+
+async function showProfile() {
+  if (!Auth.isLoggedIn()) return;
+  document.getElementById('profile-name').textContent   = Auth.user.name;
+  document.getElementById('profile-avatar').src         = Auth.user.picture;
+  showScreen('screen-profile');
+
+  const { sessions = [], categoryCounts = {} } = await fetch('/api/stats', {
+    headers: { 'Authorization': `Bearer ${Auth.token}` }
+  }).then(r => r.json()).catch(() => ({}));
+
+  renderProfileStats(sessions);
+  destroyCharts();
+  renderChartHistory(sessions);
+  renderChartCategories(sessions, categoryCounts);
+  renderChartLevels(sessions);
+}
+
+function renderProfileStats(sessions) {
+  const total   = sessions.length;
+  const best    = total ? Math.max(...sessions.map(s => s.prize)) : 0;
+  const correct = sessions.reduce((a, s) => a + s.correct, 0);
+  const answered= sessions.reduce((a, s) => a + s.total,   0);
+  const streak  = total ? Math.max(...sessions.map(s => s.max_streak)) : 0;
+
+  document.getElementById('stat-games').textContent  = total;
+  document.getElementById('stat-best').textContent   = formatPrize(best);
+  document.getElementById('stat-streak').textContent = streak;
+}
+
+function chartDefaults() {
+  return {
+    color: '#aaaaaa',
+    plugins: { legend: { labels: { color: '#aaaaaa', font: { size: 11 } } } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#888' } },
+      y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#888' } },
+    },
+  };
+}
+
+function renderChartHistory(sessions) {
+  const last = sessions.slice(-30);
+  const labels = last.map((_, i) => `#${sessions.length - last.length + i + 1}`);
+  const data   = last.map(s => s.prize);
+  const ctx    = document.getElementById('chart-history').getContext('2d');
+  const grad   = ctx.createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0, 'rgba(255,215,0,0.35)');
+  grad.addColorStop(1, 'rgba(255,215,0,0)');
+  _charts.history = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Premio (€)',
+        data,
+        borderColor: '#FFD700',
+        backgroundColor: grad,
+        borderWidth: 2,
+        pointBackgroundColor: '#FFD700',
+        pointRadius: 3,
+        tension: 0.4,
+        fill: true,
+      }],
+    },
+    options: {
+      ...chartDefaults(),
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `Premio: ${formatPrize(ctx.raw)}`,
+            afterLabel: ctx => {
+              const s = last[ctx.dataIndex];
+              return `${s.level} · ${s.challenge} · ${s.correct}/${s.total} correctas`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#888', maxTicksLimit: 10 } },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.06)' },
+          ticks: { color: '#888', callback: v => formatPrize(v) },
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+function renderChartCategories(sessions, categoryCounts) {
+  // Only count sessions with a specific category (not 'all')
+  const map = {};
+  for (const s of sessions) {
+    if (!s.category || s.category === 'all') continue;
+    if (!map[s.category]) map[s.category] = 0;
+    map[s.category] += s.correct;
+  }
+
+  const entries = Object.entries(map)
+    .map(([key, correct]) => {
+      const dbTotal = categoryCounts[key] || 1;
+      const pct = Math.min(100, Math.round(correct / dbTotal * 100));
+      return { key, label: CATEGORY_NAMES[key] || key, pct, correct, dbTotal };
+    })
+    .sort((a, b) => b.pct - a.pct);
+
+  if (!entries.length) return;
+
+  const labels = entries.map(e => e.label);
+  const data   = entries.map(e => e.pct);
+  const colors = data.map(v =>
+    v >= 80 ? 'rgba(0,230,118,0.75)' : v >= 55 ? 'rgba(100,100,255,0.75)' : 'rgba(255,90,90,0.75)'
+  );
+
+  const ctx = document.getElementById('chart-categories').getContext('2d');
+  _charts.categories = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: colors, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: c => {
+              const e = entries[c.dataIndex];
+              return ` ${e.correct} correctas de ${e.dbTotal} palabras (${e.pct}%)`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#888', callback: v => `${v}%` } },
+        y: { grid: { display: false }, ticks: { color: '#ccc', font: { size: 11 } } },
+      },
+    },
+  });
+}
+
+function renderChartLevels(sessions) {
+  const map = { A1:0, A2:0, B1:0, B2:0, C1:0, C2:0 };
+  for (const s of sessions) if (s.level in map) map[s.level]++;
+  const labels = Object.keys(map).filter(k => map[k] > 0);
+  const data   = labels.map(k => map[k]);
+  const palette = {
+    A1:'rgba(100,149,255,0.85)', A2:'rgba(0,210,210,0.85)',
+    B1:'rgba(0,210,120,0.85)',   B2:'rgba(255,215,0,0.85)',
+    C1:'rgba(255,145,0,0.85)',   C2:'rgba(255,80,80,0.85)',
+  };
+  const ctx = document.getElementById('chart-levels').getContext('2d');
+  _charts.levels = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: labels.map(l => palette[l]), borderWidth: 2, borderColor: '#0a0a1a' }],
+    },
+    options: {
+      cutout: '60%',
+      plugins: {
+        legend: { position: 'bottom', labels: { color: '#aaa', padding: 14, font: { size: 12 } } },
+        tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw} partida${c.raw !== 1 ? 's' : ''}` } },
+      },
+    },
+  });
 }
 
 // ─── Hall of Fame ─────────────────────────────────────────────────────────────
@@ -757,14 +1086,16 @@ function displayHallOfFame() {
       const players = {};
       subset.forEach(e => {
         const key = e.name.toLowerCase();
-        if (!players[key]) players[key] = { name: e.name, correct: 0, games: 0 };
+        if (!players[key]) players[key] = { name: e.name, correct: 0, games: 0, levels: new Set() };
         players[key].correct += (e.correct || 0);
         players[key].games++;
+        if (filter === 'global' && (e.correct || 0) > 0) players[key].levels.add(e.level);
       });
 
       const top10 = Object.values(players)
         .sort((a, b) => b.correct - a.correct)
-        .slice(0, 10);
+        .slice(0, 10)
+        .map(p => ({ ...p, levels: p.levels ? [...p.levels].sort() : [] }));
 
       renderHofList(list, top10, filter);
     })
@@ -791,11 +1122,15 @@ function renderHofList(list, entries, filter) {
     const crownHtml = i < 3 ? crowns[i] : '';
     const div       = document.createElement('div');
     div.className   = 'hof-entry' + (i < 3 ? ` hof-top${i + 1}` : '');
+    const levelsHtml = (filter === 'global' && entry.levels?.length)
+      ? `<div class="hof-levels">${entry.levels.map(l => `<span class="hof-level-badge">${l}</span>`).join('')}</div>`
+      : '';
     div.innerHTML = `
       <div class="hof-rank">${rank}</div>
       <div class="hof-info">
         <div class="hof-name">${crownHtml}${escapeHtml(entry.name)}</div>
         <div class="hof-meta">${entry.games} partida${entry.games !== 1 ? 's' : ''} · ${levelLabel}</div>
+        ${levelsHtml}
       </div>
       <div class="hof-score-wrap">
         <div class="hof-score">${entry.correct.toLocaleString('es-ES')}</div>
@@ -845,10 +1180,14 @@ function shuffleArray(arr) {
 }
 
 function formatPrize(n) {
-  if (n === 0) return '€0';
-  if (n >= 1000000) return `€${(n / 1000000).toFixed(n % 1000000 === 0 ? 0 : 1)}M`;
-  if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}K`;
-  return `€${n.toLocaleString('es-ES')}`;
+  if (!n) return '€0';
+  const fmt = (v, s) => `€${parseFloat(v.toFixed(3).replace(/\.?0+$/, ''))}${s}`;
+  const a = Math.abs(n);
+  if (a >= 1e12) return fmt(n / 1e12, 'T');
+  if (a >= 1e9)  return fmt(n / 1e9,  'G');
+  if (a >= 1e6)  return fmt(n / 1e6,  'M');
+  if (a >= 1e3)  return fmt(n / 1e3,  'K');
+  return `€${n}`;
 }
 
 function escapeHtml(str) {

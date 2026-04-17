@@ -1,26 +1,30 @@
 const express    = require('express');
-const fs         = require('fs');
 const path       = require('path');
 const { OAuth2Client } = require('google-auth-library');
 const jwt        = require('jsonwebtoken');
+const Database   = require('better-sqlite3');
 
 const app             = express();
 const PORT            = process.env.PORT || 3000;
-const HOF_FILE        = path.join(__dirname, 'data', 'hof.json');
 const GOOGLE_CLIENT_ID = '766212808659-7krp4oj0n0lf2584ntalksa1m9el5iqi.apps.googleusercontent.com';
 const JWT_SECRET      = process.env.JWT_SECRET || 'voc-jwt-secret-2026';
 const googleClient    = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-fs.mkdirSync(path.dirname(HOF_FILE), { recursive: true });
-if (!fs.existsSync(HOF_FILE)) fs.writeFileSync(HOF_FILE, '[]', 'utf8');
+const DB_PATH = path.join(__dirname, 'data', 'voc.db');
+const db = new Database(DB_PATH);
 
-function readHof() {
-  try { return JSON.parse(fs.readFileSync(HOF_FILE, 'utf8')); }
-  catch { return []; }
-}
-function writeHof(data) {
-  fs.writeFileSync(HOF_FILE, JSON.stringify(data, null, 2), 'utf8');
-}
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS game_sessions (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_email TEXT NOT NULL,
+    level      TEXT, mode TEXT, challenge TEXT, category TEXT,
+    prize      INTEGER DEFAULT 0,
+    correct    INTEGER DEFAULT 0,
+    total      INTEGER DEFAULT 0,
+    max_streak INTEGER DEFAULT 0,
+    date       TEXT
+  )
+`).run();
 
 function requireAuth(req, res, next) {
   const token = (req.headers.authorization || '').replace('Bearer ', '');
@@ -56,15 +60,48 @@ app.post('/api/auth/google', async (req, res) => {
   }
 });
 
+// ─── Words ────────────────────────────────────────────────────────────────────
+app.get('/api/words', (req, res) => {
+  const { level, category } = req.query;
+  if (!level) return res.status(400).json({ error: 'level requerido' });
+
+  const cols = 'word, translation, category, uk_ipa, us_ipa';
+  let rows;
+  if (!category || category === 'all') {
+    rows = db.prepare(`SELECT ${cols} FROM words WHERE level = ?`).all(level);
+  } else {
+    rows = db.prepare(`SELECT ${cols} FROM words WHERE level = ? AND category = ?`).all(level, category);
+  }
+  res.json(rows);
+});
+
+app.get('/api/categories', (req, res) => {
+  const { level } = req.query;
+  if (!level) return res.status(400).json({ error: 'level requerido' });
+  const rows = db.prepare('SELECT DISTINCT category FROM words WHERE level = ? ORDER BY category').all(level);
+  res.json(['all', ...rows.map(r => r.category)]);
+});
+
+app.get('/api/levels', (_req, res) => {
+  const rows = db.prepare('SELECT level, COUNT(*) as count FROM words GROUP BY level').all();
+  const counts = {};
+  for (const r of rows) counts[r.level] = r.count;
+  res.json(counts);
+});
+
 // ─── Hall of Fame ─────────────────────────────────────────────────────────────
 app.get('/api/hof', (_req, res) => {
-  res.json(readHof());
+  const rows = db.prepare('SELECT name, level, mode, challenge, category, score, correct, total, date FROM hof ORDER BY score DESC LIMIT 500').all();
+  res.json(rows);
 });
 
 app.post('/api/hof', requireAuth, (req, res) => {
   const entry = req.body;
-  const clean = {
-    name:      req.user.name,   // siempre del token Google
+  db.prepare(`
+    INSERT INTO hof (name, level, mode, challenge, category, score, correct, total, date)
+    VALUES (@name, @level, @mode, @challenge, @category, @score, @correct, @total, @date)
+  `).run({
+    name:      req.user.name,
     level:     String(entry.level     || ''),
     mode:      String(entry.mode      || ''),
     challenge: String(entry.challenge || ''),
@@ -73,14 +110,31 @@ app.post('/api/hof', requireAuth, (req, res) => {
     correct:   Number(entry.correct)  || 0,
     total:     Number(entry.total)    || 0,
     date:      new Date().toLocaleDateString('es-ES'),
-  };
-
-  const hof = readHof();
-  hof.push(clean);
-  hof.sort((a, b) => b.score - a.score);
-  hof.splice(500);
-  writeHof(hof);
+  });
   res.json({ ok: true });
+});
+
+// ─── Stats ────────────────────────────────────────────────────────────────────
+app.post('/api/stats', requireAuth, (req, res) => {
+  const { level, mode, challenge, category, prize, correct, total, max_streak } = req.body;
+  db.prepare(`
+    INSERT INTO game_sessions (user_email,level,mode,challenge,category,prize,correct,total,max_streak,date)
+    VALUES (?,?,?,?,?,?,?,?,?,?)
+  `).run(req.user.email, level||'', mode||'', challenge||'', category||'',
+         Number(prize)||0, Number(correct)||0, Number(total)||0, Number(max_streak)||0,
+         new Date().toISOString());
+  res.json({ ok: true });
+});
+
+app.get('/api/stats', requireAuth, (req, res) => {
+  const sessions = db.prepare(`
+    SELECT level,mode,challenge,category,prize,correct,total,max_streak,date
+    FROM game_sessions WHERE user_email = ? ORDER BY date ASC
+  `).all(req.user.email);
+  const catRows = db.prepare(`SELECT category, COUNT(*) as n FROM words GROUP BY category`).all();
+  const categoryCounts = {};
+  for (const r of catRows) categoryCounts[r.category] = r.n;
+  res.json({ sessions, categoryCounts });
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────
