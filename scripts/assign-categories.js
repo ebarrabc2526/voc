@@ -1,19 +1,53 @@
 'use strict';
 /**
- * Asigna categorías a las palabras de voc.db basándose en los topics
- * oficiales Cambridge (Pre A1 Starters + A1 Movers + A2 Flyers).
+ * Asigna categorías a todas las palabras de voc.db.
  *
- * Las categorías coinciden exactamente con los temas del PDF oficial.
+ * - A1:      mapa hardcoded de los topics Cambridge Pre-A1/A1
+ * - A2, B1:  parsea el Appendix 2 de los PDFs oficiales de Cambridge
+ * - B2-C2:   sin topics en los PDFs — se dejan como 'general'
  *
  * Uso: node scripts/assign-categories.js
  */
 
-const path     = require('path');
-const Database = require('better-sqlite3');
-const DB_PATH  = path.join(__dirname, '..', 'data', 'voc.db');
+const path      = require('path');
+const fs        = require('fs');
+const { execSync } = require('child_process');
+const Database  = require('better-sqlite3');
 
-// ─── Mapeo topic → palabras (Cambridge official topics) ───────────────────────
-const TOPICS = {
+const DB_PATH   = path.join(__dirname, '..', 'data', 'voc.db');
+const DATA_DIR  = path.join(__dirname, '..', 'data');
+
+// ─── Mapeo topic Cambridge → categoría interna ───────────────────────────────
+const TOPIC_TO_CAT = {
+  'appliances':                                           'toys_and_technology',
+  'clothes and accessories':                              'clothes',
+  'colours':                                              'colours',
+  'communication and technology':                         'toys_and_technology',
+  'communications and technology':                        'toys_and_technology',
+  'documents and texts':                                  'school',
+  'education':                                            'school',
+  'entertainment and media':                              'sports_and_leisure',
+  'environment':                                          'weather_and_nature',
+  'food and drink':                                       'food_and_drink',
+  'health':                                               'body',
+  'health, medicine and exercise':                        'body',
+  'hobbies and leisure':                                  'sports_and_leisure',
+  'house and home':                                       'the_home',
+  'people':                                               'family_and_friends',
+  'personal feelings, opinions and experiences':          'feelings',
+  'personal feelings, opinions and experiences (adjectives)': 'feelings',
+  'places and buildings':                                 'places',
+  'services':                                             'places',
+  'shopping':                                             'places',
+  'sport':                                                'sports_and_leisure',
+  'time':                                                 'numbers_and_time',
+  'travel and transport':                                 'transport',
+  'weather':                                              'weather_and_nature',
+  'work and jobs':                                        'work',
+};
+
+// ─── Topics hardcoded para A1 (Pre-A1 Starters + A1 Movers) ─────────────────
+const A1_TOPICS = {
   animals: [
     'animal','bear','bee','bird','bug','cat','chicken','cow','crocodile','dog',
     'donkey','duck','elephant','fish','fox','frog','giraffe','goat','hippo',
@@ -66,7 +100,7 @@ const TOPICS = {
     'floor','garden','home','house','kitchen','lamp','room','shelf','sofa',
     'table','television','tv','wall','window','balcony','basement','bowl',
     'bottle','downstairs','elevator','lift','pot','rug','shower','upstairs',
-    'living room','dining room','yard','roof','ceiling','stair','basement',
+    'living room','dining room','yard','roof','ceiling','stair',
     'closet','wardrobe','clean','tidy','mat','mirror','towel','blanket',
     'cushion','curtain','garage','hall',
   ],
@@ -143,9 +177,8 @@ const TOPICS = {
     'run','sail','say','see','send','sing','sit','skip','sleep','smile','speak',
     'spell','stand','start','stop','swim','take','talk','teach','tell','think',
     'throw','travel','try','understand','use','wait','wake','walk','want','wash',
-    'watch','wave','wear','win','write','bring','sell','buy','build','drop','fix',
-    'hide','hop','invite','lose','move','sail','sit','sleep','wait','wake',
-    'bounce','dive','exercise','kick','score','skip','train',
+    'watch','wave','wear','win','write','sell','drop','fix','hide','hop','bounce',
+    'dive','exercise','score','train',
   ],
   descriptions: [
     'above','bad','badly','beautiful','big','brave','brilliant','busy','careful',
@@ -164,63 +197,147 @@ const TOPICS = {
     'a','an','the','all','along','another','any','around','at','both','by',
     'down','every','he','her','him','his','how','i','in','inside','into','it',
     'its','me','my','no','nothing','of','off','on','only','or','other','our',
-    'out','out of','over','please','she','so','some','someone','something',
-    'sometimes','than','that','the','their','theirs','them','there','these',
-    'they','this','those','to','too','under','up','us','very','we','what',
-    'when','where','which','who','whose','why','with','would','yes','you',
-    'your','yours','and','but','because','if','then','also','well',
+    'out','over','please','she','so','some','someone','something','sometimes',
+    'than','that','their','theirs','them','there','these','they','this','those',
+    'to','too','under','up','us','very','we','what','when','where','which','who',
+    'whose','why','with','would','yes','you','your','yours','and','but',
+    'because','if','then','also','well',
   ],
   miscellaneous: [
-    'ability','address','age','band','circle','difference','dream','etc',
-    'everyone','everything','information','machine','matter','milkshake',
-    'mistake','noise','pair','paper','pardon','part','party','pirate',
-    'plate','pop star','poster','present','shape','shell','shout','sign',
-    'song','toothbrush','toothpaste','top','treasure','vacation','word',
-    'wow','hey','thank you','thanks','see you','well done','pardon',
-    'film','movie','show','poster','ticket','band','music','instrument',
-    'comic','comic book','idea','message','email','app','website',
+    'address','age','band','circle','difference','dream','everyone','everything',
+    'information','machine','matter','mistake','noise','pair','paper','party',
+    'part','plate','poster','present','shape','shell','shout','sign','song',
+    'toothbrush','toothpaste','treasure','vacation','word','film','movie',
+    'show','ticket','music','instrument','idea',
   ],
 };
 
-// ─── Build word → category map ────────────────────────────────────────────────
-const wordToCategory = {};
-for (const [cat, words] of Object.entries(TOPICS)) {
-  for (const w of words) wordToCategory[w.toLowerCase()] = cat;
+// ─── Parser de Appendix 2 de PDFs Cambridge (A2, B1) ─────────────────────────
+const PAGE_NOISE = /^(©|Page \d|Cambridge|Preliminary|Key and Key|Schools|Vocabulary List|Appendix)/i;
+const KNOWN_TOPICS = new Set(Object.keys(TOPIC_TO_CAT));
+
+function isTopicHeading(line) {
+  if (!line || line.length > 70) return false;
+  if (PAGE_NOISE.test(line)) return false;
+  // Multi-column word rows contain 2+ spaces between columns
+  if (/\s{3,}/.test(line)) return false;
+  // Must start with uppercase
+  if (!/^[A-Z]/.test(line)) return false;
+  const normalized = line.toLowerCase().replace(/[^a-z ,/()]/g, '').trim();
+  return KNOWN_TOPICS.has(normalized);
+}
+
+function cleanWord(raw) {
+  return raw
+    .replace(/\(v\)|\(n\)|\(adj\)|\(adv\)|\(phr v\)|\(prep\)/gi, '')
+    .replace(/\(n & v\)|\(adv & prep\)|\(det & pron\)/gi, '')
+    .replace(/\s*\([^)]{0,20}\)\s*/g, ' ')
+    .replace(/[^a-zA-Z\s'-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+function parsePdfTopics(pdfPath) {
+  const wordToCat = {};
+  if (!fs.existsSync(pdfPath)) return wordToCat;
+
+  const text = execSync(`pdftotext -layout "${pdfPath}" -`, { maxBuffer: 20 * 1024 * 1024 }).toString();
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+
+  const startIdx = lines.findIndex(l => /^Topic Lists$/.test(l));
+  if (startIdx === -1) return wordToCat;
+
+  let currentCat = null;
+
+  for (let i = startIdx + 1; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (isTopicHeading(line)) {
+      currentCat = TOPIC_TO_CAT[line.toLowerCase().replace(/[^a-z ,/()]/g, '').trim()] || null;
+      continue;
+    }
+
+    if (!currentCat) continue;
+    if (PAGE_NOISE.test(line)) continue;
+
+    // Split multi-column rows
+    const tokens = line.split(/\s{2,}/);
+    for (const token of tokens) {
+      // Handle "word / variant" (e.g., "grey / gray", "jewellery / jewelry")
+      const variants = token.split('/').map(s => s.trim());
+      for (const variant of variants) {
+        const w = cleanWord(variant);
+        if (!w || w.length < 2 || w.split(' ').length > 3) continue;
+        if (!/[a-z]/.test(w)) continue;
+        // First category wins (avoids overwriting with a weaker topic)
+        if (!wordToCat[w]) wordToCat[w] = currentCat;
+      }
+    }
+  }
+
+  return wordToCat;
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 function main() {
   const db = new Database(DB_PATH);
+  const update = db.prepare('UPDATE words SET category = ? WHERE word = ? AND level = ?');
+  const allWords = db.prepare('SELECT word, level FROM words').all();
 
-  // Reset all to 'general'
+  // Reset todo a 'general'
   db.prepare("UPDATE words SET category = 'general'").run();
 
-  const update   = db.prepare('UPDATE words SET category = ? WHERE word = ?');
-  const allWords = db.prepare('SELECT word FROM words').all();
+  // ── A1: mapa hardcoded ──
+  const a1Map = {};
+  for (const [cat, words] of Object.entries(A1_TOPICS)) {
+    for (const w of words) a1Map[w.toLowerCase()] = cat;
+  }
 
-  let updated = 0, unmatched = [];
+  // ── A2 y B1: parseo de PDFs ──
+  const pdfMaps = {
+    A2: parsePdfTopics(path.join(DATA_DIR, 'A2_Key_Vocabulary.pdf')),
+    B1: parsePdfTopics(path.join(DATA_DIR, 'B1_Preliminary_Vocabulary.pdf')),
+  };
 
-  for (const { word } of allWords) {
-    const cat = wordToCategory[word.toLowerCase()];
-    if (cat) { update.run(cat, word); updated++; }
-    else unmatched.push(word);
+  const stats = {};
+  for (const lvl of ['A1','A2','B1','B2','C1','C2']) stats[lvl] = { total: 0, categorized: 0 };
+
+  for (const { word, level } of allWords) {
+    stats[level].total++;
+    const w = word.toLowerCase();
+    let cat = null;
+
+    if (level === 'A1') {
+      cat = a1Map[w] || null;
+    } else if (pdfMaps[level]) {
+      cat = pdfMaps[level][w] || null;
+    }
+
+    if (cat) {
+      update.run(cat, word, level);
+      stats[level].categorized++;
+    }
   }
 
   db.close();
 
-  const total = allWords.length;
-  console.log(`[cat] Total: ${total} | Con categoría: ${updated} | Sin categoría: ${unmatched.length}`);
-  if (unmatched.length) {
-    console.log(`[cat] Sin categoría (${unmatched.length}):`);
-    console.log(unmatched.join(', '));
+  console.log('\n[cat] Resultado por nivel:');
+  for (const [lvl, s] of Object.entries(stats)) {
+    const pct = s.total ? Math.round(s.categorized / s.total * 100) : 0;
+    console.log(`  ${lvl}: ${s.categorized}/${s.total} categorizadas (${pct}%)`);
   }
 
-  // Show distribution
+  // Distribución final
   const db2 = new Database(DB_PATH);
-  const dist = db2.prepare("SELECT category, COUNT(*) as n FROM words GROUP BY category ORDER BY n DESC").all();
+  const dist = db2.prepare("SELECT level, category, COUNT(*) as n FROM words GROUP BY level, category ORDER BY level, n DESC").all();
   db2.close();
-  console.log('\n[cat] Distribución:');
-  for (const { category, n } of dist) console.log(`  ${n.toString().padStart(4)}  ${category}`);
+  console.log('\n[cat] Distribución final:');
+  let lastLevel = null;
+  for (const { level, category, n } of dist) {
+    if (level !== lastLevel) { console.log(`\n  ${level}:`); lastLevel = level; }
+    console.log(`    ${n.toString().padStart(5)}  ${category}`);
+  }
 }
 
 main();
