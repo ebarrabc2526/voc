@@ -1,6 +1,10 @@
 node_modules/
-data/
+data/voc.db
+data/voc.db-shm
+data/voc.db-wal
+data/*.pdf
 .htaccess
 *.log
 .env
 .env.*
+vocabulary.db

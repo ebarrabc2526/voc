@@ -63,6 +63,7 @@ const Audio = {
   },
   tone(freq, dur, type = 'sine', vol = 0.25) {
     this.init();
+    if (this.ctx.state === 'suspended') this.ctx.resume();
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     osc.connect(gain);

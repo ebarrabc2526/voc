@@ -11,20 +11,15 @@ const JWT_SECRET      = process.env.JWT_SECRET || 'voc-jwt-secret-2026';
 const googleClient    = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 const DB_PATH = path.join(__dirname, 'data', 'voc.db');
-const db = new Database(DB_PATH);
 
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS game_sessions (
-    id         INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_email TEXT NOT NULL,
-    level      TEXT, mode TEXT, challenge TEXT, category TEXT,
-    prize      INTEGER DEFAULT 0,
-    correct    INTEGER DEFAULT 0,
-    total      INTEGER DEFAULT 0,
-    max_streak INTEGER DEFAULT 0,
-    date       TEXT
-  )
-`).run();
+if (!require('fs').existsSync(DB_PATH)) {
+  console.error('[VOC] ERROR: data/voc.db no encontrada. Ejecuta: npm run setup');
+  process.exit(1);
+}
+
+const db = new Database(DB_PATH);
+db.pragma('journal_mode = WAL');
+db.pragma('foreign_keys = ON');
 
 function requireAuth(req, res, next) {
   const token = (req.headers.authorization || '').replace('Bearer ', '');

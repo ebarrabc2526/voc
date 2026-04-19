@@ -1,47 +1,52 @@
 'use strict';
+// Crea data/voc.db desde cero aplicando migraciones y cargando el vocabulario.
+// Uso: node scripts/setup-db.js [--force]
+//   --force  elimina la DB existente antes de crearla
+
+const path    = require('path');
+const fs      = require('fs');
 const Database = require('better-sqlite3');
-const path = require('path');
-const fs = require('fs');
 
-const DATA_DIR = path.join(__dirname, '..', 'data');
-const DB_PATH  = path.join(DATA_DIR, 'voc.db');
+const DB_PATH        = path.join(__dirname, '..', 'data', 'voc.db');
+const MIGRATIONS_DIR = path.join(__dirname, '..', 'migrations');
+const WORDS_SEED     = path.join(__dirname, '..', 'data', 'words.sql');
 
-fs.mkdirSync(DATA_DIR, { recursive: true });
+const force = process.argv.includes('--force');
+
+if (force && fs.existsSync(DB_PATH)) {
+  fs.unlinkSync(DB_PATH);
+  console.log('[setup] DB anterior eliminada.');
+}
+
+if (fs.existsSync(DB_PATH) && !force) {
+  console.log('[setup] data/voc.db ya existe. Usa --force para recrearla.');
+  process.exit(0);
+}
+
+fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
 
 const db = new Database(DB_PATH);
+db.pragma('journal_mode = WAL');
+db.pragma('foreign_keys = ON');
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS words (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    word        TEXT NOT NULL,
-    translation TEXT NOT NULL,
-    level       TEXT NOT NULL CHECK(level IN ('A1','A2','B1','B2','C1','C2')),
-    category    TEXT NOT NULL DEFAULT 'general',
-    uk_ipa      TEXT NOT NULL DEFAULT '',
-    us_ipa      TEXT NOT NULL DEFAULT ''
-  );
+const migrations = fs.readdirSync(MIGRATIONS_DIR)
+  .filter(f => f.endsWith('.sql'))
+  .sort();
 
-  CREATE INDEX IF NOT EXISTS idx_words_level     ON words(level);
-  CREATE INDEX IF NOT EXISTS idx_words_level_cat ON words(level, category);
-  CREATE INDEX IF NOT EXISTS idx_words_word      ON words(word);
+for (const file of migrations) {
+  const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), 'utf8');
+  db.exec(sql);
+  console.log(`[setup] Migración aplicada: ${file}`);
+}
 
-  CREATE TABLE IF NOT EXISTS hof (
-    id        INTEGER PRIMARY KEY AUTOINCREMENT,
-    name      TEXT NOT NULL,
-    level     TEXT NOT NULL DEFAULT '',
-    mode      TEXT NOT NULL DEFAULT '',
-    challenge TEXT NOT NULL DEFAULT '',
-    category  TEXT NOT NULL DEFAULT '',
-    score     INTEGER NOT NULL DEFAULT 0,
-    correct   INTEGER NOT NULL DEFAULT 0,
-    total     INTEGER NOT NULL DEFAULT 0,
-    date      TEXT NOT NULL DEFAULT '',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE INDEX IF NOT EXISTS idx_hof_score ON hof(score DESC);
-  CREATE INDEX IF NOT EXISTS idx_hof_name  ON hof(name);
-`);
+if (fs.existsSync(WORDS_SEED)) {
+  const sql = fs.readFileSync(WORDS_SEED, 'utf8');
+  db.exec(sql);
+  const count = db.prepare('SELECT COUNT(*) as n FROM words').get().n;
+  console.log(`[setup] Vocabulario cargado: ${count} palabras`);
+} else {
+  console.warn('[setup] No se encontró data/words.sql — DB creada sin vocabulario.');
+}
 
 db.close();
-console.log('[VOC] Base de datos creada:', DB_PATH);
+console.log('[setup] Listo. data/voc.db creada correctamente.');
