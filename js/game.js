@@ -56,7 +56,9 @@ function getWordsForLevelAndCategory(level, category) {
 
 function getCategoriesForLevel(level) {
   const words = getWordsForLevel(level);
-  const cats = [...new Set(words.map(w => w.category))].sort();
+  const cats = [...new Set(words.map(w => w.category))]
+    .filter(c => c !== 'general').sort();
+  if (words.some(w => w.category === 'general')) cats.push('general');
   return ['all', ...cats];
 }
 
