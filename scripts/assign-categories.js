@@ -2005,17 +2005,106 @@ function main() {
   const stats = {};
   for (const lvl of ['A1','A2','B1','B2','C1','C2']) stats[lvl] = { total: 0, categorized: 0 };
 
+  // ── Stemmer básico: busca la raíz en UNIVERSAL ──────────────────────────────
+  function stemLookup(w) {
+    // -ing → base / base+e
+    if (w.endsWith('ing') && w.length > 6) {
+      const stem = w.slice(0, -3);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+    }
+    // -ed → base / base+e
+    if (w.endsWith('ed') && w.length > 5) {
+      const stem = w.slice(0, -2);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+      const stem2 = w.slice(0, -1); // walked → walk (drop d only)
+      if (UNIVERSAL[stem2]) return UNIVERSAL[stem2];
+    }
+    // -s / -es / -ies (plurales o 3ª persona)
+    if (w.endsWith('ies') && w.length > 5) {
+      const stem = w.slice(0, -3) + 'y';
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    }
+    if (w.endsWith('es') && w.length > 4) {
+      const stem = w.slice(0, -2);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+    }
+    if (w.endsWith('s') && w.length > 4) {
+      const stem = w.slice(0, -1);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    }
+    // -er / -est (comparativo/superlativo o agente)
+    if (w.endsWith('est') && w.length > 6) {
+      const stem = w.slice(0, -3);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+    }
+    if (w.endsWith('er') && w.length > 5) {
+      const stem = w.slice(0, -2);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+    }
+    // -ly (adverbio → busca adjetivo base)
+    if (w.endsWith('ly') && w.length > 5) {
+      const stem = w.slice(0, -2);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    }
+    // -ness → adjetivo base
+    if (w.endsWith('ness') && w.length > 7) {
+      const stem = w.slice(0, -4);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    }
+    // -ment / -tion / -sion → verbo base
+    if (w.endsWith('ment') && w.length > 7) {
+      const stem = w.slice(0, -4);
+      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    }
+    return null;
+  }
+
+  // ── Heurísticas por sufijo (fallback para palabras de frecuencia) ──
+  function suffixCategory(w) {
+    // Adverbios → grammar
+    if (w.length > 5 && w.endsWith('ly')) return 'grammar';
+    // Adjetivos en -ful, -less, -ous, -ive, -able, -ible, -ish, -ic, -al → descriptions
+    if (w.length > 6 && (w.endsWith('ful') || w.endsWith('less') || w.endsWith('ous'))) return 'descriptions';
+    if (w.length > 6 && (w.endsWith('able') || w.endsWith('ible'))) return 'descriptions';
+    if (w.length > 6 && (w.endsWith('ive') || w.endsWith('ish'))) return 'descriptions';
+    if (w.length > 6 && (w.endsWith('ical') || w.endsWith('ical'))) return 'descriptions';
+    if (w.length > 6 && w.endsWith('tic') && !w.endsWith('astic')) return 'descriptions';
+    // Sustantivos abstractos → descriptions
+    if (w.length > 7 && (w.endsWith('ness') || w.endsWith('ment'))) return 'descriptions';
+    if (w.length > 7 && (w.endsWith('tion') || w.endsWith('sion'))) return 'descriptions';
+    if (w.length > 7 && (w.endsWith('ance') || w.endsWith('ence'))) return 'descriptions';
+    if (w.length > 6 && (w.endsWith('ity') || w.endsWith('ety'))) return 'descriptions';
+    if (w.length > 6 && (w.endsWith('ship') || w.endsWith('hood') || w.endsWith('dom'))) return 'descriptions';
+    if (w.length > 6 && w.endsWith('ism')) return 'descriptions';
+    // Agentes (persona que hace algo) → work
+    if (w.length > 5 && (w.endsWith('ist') || w.endsWith('ian'))) return 'work';
+    if (w.length > 5 && w.endsWith('eer')) return 'work';
+    if (w.length > 4 && w.endsWith('or') && !['color','floor','door','poor','for'].includes(w)) return 'work';
+    // Verbos conjugados → actions
+    if (w.length > 5 && w.endsWith('ing') && !w.endsWith('ring') && !w.endsWith('king')) return 'actions';
+    if (w.length > 5 && w.endsWith('ize') || w.length > 5 && w.endsWith('ise')) return 'actions';
+    if (w.length > 5 && (w.endsWith('ify') || w.endsWith('ate'))) return 'actions';
+    // Plurales y pasados (terminan en -s, -ed) → misma lógica que la raíz
+    // (demasiado ambiguo — se deja sin categorizar)
+    return null;
+  }
+
   for (const { word, level } of allWords) {
     stats[level].total++;
     const w = word.toLowerCase();
     let assigned = null;
 
     if (level === 'A1') {
-      assigned = a1Map[w] || UNIVERSAL[w] || null;
+      assigned = a1Map[w] || UNIVERSAL[w] || stemLookup(w) || suffixCategory(w) || null;
     } else if (pdfMaps[level]) {
-      assigned = pdfMaps[level][w] || UNIVERSAL[w] || null;
+      assigned = pdfMaps[level][w] || UNIVERSAL[w] || stemLookup(w) || suffixCategory(w) || null;
     } else {
-      assigned = UNIVERSAL[w] || null;
+      assigned = UNIVERSAL[w] || stemLookup(w) || suffixCategory(w) || null;
     }
 
     if (assigned) {
