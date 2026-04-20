@@ -276,7 +276,8 @@ async function showSetup() {
       const n = counts[lvl] || 0;
       btn.disabled = n < 10;
       btn.title = n < 10 ? 'Próximamente' : '';
-      btn.innerHTML = `<span class="btn-label">${lvl}</span><span class="btn-count">${n > 0 ? n : '—'}</span>`;
+      const label = lvl === 'ALL' ? 'TODOS' : lvl;
+      btn.innerHTML = `<span class="btn-label">${label}</span><span class="btn-count">${n > 0 ? n : '—'}</span>`;
     });
     if ((counts[State.level] || 0) < 10) {
       const first = Object.keys(counts).find(l => counts[l] >= 10);
@@ -445,8 +446,8 @@ function generateOptions(word) {
   const pool = needSameCat ? allWords.filter(w => w.category === word.category) : allWords;
   const distractors = shuffleArray(pool).slice(0, 3);
 
-  // If not enough distractors, pull from adjacent levels (same category if required)
-  if (distractors.length < 3) {
+  // If not enough distractors, pull from adjacent levels (skip if ALL — already has everything)
+  if (distractors.length < 3 && State.level !== 'ALL') {
     const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
     for (const lvl of levels) {
       if (lvl === State.level) continue;

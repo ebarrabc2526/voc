@@ -1,4 +1,5 @@
 const express    = require('express');
+const compression = require('compression');
 const path       = require('path');
 const { OAuth2Client } = require('google-auth-library');
 const jwt        = require('jsonwebtoken');
@@ -32,6 +33,7 @@ function requireAuth(req, res, next) {
   }
 }
 
+app.use(compression());
 app.use(express.json());
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
@@ -62,7 +64,13 @@ app.get('/api/words', (req, res) => {
 
   const cols = 'word, translation, category, uk_ipa, us_ipa';
   let rows;
-  if (!category || category === 'all') {
+  if (level === 'ALL') {
+    if (!category || category === 'all') {
+      rows = db.prepare(`SELECT ${cols} FROM words`).all();
+    } else {
+      rows = db.prepare(`SELECT ${cols} FROM words WHERE category = ?`).all(category);
+    }
+  } else if (!category || category === 'all') {
     rows = db.prepare(`SELECT ${cols} FROM words WHERE level = ?`).all(level);
   } else {
     rows = db.prepare(`SELECT ${cols} FROM words WHERE level = ? AND category = ?`).all(level, category);
@@ -81,6 +89,7 @@ app.get('/api/levels', (_req, res) => {
   const rows = db.prepare('SELECT level, COUNT(*) as count FROM words GROUP BY level').all();
   const counts = {};
   for (const r of rows) counts[r.level] = r.count;
+  counts['ALL'] = rows.reduce((s, r) => s + r.count, 0);
   res.json(counts);
 });
 

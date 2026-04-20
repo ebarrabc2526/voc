@@ -212,6 +212,18 @@ html, body {
 .level-btn:disabled {
   opacity: 0.3; cursor: not-allowed; pointer-events: none;
 }
+.level-btn-all {
+  flex: 1 1 100%; font-size: 0.85rem; letter-spacing: 1px;
+  border-color: rgba(255,215,0,0.25);
+}
+.level-btn-all.active {
+  background: linear-gradient(135deg, #4a2800, #8a5000);
+  border-color: var(--gold); color: var(--gold);
+  box-shadow: 0 0 16px rgba(255,215,0,0.35);
+}
+.level-btn-all:hover:not(.active) {
+  border-color: var(--gold); color: var(--gold);
+}
 
 #cat-container {
   display: flex; gap: 0.5rem; flex-wrap: wrap;
