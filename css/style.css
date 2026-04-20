@@ -710,6 +710,56 @@ html, body {
 }
 .chart-wrap { position: relative; height: 200px; }
 .chart-wrap-sm { height: 240px; }
+.profile-tabs {
+  display: flex; gap: 0.5rem;
+}
+.profile-tab-btn {
+  flex: 1; padding: 0.6rem; border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05); border-radius: var(--radius);
+  color: var(--grey); font-weight: 700; cursor: pointer; font-size: 0.85rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.profile-tab-btn.active {
+  background: rgba(255,215,0,0.12); border-color: var(--gold); color: var(--gold);
+}
+.options-section {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 1rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.options-title {
+  font-size: 0.85rem; font-weight: 700; color: var(--white); letter-spacing: 0.5px;
+}
+.option-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; color: var(--grey); font-size: 0.9rem;
+}
+.toggle-switch {
+  position: relative; display: inline-block; width: 46px; height: 24px; flex-shrink: 0;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; cursor: pointer; inset: 0;
+  background: rgba(255,255,255,0.15); border-radius: 24px; transition: background 0.2s;
+}
+.toggle-slider::before {
+  content: ''; position: absolute; height: 18px; width: 18px;
+  left: 3px; top: 3px; background: white; border-radius: 50%; transition: transform 0.2s;
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--gold); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+.option-langs {
+  display: flex; flex-direction: column; gap: 0.6rem; padding-left: 0.5rem;
+}
+.option-langs-label {
+  font-size: 0.75rem; color: var(--grey); text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 0.2rem;
+}
+.lang-check {
+  display: flex; align-items: center; gap: 0.6rem;
+  color: var(--grey); font-size: 0.9rem; cursor: pointer;
+}
+.lang-check input { accent-color: var(--gold); width: 16px; height: 16px; cursor: pointer; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 640px) {

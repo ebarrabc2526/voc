@@ -294,34 +294,60 @@
       </div>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div id="stat-games"    class="stat-value">—</div>
-        <div class="stat-label">Partidas</div>
+    <div class="profile-tabs">
+      <button class="profile-tab-btn" data-tab="stats"   onclick="showProfileTab('stats')">📊 Estadísticas</button>
+      <button class="profile-tab-btn" data-tab="options" onclick="showProfileTab('options')">⚙️ Opciones</button>
+    </div>
+
+    <div id="profile-tab-stats">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div id="stat-games"    class="stat-value">—</div>
+          <div class="stat-label">Partidas</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-best"     class="stat-value">—</div>
+          <div class="stat-label">Mejor premio</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-streak"   class="stat-value">—</div>
+          <div class="stat-label">Racha máx.</div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div id="stat-best"     class="stat-value">—</div>
-        <div class="stat-label">Mejor premio</div>
+
+      <div class="chart-section">
+        <div class="chart-title">📈 Historial de premios</div>
+        <div class="chart-wrap"><canvas id="chart-history"></canvas></div>
       </div>
-<div class="stat-card">
-        <div id="stat-streak"   class="stat-value">—</div>
-        <div class="stat-label">Racha máx.</div>
+
+      <div class="chart-section">
+        <div class="chart-title">🎯 Precisión por categoría</div>
+        <div class="chart-wrap"><canvas id="chart-categories"></canvas></div>
+      </div>
+
+      <div class="chart-section">
+        <div class="chart-title">🏅 Partidas por nivel</div>
+        <div class="chart-wrap chart-wrap-sm"><canvas id="chart-levels"></canvas></div>
       </div>
     </div>
 
-    <div class="chart-section">
-      <div class="chart-title">📈 Historial de premios</div>
-      <div class="chart-wrap"><canvas id="chart-history"></canvas></div>
-    </div>
-
-    <div class="chart-section">
-      <div class="chart-title">🎯 Precisión por categoría</div>
-      <div class="chart-wrap"><canvas id="chart-categories"></canvas></div>
-    </div>
-
-    <div class="chart-section">
-      <div class="chart-title">🏅 Partidas por nivel</div>
-      <div class="chart-wrap chart-wrap-sm"><canvas id="chart-levels"></canvas></div>
+    <div id="profile-tab-options" style="display:none">
+      <div class="options-section">
+        <div class="options-title">🔊 Pronunciación automática</div>
+        <div class="option-row">
+          <span>Pronunciar al mostrar cada pregunta</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="opt-autoplay" onchange="saveOptions()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div id="opt-langs-wrap" class="option-langs">
+          <div class="option-langs-label">Idiomas a pronunciar:</div>
+          <label class="lang-check"><input type="checkbox" id="opt-lang-uk" onchange="saveOptions()"> 🇬🇧 Inglés UK</label>
+          <label class="lang-check"><input type="checkbox" id="opt-lang-us" onchange="saveOptions()"> 🇺🇸 Inglés US</label>
+          <label class="lang-check"><input type="checkbox" id="opt-lang-es" onchange="saveOptions()"> 🇪🇸 Español</label>
+        </div>
+      </div>
     </div>
 
     <div style="text-align:center">

@@ -128,10 +128,12 @@ const COOKIE_NAME = 'voc_prefs';
 function loadPrefs() {
   const p = Cookie.get(COOKIE_NAME);
   if (!p) return;
-  if (p.level)         State.level         = p.level;
-  if (p.mode)          State.mode          = p.mode;
-  if (p.category)      State.category      = p.category;
-  if (p.challengeType) State.challengeType = p.challengeType;
+  if (p.level)                    State.level         = p.level;
+  if (p.mode)                     State.mode          = p.mode;
+  if (p.category)                 State.category      = p.category;
+  if (p.challengeType)            State.challengeType = p.challengeType;
+  if (p.autoPlay !== undefined)   State.autoPlay      = p.autoPlay;
+  if (p.autoPlayLangs)            State.autoPlayLangs = p.autoPlayLangs;
 }
 
 function savePrefs() {
@@ -139,7 +141,9 @@ function savePrefs() {
     level:         State.level,
     mode:          State.mode,
     category:      State.category,
-    challengeType: State.challengeType
+    challengeType: State.challengeType,
+    autoPlay:      State.autoPlay,
+    autoPlayLangs: State.autoPlayLangs,
   });
 }
 
@@ -232,6 +236,8 @@ const State = {
   mode: 'en-es',
   category: 'all',
   challengeType: '10',
+  autoPlay: false,
+  autoPlayLangs: ['uk', 'us'],
   questions: [],
   currentIndex: 0,
   currentPrize: 0,
@@ -424,9 +430,18 @@ function loadQuestion() {
   updateQuestionCounter();
 }
 
+function isProperNoun(w) {
+  const c = w.translation.charAt(0);
+  return c === c.toUpperCase() && c !== c.toLowerCase();
+}
+
 function generateOptions(word) {
+  const wordIsPN = isProperNoun(word);
+  const compatible = w => wordIsPN || !isProperNoun(w);
+
   const needSameCat = word.category === 'actions';
-  const allWords = getWordsForLevel(State.level).filter(w => w.word !== word.word);
+  const allWords = getWordsForLevel(State.level)
+    .filter(w => w.word !== word.word && compatible(w));
   const pool = needSameCat ? allWords.filter(w => w.category === word.category) : allWords;
   const distractors = shuffleArray(pool).slice(0, 3);
 
@@ -436,7 +451,7 @@ function generateOptions(word) {
     for (const lvl of levels) {
       if (lvl === State.level) continue;
       const extra = getWordsForLevel(lvl)
-        .filter(w => w.word !== word.word && (!needSameCat || w.category === word.category));
+        .filter(w => w.word !== word.word && compatible(w) && (!needSameCat || w.category === word.category));
       distractors.push(...shuffleArray(extra).slice(0, 3 - distractors.length));
       if (distractors.length >= 3) break;
     }
@@ -470,6 +485,7 @@ function displayQuestion(word, { options, correctIndex }) {
   document.getElementById('ipa-row').style.display = showIPA ? 'flex' : 'none';
   document.getElementById('audio-row').style.display = showIPA ? 'flex' : 'none';
   State.currentWord = word;
+  autoPlayWord();
 
   const labels = ['A', 'B', 'C', 'D'];
   const card  = document.getElementById('question-card');
@@ -786,6 +802,44 @@ function playAudio(dialect) {
   speechSynthesis.speak(utterance);
 }
 
+function autoPlayWord() {
+  if (!State.autoPlay || !State.currentWord) return;
+  const langs = State.autoPlayLangs || [];
+  if (!langs.length) return;
+
+  const queue = [];
+  if (langs.includes('uk')) queue.push({ text: State.currentWord.word,        lang: 'en-GB' });
+  if (langs.includes('us')) queue.push({ text: State.currentWord.word,        lang: 'en-US' });
+  if (langs.includes('es')) queue.push({ text: State.currentWord.translation, lang: 'es-ES' });
+
+  if (!queue.length) return;
+  speechSynthesis.cancel();
+  function playNext(i) {
+    if (i >= queue.length) return;
+    const u = new SpeechSynthesisUtterance(queue[i].text);
+    u.lang  = queue[i].lang;
+    u.rate  = 0.9;
+    u.onend = () => playNext(i + 1);
+    speechSynthesis.speak(u);
+  }
+  playNext(0);
+}
+
+function saveOptions() {
+  State.autoPlay      = document.getElementById('opt-autoplay').checked;
+  State.autoPlayLangs = ['uk', 'us', 'es'].filter(l => document.getElementById(`opt-lang-${l}`).checked);
+  document.getElementById('opt-langs-wrap').style.display = State.autoPlay ? '' : 'none';
+  savePrefs();
+}
+
+function showProfileTab(tab) {
+  document.getElementById('profile-tab-stats').style.display   = tab === 'stats'   ? '' : 'none';
+  document.getElementById('profile-tab-options').style.display = tab === 'options' ? '' : 'none';
+  document.querySelectorAll('.profile-tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+}
+
 // ─── Game Over / Win ──────────────────────────────────────────────────────────
 function winGame() {
   Audio.playWin();
@@ -905,7 +959,16 @@ async function showProfile() {
   if (!Auth.isLoggedIn()) return;
   document.getElementById('profile-name').textContent   = Auth.user.name;
   document.getElementById('profile-avatar').src         = Auth.user.picture;
+
+  // Init options tab UI from current state
+  document.getElementById('opt-autoplay').checked  = State.autoPlay;
+  document.getElementById('opt-lang-uk').checked   = State.autoPlayLangs.includes('uk');
+  document.getElementById('opt-lang-us').checked   = State.autoPlayLangs.includes('us');
+  document.getElementById('opt-lang-es').checked   = State.autoPlayLangs.includes('es');
+  document.getElementById('opt-langs-wrap').style.display = State.autoPlay ? '' : 'none';
+
   showScreen('screen-profile');
+  showProfileTab('stats');
 
   const { sessions = [], categoryCounts = {} } = await fetch('/api/stats', {
     headers: { 'Authorization': `Bearer ${Auth.token}` }
