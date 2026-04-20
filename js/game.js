@@ -50,7 +50,9 @@ function getWordsForLevel(level) {
 function getWordsForLevelAndCategory(level, category) {
   const words = getWordsForLevel(level);
   if (category === 'all') return words;
-  // Always include 'general' words so ALL vocabulary is reachable
+  // En TODOS cada palabra ya tiene su categoría definitiva — no suplementar con general
+  if (level === 'ALL') return words.filter(w => w.category === category);
+  // En niveles individuales incluir siempre palabras 'general' para ampliar el pool
   return words.filter(w => w.category === category || w.category === 'general');
 }
 
