@@ -14,6 +14,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.90.0",
     "better-sqlite3": "^12.9.0",
     "express": "^5.2.1",
     "google-auth-library": "^10.6.2",

@@ -24,6 +24,12 @@ const CATEGORY_NAMES = {
   transport:          'Transporte',
   weather_and_nature: 'Tiempo y naturaleza',
   work:               'Trabajo',
+  arts:               'Arte y cultura',
+  geography:          'Geografía',
+  law_and_crime:      'Derecho y crimen',
+  military:           'Militar',
+  religion:           'Religión',
+  science:            'Ciencia',
 };
 
 // ─── Words Cache ──────────────────────────────────────────────────────────────
@@ -834,6 +840,7 @@ function showResultScreen(won, title, msg, prize) {
   const saveBtn     = saveSection.querySelector('.btn-primary');
   saveBtn.disabled    = false;
   saveBtn.textContent = '🏆 Guardar en Hall of Fame';
+  document.getElementById('hof-saved-ok').style.display = 'none';
 
   if (Auth.isLoggedIn()) {
     saveInfo.textContent      = `Como: ${Auth.user.name}`;
@@ -871,7 +878,8 @@ function saveToHallOfFame() {
     .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
     .then(() => {
       document.getElementById('hof-save-section').style.display = 'none';
-      alert(`¡Puntuación guardada en el Hall of Fame!`);
+      const ok = document.getElementById('hof-saved-ok');
+      ok.style.display = 'block';
     })
     .catch(err => {
       console.error('[HOF] Error al guardar:', err);

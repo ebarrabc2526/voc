@@ -708,6 +708,1126 @@ cat('miscellaneous', [
   'unit','value','variety','version','view','wave',
 ]);
 
+// ─── EXPANSIÓN MASIVA: animales, comida, cuerpo, ciencia, tecnología, etc. ───
+
+cat('animals', [
+  // mamíferos
+  'aardvark','alpaca','antelope','ape','armadillo','baboon','badger',
+  'bat','beaver','bison','boar','buffalo','bull','caribou','cheetah',
+  'chipmunk','coyote','dingo','elk','ferret','fox','gazelle','gerbil',
+  'gnu','gopher','gorilla','grizzly','groundhog','hamster','hare',
+  'hedgehog','hippopotamus','hyena','jackal','jaguar','kangaroo',
+  'koala','lemur','leopard','llama','lynx','manatee','mink','mole',
+  'mongoose','moose','mule','musk ox','opossum','orangutan','otter',
+  'panther','platypus','porcupine','prairie dog','puma','raccoon',
+  'ram','reindeer','rhinoceros','sea lion','seal','skunk','sloth',
+  'squirrel','stoat','tapir','tiger','vole','walrus','warthog',
+  'weasel','wildebeest','wolverine','wombat','yak',
+  // aves
+  'albatross','blackbird','canary','condor','crane','crow','cuckoo',
+  'dove','finch','flamingo','goose','gull','hawk','heron','humming',
+  'ibis','kestrel','kingfisher','kiwi','lark','magpie','nightingale',
+  'osprey','ostrich','peacock','pelican','pheasant','pigeon','puffin',
+  'quail','raven','robin','rooster','seagull','sparrow','starling',
+  'stork','swallow','toucan','turkey','vulture','wren','woodpecker',
+  // reptiles y anfibios
+  'alligator','chameleon','cobra','gecko','iguana','komodo','mamba',
+  'newt','python','salamander','toad','viper','boa','asp',
+  // peces e invertebrados
+  'anchovy','barracuda','catfish','clam','clownfish','crawfish',
+  'crayfish','eel','flounder','lobster','mussel','octopus','oyster',
+  'perch','pike','piranha','plankton','prawn','salmon','sardine',
+  'scallop','seahorse','shrimp','squid','starfish','swordfish',
+  'trout','tuna','walrus','anchovy','herring','mackerel',
+  // insectos y otros
+  'aphid','caterpillar','centipede','cicada','cockroach','cricket',
+  'dragonfly','earthworm','firefly','flea','gnat','grasshopper',
+  'ladybird','locust','mantis','millipede','mosquito','moth','slug',
+  'termite','tick','wasp','woodlouse',
+  // términos generales
+  'amphibian','arachnid','avian','canine','carnivore','colony',
+  'crustacean','cub','feline','flock','foal','fowl','hatchling',
+  'herbivore','herd','hibernation','hive','horn','hound','kit',
+  'larvae','litter','mammal','marsupial','migration','molt','omnivore',
+  'pack','paw','plumage','pod','pouch','predator','prey','primate',
+  'pup','rodent','school','shoal','spawn','swarm','territory','tusk',
+  'vertebrate','warm-blooded','wild','wildlife',
+]);
+
+cat('food_and_drink', [
+  // frutas
+  'apricot','avocado','blackberry','blueberry','cantaloupe','cherry',
+  'clementine','coconut','cranberry','currant','fig','gooseberry',
+  'grape','grapefruit','guava','honeydew','kiwi','kumquat','lime',
+  'litchi','lychee','mango','melon','nectarine','papaya','passionfruit',
+  'persimmon','plum','pomegranate','pomelo','quince','raspberry',
+  'rhubarb','starfruit','strawberry','tangerine','watermelon',
+  // verduras
+  'artichoke','asparagus','beetroot','bok choy','broccoli','brussels',
+  'cabbage','cauliflower','celery','chard','chicory','courgette',
+  'cucumber','eggplant','endive','fennel','garlic','kale','kohlrabi',
+  'leek','lettuce','mange','onion','parsley','parsnip','pea',
+  'pepper','pumpkin','radish','shallot','spinach','squash','turnip',
+  'watercress','yam','zucchini',
+  // carnes y proteínas
+  'bacon','brisket','chop','fillet','ham','lamb','liver','loin',
+  'mince','mutton','offal','poultry','sirloin','steak','turkey',
+  'veal','venison','anchovy','caviar','crab','crayfish','lobster',
+  'mussel','oyster','prawn','salmon','sardine','scallop','shrimp',
+  'squid','tuna','tofu','tempeh','seitan',
+  // lácteos y huevos
+  'brie','butter','camembert','cheddar','cottage','cream','feta',
+  'gouda','gruyere','mozzarella','parmesan','ricotta','stilton',
+  'whipped','yogurt',
+  // pan y cereales
+  'bagel','baguette','brioche','ciabatta','croissant','doughnut',
+  'granola','muesli','muffin','pita','pretzel','rye','sourdough',
+  'tortilla','waffle','wholemeal',
+  // bebidas
+  'ale','beer','bourbon','brandy','champagne','cider','cocktail',
+  'espresso','gin','lager','latte','liqueur','mojito','prosecco',
+  'rum','tequila','vodka','whiskey','whisky','gin','sake',
+  // términos de cocina
+  'bake','barbecue','baste','blanch','blend','boil','braise',
+  'broil','caramelize','chop','dice','fillet','flambe','fry',
+  'garnish','grate','grill','knead','marinate','mince','pickle',
+  'poach','puree','roast','saute','season','sieve','simmer',
+  'slice','smoke','steam','stew','stir','whisk',
+  // condimentos y otros
+  'basil','bay leaf','capers','cardamom','chilli','cinnamon','cloves',
+  'coriander','cumin','curry','dill','ginger','herbs','horseradish',
+  'ketchup','lemongrass','mayonnaise','nutmeg','oregano','paprika',
+  'parsley','pepper','rosemary','saffron','sage','soy sauce','tarragon',
+  'thyme','turmeric','wasabi','worcestershire',
+  // postres y dulces
+  'brownie','caramel','cheesecake','custard','fudge','gelatin',
+  'gingerbread','glaze','icing','jam','jelly','macaron','macaroon',
+  'meringue','mousse','parfait','praline','profiterole','shortbread',
+  'sorbet','souffle','sponge','tiramisu','toffee','truffle','tart',
+]);
+
+cat('body', [
+  // anatomía interna
+  'abdomen','adrenaline','appendix','artery','bile','bladder','capillary',
+  'cartilage','chromosome','colon','cortisol','diaphragm','duodenum',
+  'endocrine','enzyme','esophagus','estrogen','femur','fibula','gland',
+  'hormone','humerus','hypothalamus','insulin','intestine','larynx',
+  'ligament','lymph','marrow','membrane','menopause','mucus','muscle',
+  'neuron','ovary','pancreas','patella','pituitary','placenta','plasma',
+  'platelet','prostate','puberty','radius','rectum','rib','sacrum',
+  'scrotum','sinew','sinus','skeleton','spleen','sternum','synapse',
+  'tendon','testosterone','thyroid','tibia','tonsil','trachea','ulna',
+  'urethra','uterus','vein','vertebra','womb',
+  // síntomas y condiciones
+  'abscess','addiction','adhd','aids','allergy','anaemia','asthma',
+  'autism','bipolar','bronchitis','cancer','cardiac','chronic',
+  'cirrhosis','coma','concussion','constipation','dementia','diabetes',
+  'diarrhea','epilepsy','fracture','gallstone','gastritis','gout',
+  'haemorrhage','headache','hernia','hypertension','hypothermia',
+  'incontinent','infection','infertility','inflammation','influenza',
+  'insomnia','irritable','lupus','menstruation','migraine','nausea',
+  'obesity','osteoporosis','paralysis','pneumonia','psoriasis',
+  'schizophrenia','seizure','sprain','strain','stress','stroke',
+  'tumor','ulcer','vertigo',
+  // tratamientos y profesiones
+  'acupuncture','anaesthetic','antibiotic','antidepressant','aspirin',
+  'biopsy','chemotherapy','defibrillator','dialysis','dosage',
+  'endoscopy','immunotherapy','incision','infusion','injection',
+  'inoculation','insulin','laxative','morphine','painkiller',
+  'paracetamol','physiotherapy','prescription','probiotic','radiation',
+  'rehabilitation','sedative','steroid','stimulant','supplement',
+  'transfusion','transplant','ultrasound','vaccine','x-ray',
+  'cardiologist','dermatologist','endocrinologist','gastroenterologist',
+  'gynaecologist','haematologist','neurologist','oncologist',
+  'ophthalmologist','orthopaedic','paediatrician','pathologist',
+  'psychiatrist','radiologist','rheumatologist','urologist',
+]);
+
+cat('science', [
+  // física
+  'acceleration','acoustics','aerodynamics','angular','buoyancy',
+  'centripetal','coefficient','collision','compressibility','conductivity',
+  'diffraction','dipole','displacement','dynamics','elasticity',
+  'electromagnetic','electrostatics','entropy','equilibrium','friction',
+  'impedance','inductance','inertia','insulator','interference',
+  'luminosity','magnetism','mechanics','momentum','optics','oscillation',
+  'pendulum','polarization','radioactivity','refraction','relativity',
+  'resistance','resonance','semiconductor','spectrum','statics',
+  'superconductor','thermodynamics','torque','turbulence','viscosity',
+  'wavelength','work',
+  // química
+  'alcohol','aldehyde','alkane','alkene','alkyne','alloy','amino acid',
+  'base','buffer','carbohydrate','catalyst','chromatography','colloid',
+  'combustion','compound','condensation','corrosion','covalent',
+  'crystallization','decomposition','displacement','distillation',
+  'electrolysis','electrolyte','esterification','fermentation','fission',
+  'halogen','hydrocarbon','hydrolysis','ionic','isomer','ketone',
+  'lipid','mixture','molarity','mole','monomer','neutralization',
+  'nucleophile','orbital','oxidation','ozone','peptide','phenol',
+  'photon','polymerization','precipitation','protein','proton',
+  'purification','radical','reaction','reduction','salt','solubility',
+  'solute','solution','sublimation','substrate','titration',
+  // biología
+  'adaptation','allele','anaerobic','bacteria','biodegradable',
+  'biome','biosphere','biotechnology','carnivore','cell','cellulose',
+  'chlorophyll','chloroplast','chromosome','clone','cyanobacteria',
+  'cytoplasm','decomposition','differentiation','digestion','diploid',
+  'dominant','dormancy','ecosystem','embryo','endemic','enzyme',
+  'eukaryote','evolution','excretion','fertilization','flagella',
+  'flora','fossil','fungus','gamete','gene','genotype','germination',
+  'habitat','haploid','herbivore','homeostasis','hybrid','immunity',
+  'ingestion','inheritance','instinct','kingdom','larva','meiosis',
+  'membrane','metabolism','microorganism','mitosis','mutation',
+  'natural selection','nucleotide','nucleus','nutrient','organism',
+  'osmosis','parasite','phenotype','photosynthesis','pollination',
+  'predator','prokaryote','protein','receptor','reproduction',
+  'respiration','ribosome','saprophyte','selective breeding',
+  'symbiosis','taxonomy','translocation','transpiration','tropism',
+  'vaccination','variation','vertebrate','virus','zygote',
+  // matemáticas y estadística
+  'algebra','algorithm','asymptote','binomial','calculus','circumference',
+  'coefficient','combinatorics','denominator','derivative','diagonal',
+  'differentiation','distribution','divisor','equation','exponent',
+  'factorial','fraction','geometry','gradient','histogram','hyperbola',
+  'hypothesis','inequality','infinity','integer','integral','intersection',
+  'irrational','logarithm','matrix','mean','median','midpoint',
+  'mode','modulus','multiple','numerator','parabola','parallel',
+  'percentile','permutation','perpendicular','polynomial','prime',
+  'probability','proof','proportion','quadrant','quotient','radius',
+  'range','ratio','regression','remainder','root','sequence','series',
+  'sigma','simultaneous','sine','skew','slope','square root',
+  'standard deviation','statistic','subset','symmetry','tangent',
+  'theorem','topology','transformation','trigonometry','variable',
+  'variance','vector','vertex','volume',
+]);
+
+cat('law_and_crime', [
+  // procedimiento judicial
+  'acquittal','adjudication','admissible','affidavit','arraignment',
+  'bailiff','certification','chambers','charge','citation','claim',
+  'clemency','contempt','counsel','cross-examination','deposition',
+  'detention','disposition','docket','enforcement','exoneration',
+  'extradition','filing','garnishment','habeas','hearing','immunity',
+  'impeachment','indictment','injunction','inquest','interrogation',
+  'jurisdiction','litigation','mandate','motion','negligence','oath',
+  'objection','ordinance','pardon','penal','plaintiff','pleading',
+  'precedent','probate','proceedings','prosecution','restitution',
+  'sentencing','settlement','statute','subpoena','summons',
+  'testimony','tribunal','verdict','warrant','witness',
+  // crímenes
+  'abduction','arson','assassination','assault','blackmail','burglary',
+  'bribery','counterfeiting','cybercrime','defraud','embezzlement',
+  'extortion','felony','forgery','fraud','genocide','harassment',
+  'homicide','identity theft','kidnapping','looting','manslaughter',
+  'misdemeanor','money laundering','mugging','murder','perjury',
+  'piracy','poaching','rape','robbery','shoplifting','smuggling',
+  'stalking','theft','trespassing','vandalism','war crime',
+  // policia y seguridad
+  'constable','cop','detective','forensic','interrogation',
+  'investigation','officer','patrol','perpetrator','police','sergeant',
+  'sheriff','surveillance','suspect','undercover',
+  // términos legales
+  'affidavit','annulment','arbitration','breach','clause','compensation',
+  'confidentiality','contract','copyright','covenant','damages',
+  'defamation','disclaimer','enforcement','franchise','indemnity',
+  'injunction','intellectual property','lawsuit','leasehold','liability',
+  'libel','licensee','mediation','negligence','patent','penalty',
+  'plaintiff','privilege','provision','slander','trademark','waiver',
+]);
+
+cat('military', [
+  // rangos y personal
+  'admiral','airman','battalion','brigadier','cadet','cavalry',
+  'colonel','commando','conscript','corporal','general','gunner',
+  'infantryman','lieutenant','major','marshal','mercenary','militia',
+  'paratrooper','private','ranger','recruit','sergeant','sniper',
+  'soldier','trooper','veteran',
+  // armas y equipamiento
+  'ammunition','armour','artillery','bazooka','bayonet','caliber',
+  'cannon','carbine','cartridge','catapult','crossbow','detonator',
+  'explosive','firearm','flamethrower','fragmentation','fuselage',
+  'grenade','howitzer','launcher','magazine','mortar','munition',
+  'pistol','projectile','radar','revolver','rifle','rocket','shrapnel',
+  'slingshot','torpedo','turret',
+  // vehículos militares
+  'aircraft carrier','armored','battleship','bomber','corvette',
+  'destroyer','fighter jet','frigate','helicopter','interceptor',
+  'minesweeper','patrol boat','reconnaissance','stealth','submarine',
+  'tank','transport',
+  // operaciones y conceptos
+  'ambush','armistice','assault','attrition','barrage','blockade',
+  'bombardment','breach','ceasefire','counterattack','covert',
+  'debriefing','deployment','disarmament','encirclement','flanking',
+  'garrison','guerrilla','incursion','infiltration','insurgency',
+  'invasion','maneuver','mobilization','occupation','offensive',
+  'peacekeeping','propaganda','recon','reinforcement','retreat',
+  'sabotage','siege','skirmish','sortie','stealth','strategy',
+  'surrender','tactics','trench','warfare',
+]);
+
+cat('arts', [
+  // música
+  'acoustic','album','ambient','arrangement','ballad','bass','beat',
+  'blues','broadcast','cadence','chord','chromatic','classical',
+  'climax','composition','concerto','country','crescendo','debut',
+  'diatonic','discography','dissonance','duet','electronic','ensemble',
+  'forte','folk','funk','gospel','grunge','harmony','indie','interval',
+  'jazz','lyrics','metal','minuet','notation','octave','operatic',
+  'orchestration','overture','phrase','polyphony','pop','punk',
+  'quartet','quintet','rap','recital','reggae','refrain','remix',
+  'repertoire','requiem','rhythm','riff','rock','scale','score',
+  'serenade','solo','sonata','soundtrack','suite','swing','symphonic',
+  'tempo','timbre','tone','tremolo','trio','tune','vibrato','waltz',
+  // artes visuales
+  'abstract','acrylic','aesthetic','airbrush','allegory','anatomy',
+  'animation','architect','baroque','brushstroke','charcoal','chiaroscuro',
+  'collage','composition','contemporary','contrast','cubism','design',
+  'digital','drawing','easel','engraving','etching','expressionism',
+  'figurative','fresco','futurism','glaze','gouache','graphic',
+  'illustration','impressionism','installation','kinetic','landscape',
+  'lithograph','medium','minimalism','mural','neoclassical','palette',
+  'pastel','perspective','pigment','portrait','printmaking','realism',
+  'renaissance','sculpture','silhouette','sketch','still life','surrealism',
+  'symbolism','tempera','texture','trompe','watercolour',
+  // literatura
+  'allegory','alliteration','anachronism','analogy','anecdote',
+  'antagonist','anticlimaz','archetype','assonance','ballad','cliché',
+  'climax','comedy','denouement','dialogue','epic','epilogue','epitaph',
+  'foreshadowing','imagery','irony','juxtaposition','limerick','lyric',
+  'memoir','metaphor','motif','novella','ode','omniscient','onomatopoeia',
+  'oxymoron','parable','paradox','parody','pathos','personification',
+  'plot','prologue','protagonist','prose','satire','simile','soliloquy',
+  'sonnet','subplot','subtext','symbolism','synopsis','tragedy',
+  // teatro y cine
+  'auditorium','cinematography','costume','debut','dialogue','director',
+  'documentary','encore','episode','genre','improvise','intermission',
+  'monologue','narrator','pantomime','performance','playwright',
+  'premiere','props','rehearsal','repertory','screenplay','script',
+  'sequel','stage','subplot','understudy',
+]);
+
+cat('geography', [
+  // países y regiones (vocabulario, no nombres propios)
+  'african','alpine','amazonian','american','antarctic','arabian',
+  'arctic','asian','atlantic','balkan','caribbean','caucasian',
+  'central','coastal','colonial','continental','eastern','equatorial',
+  'european','far east','iberian','insular','island','landlocked',
+  'latin','mediterranean','middle east','northern','oceanic','pacific',
+  'peninsular','polar','saharan','scandinavian','siberian','southern',
+  'subcontinent','subtropical','tropical','western',
+  // términos físicos
+  'alluvial','altitude','archipelago','atoll','basin','bay','biome',
+  'butte','cape','catchment','cliff','continent','contour','delta',
+  'desert','dune','elevation','erosion','escarpment','estuary','fjord',
+  'floodplain','geyser','gorge','glacier','gulf','habitat','headland',
+  'hemisphere','highland','hill','inlet','interior','isthmus','lagoon',
+  'landmass','latitude','lava','longitude','lowland','maquis',
+  'maritime','marsh','meadow','mesa','monsoon','moor','peninsula',
+  'permafrost','plain','plateau','promontory','ravine','reef',
+  'ridge','savanna','shoreline','steppe','strait','swamp','tableland',
+  'taiga','tundra','valley','watershed','wetland',
+  // términos humanos
+  'colonization','demography','emigration','ethnicity','geopolitics',
+  'globalization','immigration','indigenous','megalopolis','migration',
+  'nationalism','nomad','overpopulation','rural','settlement','suburb',
+  'territory','township','urban','urbanization',
+]);
+
+cat('religion', [
+  // conceptos espirituales
+  'afterlife','agnostic','animism','asceticism','atonement','aura',
+  'baptize','benediction','catechism','celestial','chakra','chant',
+  'compassion','consecrate','conversion','covenant','creed','crusade',
+  'deity','damnation','dharma','disciple','divine','divinity','dogma',
+  'enlightenment','eternal','eternity','evangelist','exorcism','faith',
+  'fundamentalism','grace','heresy','heretic','holy','icon','idol',
+  'immortality','incarnation','infidel','karma','liturgy','martyrdom',
+  'meditation','messianic','metaphysical','miracle','missionary',
+  'monotheism','morality','mortal','mysticism','occult','ordination',
+  'orthodoxy','paradise','paranormal','penance','polytheism',
+  'prophecy','prophet','purgatory','rapture','reincarnation',
+  'relic','repentance','resurrection','revelation','righteousness',
+  'sacred','sacrament','salvation','sanctity','sect','sermon',
+  'shrine','sin','sinful','soul','spiritual','spirituality','supplication',
+  'theology','transcendence','trinity','virtue','vow','zen',
+  // personas y roles
+  'abbot','archbishop','bishop','brahmin','cardinal','clergy','cleric',
+  'confessor','curate','deacon','disciple','evangelist','friar','guru',
+  'hermit','imam','inquisitor','lama','monk','mullah','novice',
+  'nun','padre','patriarch','pontiff','pope','priest','prior',
+  'prophet','rabbi','rector','reverend','saint','shaman','vicar',
+  // textos y lugares
+  'altar','amen','cathedral','chapel','cloister','convent','dome',
+  'epistle','gospel','hymn','idol','incantation','liturgy','mantra',
+  'minaret','mosque','nave','parable','parish','psalm','pulpit',
+  'quran','rosary','scripture','synagogue','tabernacle','talmud',
+  'torah','vestry',
+]);
+
+// ─── FORMAS IRREGULARES Y PALABRAS QUE EL STEMMER NO RESUELVE ────────────────
+cat('family_and_friends', [
+  // plurales irregulares de personas
+  'children','men','women','kids','folks','guys','boys','girls',
+  'ladies','gentlemen','brothers','sisters','sons','daughters',
+  'parents','grandparents','ancestors','relatives','cousins',
+  'teens','adults','elders','toddlers','infants','twins',
+  // nombres usados como vocabulario común
+  'adam','alan','alex','alice','amanda','amy','andy','angela',
+  'anne','annie','anthony','arthur','barbara','barry','ben','beth',
+  'betty','bill','billy','bob','bobby','brad','brian','carol',
+  'charlie','chris','claire','daniel','danny','dave','david','diana',
+  'donna','edward','emily','emma','eric','eve','frank','fred',
+  'gary','george','grace','harry','helen','henry','jack','james',
+  'jane','janet','jason','jennifer','jessica','jim','jimmy','joe',
+  'john','johnny','julia','karen','kate','kevin','kim','laura',
+  'lee','lily','lisa','lucy','mark','mary','matt','michael',
+  'mike','nancy','nick','nicole','paul','peter','rachel','richard',
+  'robert','rose','ryan','sam','sara','sarah','scott','sharon',
+  'simon','sophie','steve','sue','susan','thomas','tim','tom',
+  'tony','victoria','william','anna','ben','charlie','chris',
+]);
+
+cat('actions', [
+  // verbos irregulares (past tense y participios)
+  'ate','became','began','blew','bought','broke','brought','built',
+  'came','caught','chose','cut','dealt','did','drank','drew',
+  'drove','fed','fell','felt','flew','forgot','froze','gave','got',
+  'grew','heard','held','hid','hit','hung','hurt','kept','knew',
+  'laid','led','left','lent','let','lost','made','meant','met',
+  'paid','put','ran','rang','rode','rose','said','sang','sat',
+  'saw','sent','shone','shot','shrank','shut','sang','slept',
+  'slid','spoke','spent','stood','stole','struck','swam','swore',
+  'swung','took','tore','told','threw','understood','upset',
+  'woke','wore','won','wrote',
+  // -ing de verbos irregulares
+  'asking','coming','doing','eating','feeling','getting','giving',
+  'going','having','making','running','saying','seeing','taking',
+  'talking','telling','thinking','trying','using','walking',
+  'wanting','working',
+  // formas conjugadas comunes que el stemmer no resuelve
+  'added','agreed','allowed','answered','appeared','asked','avoided',
+  'believed','broke','built','called','caught','changed','checked',
+  'chose','closed','control','covered','created','decided','described',
+  'developed','died','ended','enjoyed','expected','faced','failed',
+  'followed','formed','found','gave','happened','heard','helped',
+  'includes','kept','killed','knew','learned','liked','lived',
+  'loved','moved','needed','opened','passed','placed','played',
+  'reached','realized','received','remained','required','resulted',
+  'seemed','shown','started','stopped','turned','used','wanted',
+]);
+
+cat('miscellaneous', [
+  // slang, jerga, palabrotas, interjecciones
+  'ah','ahh','aw','aye','aah','argh','bah','blah','bleep','beep',
+  'beeps','boo','boom','bro','buddy','bullshit','chuckles','cos',
+  'crap','crikey','crud','dang','damn','darn','dude','erm','eww',
+  'fart','frickin','friggin','frig','fudge','gee','geez','golly',
+  'goodness','gosh','grr','hah','heck','hmm','hooray','huh','hurrah',
+  'jeez','jerk','lol','nah','nope','oops','ouch','phew','piss',
+  'poop','shh','shoo','shucks','sigh','ugh','uhh','umm','whoa',
+  'whoops','whoo','woo','wow','yay','yikes','yuck','yup','zap',
+  // abreviaturas y siglas comunes
+  'abc','adhd','aids','aka','asap','atm','btw','cc','ceo','dna',
+  'etc','fbi','fyi','gps','html','http','iq','irs','lol','nba',
+  'nfl','ngo','omg','pcs','pdf','pm','ps','suv','ui','url',
+  'usa','usd','vip','vs','www',
+  // palabras muy cortas/ruido
+  'er','em','en','uh','um','ya','yo','af','ah','ai','bi','bo',
+  'bu','da','de','di','du','el','ga','ge','gi','gu','ha','he',
+  'hi','ho','hu','ka','ke','ki','ko','la','le','li','lo','lu',
+  'ma','mi','mo','mu','na','ne','ni','nu','op','ou','pa','pe',
+  'pi','pu','qi','ra','re','ri','ro','ru','sa','se','si','su',
+  'ta','te','ti','tu','wa','we','wi','wu','xa','xe','xi','xu',
+  'ya','ye','yi','yu','za','ze','zi','zo','zu',
+]);
+
+cat('geography', [
+  // países y lugares usados como vocabulario
+  'america','american','africa','african','asia','asian','europe',
+  'european','china','chinese','english','french','german','italian',
+  'japanese','korean','spanish','arabic','russian','indian','mexican',
+  'british','australian','canadian','irish','scottish','welsh',
+  'greek','roman','latin','arabic','israeli','iraqi','iranian',
+  'afghan','pakistani','nigerian','egyptian','turkish','swedish',
+  'dutch','danish','norwegian','portuguese','polish','hungarian',
+  'czech','romanian','ukrainian','bulgarian','croatian','serbian',
+  'Albanian','bosnian','slovenian','slovak',
+  // ciudades y lugares como vocabulario geográfico
+  'paris','london','berlin','moscow','tokyo','beijing','rome',
+  'madrid','athens','amsterdam','brussels','vienna','prague',
+  'budapest','warsaw','stockholm','oslo','helsinki','dublin',
+  'lisbon','copenhagen','zurich','geneva','milan','barcelona',
+  'seoul','bangkok','singapore','mumbai','delhi','cairo',
+  'istanbul','dubai','sydney','melbourne','toronto','montreal',
+  'chicago','boston','dallas','houston','miami','seattle',
+  'washington','angeles','francisco','york',
+]);
+
+cat('numbers_and_time', [
+  // fechas y festividades
+  'christmas','halloween','thanksgiving','easter','hanukkah','ramadan',
+  'new year','birthday','anniversary','holiday','vacation','weekend',
+  // números escritos
+  'zero','one','two','three','four','five','six','seven','eight',
+  'nine','ten','eleven','twelve','thirteen','fourteen','fifteen',
+  'sixteen','seventeen','eighteen','nineteen','twenty','thirty',
+  'forty','fifty','sixty','seventy','eighty','ninety','hundred',
+  'thousand','million','billion','trillion',
+  // tiempo relativo
+  'anytime','nowadays','lately','recently','currently','previously',
+  'formerly','shortly','eventually','temporarily','permanently',
+  'instantly','immediately','simultaneously','consecutively',
+]);
+
+cat('work', [
+  // profesiones no cubiertas
+  'accountant','actor','actress','agent','analyst','architect',
+  'artist','astronaut','baker','barber','bartender','butcher',
+  'carpenter','cashier','chef','clerk','coach','consultant',
+  'contractor','controller','decorator','designer','diplomat',
+  'director','doctor','editor','electrician','engineer','executive',
+  'farmer','firefighter','fisherman','florist','gardener','guard',
+  'guide','janitor','journalist','judge','lawyer','lecturer',
+  'librarian','manager','mechanic','midwife','minister','musician',
+  'nurse','officer','operator','painter','pharmacist','photographer',
+  'physicist','pilot','plumber','policeman','politician','postman',
+  'programmer','psychiatrist','psychologist','publisher','receptionist',
+  'researcher','sailor','secretary','security','soldier','surgeon',
+  'taxi driver','teacher','technician','therapist','trainer',
+  'translator','veterinarian','waiter','waitress','writer',
+  // términos laborales no cubiertos
+  'backup','boss','budget','career','colleague','commission',
+  'complaint','contract','corporation','crew','deadline','demo',
+  'department','director','employee','employer','enterprise',
+  'entrepreneur','executive','expense','fee','freelance','income',
+  'industry','interview','invoice','leadership','management',
+  'manager','meeting','negotiate','network','office','outsource',
+  'partnership','payroll','pension','presentation','profit',
+  'project','promotion','proposal','qualify','quota','raise',
+  'redundant','revenue','salary','schedule','sector','seminar',
+  'shareholder','staff','strategy','task','team','tenure',
+  'termination','trade','union','vacancy','wage','workshop',
+]);
+
+// ─── FORMAS FRECUENTES NO CUBIERTAS POR EL STEMMER ───────────────────────────
+
+cat('transport', [
+  'airplane','airplanes','airline','airlines','aircraft','airport','airports',
+  'airlift','airspace','airstrip','airway','airways','airbase','airfield',
+  'automobile','automobiles','barge','barges','cab','cabs','caravan',
+  'carriages','convoy','cruiser','cruise','destroyer','dinghy','dirigible',
+  'freighter','gondola','hatchback','jeep','jets','kayak','limo','limousine',
+  'locomotive','luggage','minivan','moped','motorbike','motorcycle','motorcycles',
+  'parachute','patrol','pickup','propeller','raft','roadster','rocket','rockets',
+  'rowboat','runway','sailboat','scooter','sedan','shuttle','sleigh','speedboat',
+  'stagecoach','steamship','submarine','submarines','tanker','taxi','taxicab',
+  'throttle','tractor','trailer','tram','trams','transit','trolleybus',
+  'tugboat','turbine','van','vans','vehicle','vehicles','wagon','warship',
+]);
+
+cat('body', [
+  'abdomen','abdominal','abscess','acne','ache','aches','ached','aging',
+  'ailment','ailments','allergic','allergy','amputate','amputation','anatomy',
+  'ankles','antidote','arteries','artery','ashes','atrophy','autism',
+  'backache','backbone','bandages','bathe','bathrooms','bladder','bleed',
+  'bleeding','blisters','bloodstream','bolts','bowels','brains','bruises',
+  'bruising','catheter','cavity','cells','chemotherapy','chromosomes',
+  'circulatory','clot','coma','concussion','corpse','corpses','cortex',
+  'cramps','cranium','defect','deformity','dementia','dental','diagnosis',
+  'dialysis','diarrhea','dissect','dizzy','dizziness','dosage','embryo',
+  'epidemic','estrogen','exhausted','exhaustion','eyebrows','eyelid','eyelids',
+  'fatigue','fetus','fever','fevers','fracture','fractures','fungal',
+  'genes','genetic','genetics','glands','glucose','groin','gums',
+  'hallucinate','hallucination','hallucinations','hemorrhage','hepatitis',
+  'hereditary','hormone','hormones','hygiene','immune','immunity','implant',
+  'infection','infections','infectious','inhale','injection','injections',
+  'insulin','intestine','intestines','itch','itching','kidney','kidneys',
+  'larynx','ligament','limb','limbs','lungs','lymph','malaria','malnutrition',
+  'mammogram','menstrual','migraine','miscarriage','molecules','morphine',
+  'nausea','nerves','neuron','neurons','obese','obesity','organ','organs',
+  'outbreak','overdose','oxygen','pancreas','paralysis','parasite','pathogen',
+  'pelvis','physiology','pimple','plague','plasma','pneumonia','poisoning',
+  'postmortem','pregnancy','premature','prognosis','prostate','puberty',
+  'pulse','rash','reflexes','relapse','remedy','reproduct','respiration',
+  'retina','ribs','saliva','seizure','seizures','spasm','spinal','spleen',
+  'starvation','stimulant','stroke','strokes','sutures','sweat','sweating',
+  'symptom','symptoms','syndrome','tendon','testosterone','thermometer',
+  'thyroid','tissue','tissues','toxin','toxins','transplant','trauma',
+  'tumor','tumors','ulcer','ulcers','uterus','vaccination','veins',
+  'vertebra','viral','virus','viruses','vitamin','vitamins','vomit','vomiting',
+  'wheelchair','wound','wounds','wrist','xray',
+]);
+
+cat('actions', [
+  'abide','abort','absorb','abstain','accelerate','accumulate','achieve',
+  'acknowledge','activate','adapt','adjust','admire','adore','advance',
+  'advertise','advise','affect','afford','aggravate','aid','alert',
+  'allocate','alter','analyze','analyze','annoy','apologize','append',
+  'apply','appreciate','approve','arise','arrange','arrest','assemble',
+  'assess','assign','assist','assume','astonish','attract','authorize',
+  'await','awaken','bake','ban','battle','beg','betray','boil','bounce',
+  'broadcast','browse','burn','cancel','capture','celebrate','challenge',
+  'charge','chase','cheat','clarify','classify','collapse','command',
+  'commit','communicate','compare','compete','comply','conceal','concentrate',
+  'confess','configure','confirm','confront','connect','consult','contact',
+  'convince','cooperate','crawl','customize','damage','deceive','dedicate',
+  'defeat','defend','delay','delete','deliver','demand','deploy','deserve',
+  'detect','determine','devote','dig','disagree','disappear','discover',
+  'discuss','dismiss','dispatch','display','distribute','drag','dump',
+  'earn','emerge','encounter','enforce','enhance','escape','evaluate',
+  'execute','expand','experiment','expose','extend','fake','fetch','filter',
+  'fix','float','focus','force','forgive','gather','grab','guide','handle',
+  'harm','highlight','hire','identify','ignore','implement','inform',
+  'inspect','inspire','integrate','invade','investigate','involve','judge',
+  'launch','limit','link','locate','maintain','manage','measure','monitor',
+  'motivate','obtain','operate','organize','overcome','participate','perceive',
+  'perform','plan','predict','prepare','prevent','process','produce','prove',
+  'pursue','qualify','recruit','reduce','refer','release','remove','repair',
+  'replace','request','rescue','resolve','restore','retrieve','reward',
+  'sacrifice','search','select','share','signal','simulate','solve',
+  'submit','suggest','support','survive','tackle','translate','trigger',
+  'trust','update','upgrade','upload','validate','verify','warn',
+]);
+
+cat('places', [
+  'abbey','abode','accommodation','arena','archives','attic','auditorium',
+  'avenue','backyard','balcony','ballroom','bar','barn','barracks','basement',
+  'battlefield','bay','cabin','cage','camp','campus','canal','capital',
+  'capitol','cave','cavern','cemetery','chapel','cinema','clinic','cloister',
+  'closet','colony','compound','convent','corridor','cottage','courthouse',
+  'courtyard','cove','crater','creek','crossroads','dam','deck','desert',
+  'destination','dock','downtown','driveway','dungeon','embassy','estate',
+  'factory','fairground','farmhouse','fortress','gallery','ghetto','glacier',
+  'gorge','graveyard','greenhouse','grounds','gulf','gym','harbor','headquarters',
+  'hideout','hill','hills','hotspot','hut','inlet','intersection','island',
+  'islands','jungle','kennel','kingdom','lab','landmark','lighthouse',
+  'lobby','lodge','loft','lookout','mall','manor','marketplace','marsh',
+  'meadow','monastery','monument','moorland','mountain','mountains','oasis',
+  'observatory','parking','parliament','peninsula','pier','plaza','pond',
+  'portal','preserve','prison','province','pyramid','quarry','quarters',
+  'ravine','reef','refuge','reservoir','ridge','ruins','runway','shanty',
+  'shelter','shrine','site','slope','slum','squad','stadium','staircase',
+  'suburb','suburbs','swamp','terminal','theater','theatre','throne',
+  'tomb','tower','tunnel','underground','village','volcano','warehouse',
+  'waterfall','wilderness','workshop','yard',
+]);
+
+cat('food_and_drink', [
+  'almonds','aloe','apple','apples','asparagus','avocado','bacon','bagel',
+  'banana','bananas','beef','beet','biscuit','blueberry','broccoli',
+  'brownie','burger','burrito','butter','cabbage','cake','cakes','candy',
+  'caramel','cashew','casserole','caviar','cereal','cheddar','cheese',
+  'cherries','cherry','chestnut','chili','chip','chips','chocolate',
+  'cinnamon','clam','cocoa','coconut','cod','cookie','cookies','corn',
+  'crab','cracker','cranberry','cream','crepe','croissant','cucumber',
+  'cupcake','dairy','dumpling','eggnog','eggs','espresso','falafel',
+  'fig','fries','frosting','garlic','ginger','grape','grapes','grill',
+  'guacamole','ham','hamburger','herb','herbs','honey','hotdog','hummus',
+  'icecream','icing','jam','ketchup','lamb','lasagna','lemon','lettuce',
+  'lime','lobster','maple','margarine','mayo','mayonnaise','melon',
+  'menu','milk','milkshake','mint','miso','mozzarella','muffin','mushroom',
+  'mushrooms','mustard','noodle','noodles','nut','nuts','octopus',
+  'olive','olives','onion','onions','oyster','paprika','pasta','pastry',
+  'peanut','peanuts','pear','peas','peach','pepper','peppers','pesto',
+  'pickle','pie','pineapple','pizza','plum','pomegranate','popcorn',
+  'pork','potato','potatoes','pudding','pumpkin','raspberry','ribs',
+  'rice','roast','rolls','salad','salami','salmon','salt','sandwich',
+  'sardine','sauce','sausage','seafood','shrimp','smoothie','soup',
+  'spaghetti','spinach','steak','stew','strawberry','sushi','taco',
+  'tangerine','tea','tomato','tomatoes','tofu','turkey','tuna','vanilla',
+  'vegetable','vegetables','walnut','watermelon','wheat','yogurt','zucchini',
+]);
+
+cat('animals', [
+  'aardvark','albatross','alligator','amphibian','antelope','apes','arachnid',
+  'baboon','badger','bacteria','beetle','bison','boar','buffalo','bulldog',
+  'bumblebee','butterfly','camel','canine','caribou','caterpillar','chameleon',
+  'cheetah','chimp','chimpanzee','cobra','cockroach','condor','coyote','crane',
+  'crawfish','creature','creatures','crow','crustacean','cubs','deer','dinosaur',
+  'dinosaurs','dragonfly','drone','elk','emu','falcon','feline','ferret',
+  'finch','firefly','flamingo','flee','flea','fleas','flock','fowl','gecko',
+  'gerbil','gnu','gorilla','grasshopper','hamster','hare','hawk','hedgehog',
+  'herd','heron','hippopotamus','hornets','hummingbird','hyena','iguana',
+  'impala','insects','jaguar','jellyfish','larvae','leech','lemur','leopard',
+  'locust','lynx','maggot','mallard','mammal','mammals','manatee','mantis',
+  'marmot','marsupial','mink','moose','mosquito','moth','mule','mussel',
+  'narwhal','nightingale','ocelot','octopi','orangutan','orca','ostrich',
+  'otter','parakeet','peacock','pelican','pheasant','piglet','pigeon','poodle',
+  'porcupine','praying','predator','prey','primate','primates','puffer',
+  'python','quail','rabbit','raccoon','ram','raptor','ravens','reptile',
+  'reptiles','rhino','robin','rodent','roosters','salamander','scorpion',
+  'seagull','seahorse','seal','seals','slug','sparrow','squid','stallion',
+  'starfish','stork','swallow','tarantula','termite','tortoise','toucan',
+  'trout','turtle','turtles','vermin','vulture','walrus','wasp','weasel',
+  'wolverine','worm','worms','yak',
+]);
+
+cat('descriptions', [
+  'abnormal','abrupt','absent','absolute','abstract','abundant','acceptable',
+  'accidental','accurate','acute','adequate','adjacent','aggressive','agile',
+  'alike','aloof','alternative','amazing','ambiguous','ambivalent','ample',
+  'ancient','anonymous','apparent','appropriate','approximate','apt','arbitrary',
+  'ardent','arid','arrogant','artificial','astonishing','astronomical','atomic',
+  'atrocious','attractive','authentic','automatic','average','awesome',
+  'awkward','balanced','bare','basic','bizarre','bland','bleak','blunt',
+  'bold','brief','brilliant','brutal','candid','capable','careless','casual',
+  'cautious','circular','classic','clever','coincidental','compact','compatible',
+  'complete','complex','compulsory','concise','confidential','conscious',
+  'consistent','constant','controversial','convenient','corporate','correct',
+  'corrupt','countless','covert','crazy','creative','criminal','crisp',
+  'crucial','cruel','curious','current','customary','dangerous','decisive',
+  'defective','defensive','deliberate','democratic','dense','dependent',
+  'desperate','determined','devout','diligent','diplomatic','discrete',
+  'distant','distinct','dramatic','drastic','dual','dubious','durable',
+  'dynamic','efficient','elaborate','elegant','endless','enormous','entire',
+  'equivalent','exceptional','exhausted','extinct','extreme','faint',
+  'faithful','false','familiar','fanatical','fatal','fertile','fierce',
+  'flexible','flimsy','formal','fragile','frequent','frustrated','fundamental',
+  'genuine','gigantic','gloomy','grand','grateful','grave','gross','guilty',
+  'harsh','hazardous','hollow','humble','identical','illegal','immense',
+  'impossible','independent','infinite','informal','innocent','insufficient',
+  'intense','invisible','irregular','isolated','keen','legitimate','linear',
+  'literal','local','logical','loyal','magnificent','massive','mechanical',
+  'memorable','minimal','moderate','neutral','normal','notable','notorious',
+  'obvious','ordinary','original','outstanding','partial','passive','peculiar',
+  'permanent','personal','physical','positive','potential','precise','productive',
+  'profound','progressive','proper','radical','random','realistic','relative',
+  'relevant','remarkable','rigid','risky','rural','sacred','sensitive','severe',
+  'significant','silent','similar','simple','sincere','social','solid',
+  'sophisticated','spontaneous','stable','strict','subtle','sudden','super',
+  'superior','sustainable','temporary','total','traditional','transparent',
+  'typical','universal','unusual','urgent','valid','various','vast','violent',
+  'virtual','visual','vivid','voluntary','vulnerable','widespread',
+]);
+
+cat('miscellaneous', [
+  'alarm','alarms','alias','ammo','annex','array','artifact','artifacts',
+  'audio','autograph','autopsy','badge','barrels','bonus','broadcast',
+  'brochure','bulletin','bytes','calendar','cameras','cargo','channel',
+  'channels','checklist','code','codes','database','debug','device',
+  'devices','dial','diagram','directory','directory','disk','documents',
+  'domain','download','draft','drone','email','encryption','file','files',
+  'footage','format','format','fossil','fragment','gadget','grid','hack',
+  'hardware','hazard','hub','icon','input','installation','interface',
+  'keyboard','launch','lens','log','manual','matrix','module','monitor',
+  'output','password','portal','protocol','proxy','queue','radar','radio',
+  'receiver','recording','recordings','relay','remote','request','resources',
+  'sample','scan','scanner','sensor','sequence','server','signal','signals',
+  'software','source','storage','stream','terminal','transmit','update',
+  'upload','username','video','videos','virus','website','wireless',
+]);
+
+// ─── ADJETIVOS -al/-ic Y PALABRAS COMUNES AÚN SIN CATEGORÍA ─────────────────
+
+cat('descriptions', [
+  // adjetivos en -al muy frecuentes (demasiado cortos para el sufijo heurístico)
+  'actual','bilateral','central','commercial','conditional','cultural',
+  'digital','doctoral','equal','ethical','extra','fatal','federal','final',
+  'fiscal','formal','frugal','functional','global','gradual','horizontal',
+  'ideal','identical','illegal','immortal','imperial','individual','internal',
+  'legal','liberal','literal','local','loyal','manual','marginal','mental',
+  'modal','moral','mutual','national','natural','naval','neutral','nominal',
+  'normal','oral','orbital','partial','pastoral','personal','pivotal',
+  'plural','political','primal','racial','radical','rational','real',
+  'regional','royal','rural','seasonal','sectoral','sexual','singular',
+  'social','special','spiritual','structural','superficial','temporal',
+  'thermal','topical','total','traditional','tribal','typical','unequal',
+  'unilateral','universal','unusual','verbal','vertical','viral','visual',
+  'vital','vocal','fundamental','essential','classical','botanical',
+  'biblical','fanatical','technical','typical','topical','logical',
+  'physical','surgical','cynical','tactical','optical','ethical','identical',
+  // adjetivos en -ic frecuentes
+  'academic','acidic','acoustic','aerobic','aesthetic','algebraic',
+  'allergic','analytic','anatomic','angelic','aquatic','archaic',
+  'arctic','aristocratic','arithmetic','arthritic','artistic',
+  'asthmatic','athletic','atomic','authentic','automatic',
+  'ballistic','basic','biometric','botanic','bureaucratic','catastrophic',
+  'caustic','ceramic','chaotic','charismatic','climatic','comic','cosmic',
+  'cubic','democratic','demographic','diabetic','diagnostic','diplomatic',
+  'dynamic','eccentric','economic','electric','electronic','elliptic',
+  'endemic','energetic','epic','erratic','exotic','fanatic',
+  'forensic','frantic','futuristic','generic','genetic','geographic',
+  'geometric','gigantic','graphic','harmonic','heroic','historic',
+  'holistic','hydraulic','iconic','idyllic','linguistic','magnetic',
+  'mechanic','melodic','metabolic','microscopic','monastic','mystic',
+  'mythic','neurotic','nomadic','oceanic','olympic','operatic','organic',
+  'panoramic','pandemic','parasitic','patriotic','philanthropic','phonetic',
+  'photographic','poetic','pragmatic','problematic','prophetic','psychiatric',
+  'psychic','robotic','romantic','sarcastic','scholastic','seismic',
+  'semantic','skeptic','socratic','static','strategic','synthetic',
+  'systematic','thematic','therapeutic','toxic','traumatic','volcanic',
+  'volcanic',
+  // high-freq adjectives not caught above
+  'absolute','abstract','actual','aggressive','alien','almighty','alpha',
+  'ample','angry','anxious','ashamed','asleep','awake','aware',
+  'bare','blank','blessed','blind','brave','bright','broad','calm',
+  'cheap','cheerful','chief','clean','clear','clever','cold','cross',
+  'cute','deaf','dear','deep','dense','different','dirty','distant',
+  'diverse','dull','early','easy','effective','efficient','empty','evil',
+  'exact','exciting','expensive','extreme','fair','famous','fancy','far',
+  'fast','fat','flat','fresh','full','funny','gentle','glad','good',
+  'great','guilty','handsome','happy','hard','heavy','helpful','honest',
+  'huge','hungry','immune','important','independent','inner','innocent',
+  'junior','just','kind','large','late','lazy','lean','light','likely',
+  'lone','long','loud','lovely','lower','lucky','mad','mere','mild',
+  'minor','modern','moist','narrow','nice','noble','noisy','nude',
+  'odd','outer','partial','passive','patient','peaceful','plain','poor',
+  'popular','possible','pretty','proud','pure','quick','rare','rapid',
+  'raw','ready','rich','rough','round','rude','sacred','safe','scared',
+  'sharp','short','shy','slim','slow','small','smart','smooth','soft',
+  'solid','sorry','stable','steady','steep','strange','strong','sure',
+  'sweet','swift','thick','thin','tight','tiny','tired','tough','true',
+  'ugly','unclear','unfit','unhappy','unique','unkind','unlikely','upset',
+  'useful','vague','warm','weak','weird','wide','wild','wise','worth',
+  'wrong','young',
+]);
+
+cat('miscellaneous', [
+  'abyss','aftermath','agony','alias','amnesia','amulet','anarchy',
+  'apocalypse','apparition','artifact','assassin','assassins','asteroid',
+  'attaboy','avatar','awhile','babes','backseat','backstage','badass',
+  'baked','baking','balloon','balloons','bamboo','bandit','bandits',
+  'banquet','barefoot','barren','beacon','beads','beaten','beforehand',
+  'beggar','beggars','behold','belly','bingo','bikini','billionaire',
+  'bizarre','blackout','blizzard','blockbuster','blossom','bonanza',
+  'boomerang','bounty','brainwash','breakthrough','bromance','bystander',
+  'capsule','catastrophe','chaos','clueless','comet','conspiracy',
+  'countdown','crisis','crossfire','deja','delusion','distress',
+  'duplicity','encounter','enigma','epidemic','eruption','exodus',
+  'extravaganza','fiasco','flaw','flaws','flashback','frenzy','glitch',
+  'grudge','havoc','heist','hypnosis','illusion','impostor','incognito',
+  'inferno','karma','kidnap','loophole','marathon','matrix','meltdown',
+  'menace','mercy','miracle','misfit','mystery','nightmare','nemesis',
+  'ordeal','paranoia','paradox','phenomenon','phobia','prank','predicament',
+  'rampage','rebellion','resurrection','revelation','revenge','scandal',
+  'spectacle','standoff','stalemate','surge','suspense','takeover',
+  'tension','thriller','tornado','trauma','underdog','uprising','vortex',
+  'whirlwind','witchcraft',
+]);
+
+cat('body', [
+  'agony','agonize','adrenaline','adrenalin','alcohol','alcoholic',
+  'alcoholism','alzheimer','amphetamine','anesthesia','angina','anguish',
+  'anorexia','antibiotic','antibiotics','antiviral','appendix','aspirin',
+  'asthmatics','bellyache','biomedical','biopsy','birthmark','bloodshot',
+  'bodybuilder','botulism','breathe','breathing','bruised','calories',
+  'cardiogram','cardiovascular','cataracts','chicken pox','cholesterol',
+  'cloning','cognitive','convulsion','convulsions','corpulent','cortisol',
+  'cosmetic','cramps','dehydrated','dehydration','detox','diabetic',
+  'diarrhea','digestive','disability','dislocate','dissociation',
+  'dizziness','eczema','endocrine','enzyme','enzymes','epidermis',
+  'epilepsy','epileptic','erection','fatigue','feces','fertility',
+  'fetal','fibromyalgia','flesh','flu','fluoride','follicle',
+  'gastrointestinal','glaucoma','glucose','gout','hemorrhoids','hernia',
+  'heroin','hormonal','hormones','hyperthyroid','hypothyroid','immunize',
+  'impotence','inflammation','inhaler','intestinal','jaundice','lesion',
+  'leukemia','libido','ligaments','liposuction','lupus','lymphoma',
+  'malnourished','mammography','medication','medications','meningitis',
+  'menopause','menstruation','mental','metabolic','metabolism',
+  'muscular','myocardial','neurological','neurosurgery','nutrition',
+  'nutritional','obesity','optic','ovulation','pacemaker','pathology',
+  'pharmaceutical','pharmacology','pneumatic','potassium','psychiatric',
+  'pubescent','quarantine','radiology','rehabilitation','remission',
+  'respiration','respiratory','rheumatism','salmonella','schizophrenia',
+  'sedation','serotonin','sexually','skeletal','spinal','sterile',
+  'sterilization','steroid','steroids','stillbirth','stomach','stool',
+  'surgical','swollen','testicular','testosterone','therapy','thrombosis',
+  'typhoid','typhus','uterine','vaccination','vascular','venous',
+  'vertigo','vital','vitamin','vitality','vitiligo','whooping',
+]);
+
+cat('places', [
+  'aisle','alcove','alley','alleyway','altar','amphitheater','aquarium',
+  'backstage','backyard','balcony','bay','bedrooms','boulevard','bunker',
+  'bureau','canyon','capitol','cavern','citadel','civic','coastal',
+  'colonial','colosseum','commercial','commune','concentration','convent',
+  'corridor','countryside','courthouse','cove','cultural','destination',
+  'dock','downtown','dungeon','embassy','enclave','estate','factory',
+  'farmland','fortress','gallery','gated','ghetto','gorge','habitat',
+  'harbor','highland','hilltop','historical','hub','hut','landmark',
+  'marina','meadow','memorial','metropolis','metropolitan','monument',
+  'municipal','municipality','museum','neighborhood','oasis','outback',
+  'outskirts','parish','plaza','precinct','provincial','quarters',
+  'ravine','reef','reservation','residential','resort','rooftop','ruins',
+  'sanctuary','seaport','settlement','shrine','skyline','slum','staircase',
+  'suburb','suburbs','swamp','territory','thoroughfare','tundra',
+  'urban','wasteland','wetland','wilderness','woodland',
+]);
+
+cat('animals', [
+  'alpha','amoeba','amphibian','angler','antler','antlers','aquatic',
+  'barnacle','beast','beasts','breeding','canine','carnivore','claw',
+  'claws','colony','cub','cubs','den','ecosystem','fang','fangs',
+  'feathers','feline','flock','foal','foraging','habitat','herd',
+  'hibernate','hibernation','horn','horns','hound','hounds','instinct',
+  'invertebrate','larva','larvae','mammal','mammals','mane','marsh',
+  'migrate','migration','migratory','molt','nesting','nocturnal',
+  'omnivore','pack','parasite','plumage','pod','predator','predators',
+  'prey','primate','primates','pupil','reptile','reptiles','rodent',
+  'rodents','scale','scales','scavenger','snout','species','specimen',
+  'spine','stinger','tentacle','tentacles','venom','vertebrate','webbed',
+  'wildlife','wings',
+]);
+
+cat('geography', [
+  'alpine','altitude','arid','arctic','basin','bay','border','borders',
+  'canyon','cape','capital','cardinal','cartography','celsius','climate',
+  'coastal','continental','coordinate','coordinates','current','currents',
+  'delta','desert','eastern','elevation','equator','estuary','fahrenheit',
+  'fjord','frontiers','frontier','geography','geopolitical','glacier',
+  'global','gulf','hemisphere','highland','humid','humidity','inland',
+  'island','latitude','longitude','lowland','maritime','meridian',
+  'monsoon','mountainous','northern','plateau','polar','populated',
+  'precipitation','region','regional','rainfall','ridge','savanna',
+  'seismic','southern','steppe','subtropical','temperate','terrain',
+  'territory','topography','tropical','tsunami','tundra','urban',
+  'vegetation','volcanic','watershed','western','wetland',
+]);
+
+// ─── NUEVAS CATEGORÍAS ────────────────────────────────────────────────────────
+
+// RELIGION: fe, espiritualidad, religión
+cat('religion', [
+  'god','prayer','angel','holy','priest','bible','soul','faith','sin',
+  'heaven','hell','spiritual','divine','worship','sacred','ritual',
+  'baptism','saint','monk','nun','pope','bishop','church','temple',
+  'mosque','synagogue','cathedral','chapel','monastery','convent',
+  'crusade','heresy','theology','supernatural','blessing','salvation',
+  'redemption','resurrection','scripture','gospel','sermon','psalm',
+  'hymn','deity','miracle','confession','pilgrimage','shrine','pagan',
+  'atheist','agnostic','theist','mystical','mythological','baptize',
+  'ordain','preach','pray','meditate','convert','evangelize','blessed',
+  'devout','pious','secular','religious','angelic','cherub','seraph',
+  'demon','satan','devil','paradise','purgatory','karma','nirvana',
+  'dharma','zen','buddha','buddhism','hinduism','islam','christianity',
+  'judaism','sikhism','atheism','paganism','shamanism','animism',
+  'totem','ceremony','sacrifice','offering','altar','communion',
+  'eucharist','mass','congregation','parish','diocese','clergy',
+  'laity','reformation','inquisition','crusader','martyr','apostle',
+  'disciple','prophet','messiah','saviour','trinity','creed','doctrine',
+  'dogma','schism','sect','cult','denomination','evangelical','orthodox',
+  'protestant','catholic','muslim','jewish','hindu','buddhist',
+  'sikh','shaman','druid','wicca','pagan','monk','friar','abbot',
+  'archbishop','cardinal','deacon','vicar','rector','parson','reverend',
+  'rabbi','imam','mullah','lama','guru','swami','yogi','meditation',
+  'mindfulness','enlightenment','transcendence','mysticism','occult',
+  'supernatural','paranormal','ghost','spirit','soul','afterlife',
+  'reincarnation','immortality','eternity','infinity','creation',
+  'genesis','exodus','revelation','judgement','damnation','absolution',
+  'penance','indulgence','relic','icon','idol','incense','candle',
+  'rosary','crucifix','cross','star of david','crescent','om',
+  'yin yang','mandala','mantra','chakra','aura','transcendental',
+  'metaphysical','spiritual','celestial','ethereal','divine',
+]);
+
+// SCIENCE: ciencia, física, química, biología
+cat('science', [
+  'atom','molecule','electron','proton','neutron','nucleus','ion',
+  'isotope','compound','element','periodic','chemistry','physics',
+  'biology','astronomy','geology','botany','zoology','ecology',
+  'genetics','evolution','photosynthesis','respiration','metabolism',
+  'enzyme','catalyst','reaction','hypothesis','observation','microscope',
+  'telescope','thermometer','barometer','compass','magnet','magnetic',
+  'electricity','circuit','voltage','ampere','watt','joule','newton',
+  'gravity','acceleration','velocity','momentum','force','energy',
+  'matter','mass','density','pressure','wave','frequency','amplitude',
+  'radiation','radioactive','nuclear','fusion','fission',
+  'thermodynamics','quantum','relativity','algorithm','formula',
+  'equation','variable','constant','oxidation','reduction','acid',
+  'base','alkali','salt','solvent','solution','covalent','ionic',
+  'molecular','atomic','subatomic','quark','lepton','boson','photon',
+  'electromagnetic','gravitational','kinetic','potential','thermal',
+  'chemical','solar','geothermal','renewable','fossil','carbon',
+  'hydrogen','oxygen','nitrogen','helium','lithium','sodium','calcium',
+  'iron','copper','zinc','silver','gold','lead','mercury','uranium',
+  'laboratory','experiment','hypothesis','theory','law','model',
+  'observation','measurement','data','analysis','conclusion',
+  'peer review','publication','research','scientist','researcher',
+  'physicist','chemist','biologist','astronomer','geologist',
+  'botanist','zoologist','ecologist','geneticist','neuroscientist',
+  'mathematician','statistician','computer scientist','engineer',
+  'nanotechnology','biotechnology','robotics','artificial intelligence',
+  'machine learning','neural network','algorithm','programming',
+  'software','hardware','processor','memory','storage','bandwidth',
+  'optics','acoustics','mechanics','dynamics','kinematics','statics',
+  'electromagnetism','thermodynamics','quantum mechanics','relativity',
+  'cosmology','astrophysics','geophysics','biophysics','biochemistry',
+  'molecular biology','cell biology','microbiology','immunology',
+  'neuroscience','psychology','sociology','anthropology','archaeology',
+  'meteorology','climatology','oceanography','hydrology','seismology',
+  'volcanology','palaeontology','evolutionary biology','taxonomy',
+  'classification','species','genus','family','order','class','phylum',
+  'kingdom','domain','prokaryote','eukaryote','organelle','chromosome',
+  'gene','allele','mutation','selection','adaptation','ecosystem',
+  'habitat','niche','population','community','biome','biodiversity',
+  'conservation','extinction','fossil','sediment','stratum','core',
+  'mantle','crust','tectonic','plate','fault','earthquake','volcano',
+  'erosion','weathering','deposition','sedimentation','metamorphism',
+  'igneous','sedimentary','metamorphic','mineral','crystal','gem',
+  'ore','alloy','polymer','ceramic','composite','semiconductor',
+  'conductor','insulator','superconductor','laser','fiber optic',
+  'antenna','satellite','rocket','orbit','gravity','vacuum','plasma',
+]);
+
+// LAW_AND_CRIME: derecho, justicia, crimen
+cat('law_and_crime', [
+  'court','judge','jury','trial','verdict','sentence','evidence',
+  'witness','defendant','plaintiff','prosecutor','defense','attorney',
+  'barrister','solicitor','legal','illegal','crime','criminal',
+  'punishment','prison','fine','bail','parole','probation','appeal',
+  'hearing','case','lawsuit','settlement','contract','agreement',
+  'clause','liability','rights','obligation','regulation','legislation',
+  'statute','constitution','amendment','referendum','jurisdiction',
+  'sovereignty','treaty','extradition','indictment','acquittal',
+  'conviction','innocence','guilt','alibi','testimony','subpoena',
+  'warrant','arrest','charge','restraining','theft','robbery',
+  'burglary','fraud','forgery','bribery','blackmail','assault',
+  'murder','manslaughter','arson','vandalism','trespassing',
+  'kidnapping','trafficking','smuggling','corruption','embezzlement',
+  'perjury','contempt','libel','slander','defamation','trademark',
+  'copyright','patent','intellectual property','federal','constitutional',
+  'administrative','international','criminal law','civil law',
+  'common law','statute law','case law','precedent','ruling','decree',
+  'injunction','subpoena','affidavit','deposition','pleading',
+  'indictment','arraignment','plea','sentencing','imprisonment',
+  'probation','parole','appeal','acquittal','conviction','exoneration',
+  'pardon','clemency','amnesty','extradition','asylum','immunity',
+  'privilege','confidentiality','attorney-client','habeas corpus',
+  'due process','equal protection','civil rights','human rights',
+  'discrimination','harassment','defamation','negligence','liability',
+  'damages','compensation','restitution','injunction','remedy',
+  'enforcement','compliance','violation','breach','infringement',
+  'penalty','sanction','fine','imprisonment','community service',
+  'suspended sentence','probation','parole','supervised release',
+  'detective','police','officer','constable','sheriff','marshal',
+  'agent','investigator','forensics','autopsy','fingerprint','dna',
+  'evidence','alibi','motive','opportunity','means','suspect',
+  'accused','charged','convicted','acquitted','sentenced','released',
+  'victim','perpetrator','accomplice','accessory','conspiracy',
+  'premeditated','manslaughter','homicide','genocide','war crime',
+  'terrorism','treason','espionage','sabotage','sedition',
+  'insurrection','rebellion','riot','looting','piracy','hijacking',
+  'extortion','ransom','stalking','harassment','abuse','exploitation',
+]);
+
+// MILITARY: ejército, guerra, defensa
+cat('military', [
+  'army','navy','marines','soldier','sailor','pilot','officer',
+  'general','colonel','major','captain','lieutenant','sergeant',
+  'corporal','private','recruit','veteran','combat','battle','war',
+  'conflict','siege','attack','defense','retreat','surrender',
+  'ceasefire','truce','weapon','gun','rifle','pistol','ammunition',
+  'bullet','bomb','missile','grenade','tank','aircraft','ship',
+  'submarine','helicopter','drone','radar','intelligence','espionage',
+  'sabotage','propaganda','strategy','maneuver','reinforcement',
+  'barracks','bunker','trench','fort','garrison','patrol','ambush',
+  'invasion','occupation','liberation','resistance','guerrilla',
+  'hostage','medal','rank','salute','drill','uniform','camouflage',
+  'artillery','infantry','cavalry','battalion','regiment','division',
+  'brigade','squadron','fleet','armada','warship','destroyer',
+  'cruiser','carrier','fighter','bomber','paratroop','commando',
+  'special forces','mercenary','militia','rebel','insurgent',
+  'blockade','embargo','armistice','peacekeeping','deployment',
+  'mission','operation','raid','ambush','offensive','defensive',
+  'strategic','tactical','logistic','supply','command','headquarters',
+  'intelligence','reconnaissance','surveillance','counterintelligence',
+  'encryption','decryption','cipher','code','signal','communication',
+  'weapon','arms','armament','arsenal','stockpile','nuclear','chemical',
+  'biological','conventional','ballistic','cruise','intercontinental',
+  'detonator','explosive','landmine','booby trap','improvised',
+  'sniper','marksman','bombardier','gunner','tanker','submariner',
+  'paratrooper','ranger','special forces','navy seal','green beret',
+  'marine','airborne','cavalry','armored','mechanized','motorized',
+  'artillery','mortar','howitzer','cannon','rocket launcher',
+  'anti-aircraft','anti-tank','surface-to-air','air-to-ground',
+  'air superiority','close air support','strategic bombing',
+  'naval blockade','amphibious','landing','beachhead','bridgehead',
+  'offensive','defensive','retreat','withdrawal','encirclement',
+  'breakthrough','flanking','pincer','attrition','scorched earth',
+]);
+
+// ARTS: arte, música, literatura, teatro
+cat('arts', [
+  'painting','sculpture','sketch','portrait','landscape','abstract',
+  'gallery','exhibition','canvas','palette','brush','chisel','marble',
+  'clay','pottery','ceramics','drawing','watercolor','fresco','mosaic',
+  'tapestry','calligraphy','opera','ballet','choreography','screenplay',
+  'playwright','novelist','poet','prose','fiction','biography',
+  'autobiography','essay','genre','classic','modernist','baroque',
+  'impressionist','cubist','surrealist','melody','harmony','chord',
+  'scale','note','pitch','key','octave','symphony','concerto','sonata',
+  'quartet','aria','overture','conductor','ensemble','acoustic',
+  'strings','woodwind','brass','composition','improvisation','lyrics',
+  'refrain','chorus','verse','stanza','rhyme','meter','beat','jazz',
+  'blues','rock','pop','classical','folk','country','reggae','hip-hop',
+  'electronic','soundtrack','remix','debut','anthology','retrospective',
+  'critique','premiere','audition','understudy','curtain call','encore',
+  'standing ovation','mural','graffiti','street art','installation',
+  'performance art','conceptual','multimedia','digital art','animation',
+  'illustration','graphic design','typography','architecture','aesthetic',
+  'artistic','creative','expressive','abstract','figurative','realistic',
+  'symbolic','allegorical','narrative','lyrical','dramatic','comedic',
+  'tragic','satirical','ironic','metaphorical','imaginary','fictional',
+  'poetic','musical','theatrical','cinematic','photographic',
+  'sculptural','architectural','ornamental','decorative','functional',
+  'minimalist','maximalist','avant-garde','experimental','traditional',
+  'contemporary','modern','postmodern','renaissance','gothic','romantic',
+  'realist','naturalist','symbolist','expressionist','futurist',
+  'dadaist','constructivist','abstract','expressionism','pop art',
+  'conceptual art','land art','body art','video art','net art',
+  'manuscript','scroll','codex','illuminated','typeface','font',
+  'serif','sans-serif','italic','bold','headline','caption','layout',
+  'composition','perspective','proportion','balance','symmetry',
+  'contrast','texture','form','shape','line','color','light','shadow',
+  'depth','space','movement','rhythm','unity','variety','emphasis',
+  'harmony','gradient','transparency','opacity','saturation','hue',
+  'tint','shade','tone','monochrome','polychrome','complementary',
+  'analogous','triadic','split-complementary','warm','cool','neutral',
+]);
+
+// GEOGRAPHY: geografía, países, territorios
+cat('geography', [
+  'continent','hemisphere','equator','latitude','longitude','tropics',
+  'arctic','tundra','savanna','prairie','steppe','taiga','boreal',
+  'temperate','subtropical','tropical','arid','humid','oceanic',
+  'altitude','elevation','slope','ridge','peak','summit','cliff',
+  'gorge','canyon','ravine','plain','plateau','mesa','basin',
+  'depression','delta','estuary','fjord','atoll','lagoon','reef',
+  'strait','channel','peninsula','cape','isthmus','archipelago',
+  'glacier','iceberg','permafrost','alluvial','sedimentary',
+  'tectonic','seismic','topography','cartography','geopolitics',
+  'sovereign','independent','colony','municipality','county',
+  'district','township','ward','density','urban','rural','suburban',
+  'metropolitan','cosmopolitan','indigenous','diaspora','nomadic',
+  'pastoral','agricultural','industrial','developing','developed',
+  'emerging','third world','first world','global north','global south',
+  'africa','europe','asia','americas','oceania','antarctica',
+  'atlantic','pacific','indian','arctic','mediterranean',
+  'sahara','amazon','himalayas','andes','alps','rockies','pyrenees',
+  'nile','amazon river','ganges','yangtze','mississippi','rhine',
+  'thames','danube','euphrates','tigris','congo','niger','zambezi',
+  'amazon','orinoco','paraguay','parana','colorado','columbia',
+  'latitude','longitude','meridian','parallel','tropic','cancer',
+  'capricorn','arctic circle','antarctic circle','international date line',
+  'prime meridian','greenwich','compass','direction','orientation',
+  'north','south','east','west','northeast','northwest','southeast',
+  'southwest','cardinal','intercardinal','bearing','heading',
+  'coordinates','grid','map','atlas','globe','projection','scale',
+  'legend','contour','elevation','bathymetry','topography','relief',
+  'plateau','mesa','butte','escarpment','scarp','terrace','bench',
+  'alluvial fan','delta','floodplain','levee','oxbow','meander',
+  'tributary','watershed','catchment','basin','drainage','divide',
+  'groundwater','aquifer','spring','geyser','hot spring','geyser',
+  'stalactite','stalagmite','karst','sinkhole','cave','cavern',
+  'coast','shoreline','beach','dune','cliff','headland','promontory',
+  'bay','cove','inlet','estuary','fjord','sound','strait','channel',
+  'lagoon','atoll','reef','shoal','sandbar','barrier island',
+  'peninsula','cape','promontory','headland','isthmus','land bridge',
+  'border','frontier','boundary','demarcation','partition','division',
+]);
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 // ACTIONS: verbos generales y phrasal verbs
 cat('actions', [
   'abandon','absorb','accept','accomplish','accord','accumulate','accuse',
@@ -2005,61 +3125,97 @@ function main() {
   const stats = {};
   for (const lvl of ['A1','A2','B1','B2','C1','C2']) stats[lvl] = { total: 0, categorized: 0 };
 
-  // ── Stemmer básico: busca la raíz en UNIVERSAL ──────────────────────────────
+  // ── Stemmer mejorado: busca la raíz en UNIVERSAL ────────────────────────────
   function stemLookup(w) {
-    // -ing → base / base+e
+    const check = (...candidates) => {
+      for (const c of candidates) if (UNIVERSAL[c]) return UNIVERSAL[c];
+      return null;
+    };
+
+    // consonante doble: running→run, stopped→stop, bigger→big
+    const doubleConsonant = (base) => {
+      if (base.length > 3) {
+        const last = base[base.length - 1];
+        if (last === base[base.length - 2] && !/[aeiou]/.test(last)) {
+          return base.slice(0, -1);
+        }
+      }
+      return null;
+    };
+
+    // -ing
     if (w.endsWith('ing') && w.length > 6) {
-      const stem = w.slice(0, -3);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
-      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+      const s = w.slice(0, -3);
+      const dc = doubleConsonant(s);
+      const r = check(s, s + 'e', dc);
+      if (r) return r;
     }
-    // -ed → base / base+e
+    // -ed
     if (w.endsWith('ed') && w.length > 5) {
-      const stem = w.slice(0, -2);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
-      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
-      const stem2 = w.slice(0, -1); // walked → walk (drop d only)
-      if (UNIVERSAL[stem2]) return UNIVERSAL[stem2];
+      const s = w.slice(0, -2);
+      const s1 = w.slice(0, -1);
+      const dc = doubleConsonant(s);
+      const r = check(s, s + 'e', s1, dc);
+      if (r) return r;
     }
-    // -s / -es / -ies (plurales o 3ª persona)
+    // -ied → -y
+    if (w.endsWith('ied') && w.length > 5) {
+      const r = check(w.slice(0, -3) + 'y');
+      if (r) return r;
+    }
+    // -ies → -y
     if (w.endsWith('ies') && w.length > 5) {
-      const stem = w.slice(0, -3) + 'y';
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+      const r = check(w.slice(0, -3) + 'y');
+      if (r) return r;
     }
+    // -es
     if (w.endsWith('es') && w.length > 4) {
-      const stem = w.slice(0, -2);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
-      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+      const s = w.slice(0, -2);
+      const r = check(s, s + 'e', w.slice(0, -1));
+      if (r) return r;
     }
-    if (w.endsWith('s') && w.length > 4) {
-      const stem = w.slice(0, -1);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    // -s
+    if (w.endsWith('s') && w.length > 4 && !w.endsWith('ss')) {
+      const r = check(w.slice(0, -1));
+      if (r) return r;
     }
-    // -er / -est (comparativo/superlativo o agente)
+    // -er / -est
     if (w.endsWith('est') && w.length > 6) {
-      const stem = w.slice(0, -3);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
-      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+      const s = w.slice(0, -3);
+      const dc = doubleConsonant(s);
+      const r = check(s, s + 'e', dc);
+      if (r) return r;
     }
     if (w.endsWith('er') && w.length > 5) {
-      const stem = w.slice(0, -2);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
-      if (UNIVERSAL[stem + 'e']) return UNIVERSAL[stem + 'e'];
+      const s = w.slice(0, -2);
+      const dc = doubleConsonant(s);
+      const r = check(s, s + 'e', dc);
+      if (r) return r;
     }
-    // -ly (adverbio → busca adjetivo base)
+    // -ly → adjetivo base
     if (w.endsWith('ly') && w.length > 5) {
-      const stem = w.slice(0, -2);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+      const s = w.slice(0, -2);
+      const r = check(s, s.replace(/il$/, 'le'));
+      if (r) return r;
     }
-    // -ness → adjetivo base
-    if (w.endsWith('ness') && w.length > 7) {
-      const stem = w.slice(0, -4);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    // -ness / -ment / -tion / -sion / -ance / -ence / -ity / -ism → raíz
+    for (const [suf, repl] of [
+      ['ness',4],['ment',4],['tion',4],['sion',4],
+      ['ance',4],['ence',4],['ity',3],['ism',3],
+      ['ful',3],['less',4],['able',4],['ible',4],
+    ]) {
+      if (w.endsWith(suf) && w.length > suf.length + 3) {
+        const s = w.slice(0, -suf.length);
+        const r = check(s, s + 'e', s + 'y');
+        if (r) return r;
+      }
     }
-    // -ment / -tion / -sion → verbo base
-    if (w.endsWith('ment') && w.length > 7) {
-      const stem = w.slice(0, -4);
-      if (UNIVERSAL[stem]) return UNIVERSAL[stem];
+    // -ist / -ian / -er / -or (agentes)
+    for (const suf of ['ist','ian']) {
+      if (w.endsWith(suf) && w.length > suf.length + 3) {
+        const r = check(w.slice(0, -suf.length));
+        if (r) return r;
+      }
     }
     return null;
   }
@@ -2068,12 +3224,13 @@ function main() {
   function suffixCategory(w) {
     // Adverbios → grammar
     if (w.length > 5 && w.endsWith('ly')) return 'grammar';
-    // Adjetivos en -ful, -less, -ous, -ive, -able, -ible, -ish, -ic, -al → descriptions
+    // Adjetivos en -ful, -less, -ous, -ive, -able, -ible, -ish, -al, -ic → descriptions
     if (w.length > 6 && (w.endsWith('ful') || w.endsWith('less') || w.endsWith('ous'))) return 'descriptions';
     if (w.length > 6 && (w.endsWith('able') || w.endsWith('ible'))) return 'descriptions';
     if (w.length > 6 && (w.endsWith('ive') || w.endsWith('ish'))) return 'descriptions';
     if (w.length > 6 && (w.endsWith('ical') || w.endsWith('ical'))) return 'descriptions';
-    if (w.length > 6 && w.endsWith('tic') && !w.endsWith('astic')) return 'descriptions';
+    if (w.length > 6 && w.endsWith('ic') && !w.endsWith('eric') && !w.endsWith('edric')) return 'descriptions';
+    if (w.length >= 5 && w.endsWith('al') && !/^[bcdfghjklmnpqrstvwxyz]{3,}al$/.test(w)) return 'descriptions';
     // Sustantivos abstractos → descriptions
     if (w.length > 7 && (w.endsWith('ness') || w.endsWith('ment'))) return 'descriptions';
     if (w.length > 7 && (w.endsWith('tion') || w.endsWith('sion'))) return 'descriptions';
@@ -2081,6 +3238,7 @@ function main() {
     if (w.length > 6 && (w.endsWith('ity') || w.endsWith('ety'))) return 'descriptions';
     if (w.length > 6 && (w.endsWith('ship') || w.endsWith('hood') || w.endsWith('dom'))) return 'descriptions';
     if (w.length > 6 && w.endsWith('ism')) return 'descriptions';
+    if (w.length > 6 && (w.endsWith('ery') || w.endsWith('ary') || w.endsWith('ory'))) return 'descriptions';
     // Agentes (persona que hace algo) → work
     if (w.length > 5 && (w.endsWith('ist') || w.endsWith('ian'))) return 'work';
     if (w.length > 5 && w.endsWith('eer')) return 'work';
@@ -2089,8 +3247,8 @@ function main() {
     if (w.length > 5 && w.endsWith('ing') && !w.endsWith('ring') && !w.endsWith('king')) return 'actions';
     if (w.length > 5 && w.endsWith('ize') || w.length > 5 && w.endsWith('ise')) return 'actions';
     if (w.length > 5 && (w.endsWith('ify') || w.endsWith('ate'))) return 'actions';
-    // Plurales y pasados (terminan en -s, -ed) → misma lógica que la raíz
-    // (demasiado ambiguo — se deja sin categorizar)
+    // Participios y pasados regulares → actions (threshold alto para evitar nombres)
+    if (w.length > 7 && w.endsWith('ed') && /[^aeiou]ed$/.test(w)) return 'actions';
     return null;
   }
 
