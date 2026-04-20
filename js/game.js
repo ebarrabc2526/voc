@@ -12,7 +12,7 @@ const CATEGORY_NAMES = {
   family_and_friends: 'Familia y amigos',
   feelings:           'Sentimientos',
   food_and_drink:     'Comida y bebida',
-  general:            'General',
+  general:            'Vocabulario general',
   grammar:            'Gramática',
   miscellaneous:      'Miscelánea',
   numbers_and_time:   'Números y tiempo',
@@ -56,9 +56,7 @@ function getWordsForLevelAndCategory(level, category) {
 
 function getCategoriesForLevel(level) {
   const words = getWordsForLevel(level);
-  const cats = [...new Set(words.map(w => w.category))]
-    .filter(c => c !== 'general')   // hidden from selector; always included in pool
-    .sort();
+  const cats = [...new Set(words.map(w => w.category))].sort();
   return ['all', ...cats];
 }
 
