@@ -58,17 +58,32 @@ app.post('/api/auth/google', async (req, res) => {
 });
 
 // ─── Words ────────────────────────────────────────────────────────────────────
+const LEVEL_ORDER = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
+
+function deduplicateAll(rows) {
+  const best = new Map();
+  for (const row of rows) {
+    const existing = best.get(row.word);
+    if (!existing || LEVEL_ORDER[row.level] < LEVEL_ORDER[existing.level]) {
+      best.set(row.word, row);
+    }
+  }
+  return [...best.values()].map(({ level, ...rest }) => rest);
+}
+
 app.get('/api/words', (req, res) => {
   const { level, category } = req.query;
   if (!level) return res.status(400).json({ error: 'level requerido' });
 
-  const cols = 'word, translation, category, uk_ipa, us_ipa';
+  const cols = 'word, translation, category, uk_ipa, us_ipa, level';
   let rows;
   if (level === 'ALL') {
+    const all = db.prepare(`SELECT ${cols} FROM words`).all();
+    const deduped = deduplicateAll(all);
     if (!category || category === 'all') {
-      rows = db.prepare(`SELECT ${cols} FROM words`).all();
+      rows = deduped;
     } else {
-      rows = db.prepare(`SELECT ${cols} FROM words WHERE category = ?`).all(category);
+      rows = deduped.filter(w => w.category === category || w.category === 'general');
     }
   } else if (!category || category === 'all') {
     rows = db.prepare(`SELECT ${cols} FROM words WHERE level = ?`).all(level);
@@ -89,7 +104,7 @@ app.get('/api/levels', (_req, res) => {
   const rows = db.prepare('SELECT level, COUNT(*) as count FROM words GROUP BY level').all();
   const counts = {};
   for (const r of rows) counts[r.level] = r.count;
-  counts['ALL'] = rows.reduce((s, r) => s + r.count, 0);
+  counts['ALL'] = db.prepare('SELECT COUNT(DISTINCT word) as c FROM words').get().c;
   res.json(counts);
 });
 
