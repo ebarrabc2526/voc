@@ -14,7 +14,6 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.90.0",
     "better-sqlite3": "^12.9.0",
     "compression": "^1.8.1",
     "express": "^5.2.1",
