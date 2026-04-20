@@ -50,12 +50,15 @@ function getWordsForLevel(level) {
 function getWordsForLevelAndCategory(level, category) {
   const words = getWordsForLevel(level);
   if (category === 'all') return words;
-  return words.filter(w => w.category === category);
+  // Always include 'general' words so ALL vocabulary is reachable
+  return words.filter(w => w.category === category || w.category === 'general');
 }
 
 function getCategoriesForLevel(level) {
   const words = getWordsForLevel(level);
-  const cats = [...new Set(words.map(w => w.category))].sort();
+  const cats = [...new Set(words.map(w => w.category))]
+    .filter(c => c !== 'general')   // hidden from selector; always included in pool
+    .sort();
   return ['all', ...cats];
 }
 
@@ -316,7 +319,10 @@ function populateCategories() {
   const container = document.getElementById('cat-container');
   container.innerHTML = '';
   cats.forEach(cat => {
-    const n = cat === 'all' ? words.length : words.filter(w => w.category === cat).length;
+    const generalCount = words.filter(w => w.category === 'general').length;
+    const n = cat === 'all'
+      ? words.length
+      : words.filter(w => w.category === cat).length + generalCount;
     const btn = document.createElement('button');
     btn.className = 'cat-btn' + (cat === State.category ? ' active' : '');
     btn.dataset.cat = cat;
@@ -419,7 +425,7 @@ function loadQuestion() {
 }
 
 function generateOptions(word) {
-  const needSameCat = State.category !== 'all' || word.category === 'actions';
+  const needSameCat = word.category === 'actions';
   const allWords = getWordsForLevel(State.level).filter(w => w.word !== word.word);
   const pool = needSameCat ? allWords.filter(w => w.category === word.category) : allWords;
   const distractors = shuffleArray(pool).slice(0, 3);
