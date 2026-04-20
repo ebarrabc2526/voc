@@ -442,19 +442,18 @@ function generateOptions(word) {
   const wordIsPN = isProperNoun(word);
   const compatible = w => wordIsPN || !isProperNoun(w);
 
-  const needSameCat = word.category === 'actions';
   const allWords = getWordsForLevel(State.level)
     .filter(w => w.word !== word.word && compatible(w));
-  const pool = needSameCat ? allWords.filter(w => w.category === word.category) : allWords;
-  const distractors = shuffleArray(pool).slice(0, 3);
+  const sameCat = allWords.filter(w => w.category === word.category);
+  const distractors = shuffleArray(sameCat).slice(0, 3);
 
-  // If not enough distractors, pull from adjacent levels (skip if ALL — already has everything)
+  // If not enough same-category distractors, pull from adjacent levels
   if (distractors.length < 3 && State.level !== 'ALL') {
     const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
     for (const lvl of levels) {
       if (lvl === State.level) continue;
       const extra = getWordsForLevel(lvl)
-        .filter(w => w.word !== word.word && compatible(w) && (!needSameCat || w.category === word.category));
+        .filter(w => w.word !== word.word && compatible(w) && w.category === word.category);
       distractors.push(...shuffleArray(extra).slice(0, 3 - distractors.length));
       if (distractors.length >= 3) break;
     }
