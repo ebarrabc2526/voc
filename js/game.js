@@ -1,5 +1,7 @@
 'use strict';
 
+const APP_VERSION = '1.1.0';
+
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
   all:                'Todas las categorías',
@@ -1277,10 +1279,18 @@ function escapeHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function displayAppVersion() {
+  const versionEl = document.getElementById('app-version');
+  if (versionEl) {
+    versionEl.textContent = `v${APP_VERSION}`;
+  }
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   Auth.init();
   loadPrefs();
+  displayAppVersion();
   updateHomeUI();
   showHome();
 });
