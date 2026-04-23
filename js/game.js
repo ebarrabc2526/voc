@@ -3,7 +3,8 @@
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
   all:                'Todas las categorías',
-  actions:            'Acciones',
+  verbos:             'Verbos',
+  phrasal_verbs:      'Verbos compuestos',
   animals:            'Animales',
   body:               'Cuerpo humano',
   clothes:            'Ropa',
@@ -11,9 +12,11 @@ const CATEGORY_NAMES = {
   descriptions:       'Descripciones',
   family_and_friends: 'Familia y amigos',
   feelings:           'Sentimientos',
+  finance_and_money:  'Finanzas y dinero',
   food_and_drink:     'Comida y bebida',
   general:            'Vocabulario general',
   grammar:            'Gramática',
+  health_and_medicine:'Salud y medicina',
   miscellaneous:      'Miscelánea',
   numbers_and_time:   'Números y tiempo',
   places:             'Lugares',
