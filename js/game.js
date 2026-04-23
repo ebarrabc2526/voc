@@ -212,6 +212,21 @@ function handleGoogleLogin(response) {
       Auth.save(data.token, { name: data.name, email: data.email, picture: data.picture });
       State.playerName = data.name;
       updateHomeUI();
+      // Cargar preferencias del servidor
+      return fetch('/api/prefs', {
+        headers: { Authorization: `Bearer ${data.token}` },
+      }).then(r => r.json());
+    })
+    .then(prefs => {
+      if (prefs) {
+        if (prefs.level)         State.level         = prefs.level;
+        if (prefs.mode)          State.mode          = prefs.mode;
+        if (prefs.category)      State.category      = prefs.category;
+        if (prefs.challengeType) State.challengeType = prefs.challengeType;
+        if (prefs.autoPlay !== undefined) State.autoPlay    = prefs.autoPlay;
+        if (prefs.autoPlayLangs) State.autoPlayLangs = prefs.autoPlayLangs;
+        savePrefs();
+      }
     })
     .catch(e => alert('Error al iniciar sesión: ' + e.message));
 }
@@ -837,6 +852,21 @@ function saveOptions() {
   State.autoPlayLangs = ['uk', 'us', 'es'].filter(l => document.getElementById(`opt-lang-${l}`).checked);
   document.getElementById('opt-langs-wrap').style.display = State.autoPlay ? '' : 'none';
   savePrefs();
+  // Guardar al servidor si está autenticado
+  if (Auth.isLoggedIn()) {
+    fetch('/api/prefs', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${Auth.token}` },
+      body: JSON.stringify({
+        level: State.level,
+        mode: State.mode,
+        category: State.category,
+        challengeType: State.challengeType,
+        autoPlay: State.autoPlay,
+        autoPlayLangs: State.autoPlayLangs,
+      }),
+    }).catch(() => {});
+  }
 }
 
 function showProfileTab(tab) {

@@ -22,6 +22,13 @@ const db = new Database(DB_PATH);
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
+// Aplicar migraciones pendientes
+const fs = require('fs');
+const MIGRATION_002 = path.join(__dirname, 'migrations', '002_users_prefs.sql');
+if (fs.existsSync(MIGRATION_002)) {
+  db.exec(fs.readFileSync(MIGRATION_002, 'utf8'));
+}
+
 function requireAuth(req, res, next) {
   const token = (req.headers.authorization || '').replace('Bearer ', '');
   if (!token) return res.status(401).json({ error: 'No autenticado' });
@@ -46,6 +53,15 @@ app.post('/api/auth/google', async (req, res) => {
       audience: GOOGLE_CLIENT_ID,
     });
     const p = ticket.getPayload();
+    db.prepare(`
+      INSERT INTO users (sub, email, name, picture, last_login)
+      VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+      ON CONFLICT(sub) DO UPDATE SET
+        email = excluded.email,
+        name = excluded.name,
+        picture = excluded.picture,
+        last_login = CURRENT_TIMESTAMP
+    `).run(p.sub, p.email, p.name, p.picture);
     const token = jwt.sign(
       { sub: p.sub, name: p.name, email: p.email, picture: p.picture },
       JWT_SECRET,
@@ -154,6 +170,38 @@ app.get('/api/stats', requireAuth, (req, res) => {
   const categoryCounts = {};
   for (const r of catRows) categoryCounts[r.category] = r.n;
   res.json({ sessions, categoryCounts });
+});
+
+// ─── User Preferences ─────────────────────────────────────────────────────────
+app.get('/api/prefs', requireAuth, (req, res) => {
+  const row = db.prepare('SELECT * FROM user_prefs WHERE sub = ?').get(req.user.sub);
+  if (!row) return res.json(null);
+  res.json({
+    level:         row.level,
+    mode:          row.mode,
+    category:      row.category,
+    challengeType: row.challenge_type,
+    autoPlay:      !!row.auto_play,
+    autoPlayLangs: JSON.parse(row.auto_play_langs),
+  });
+});
+
+app.put('/api/prefs', requireAuth, (req, res) => {
+  const { level, mode, category, challengeType, autoPlay, autoPlayLangs } = req.body;
+  db.prepare(`
+    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(sub) DO UPDATE SET
+      level = excluded.level,
+      mode = excluded.mode,
+      category = excluded.category,
+      challenge_type = excluded.challenge_type,
+      auto_play = excluded.auto_play,
+      auto_play_langs = excluded.auto_play_langs
+  `).run(req.user.sub, level||'A1', mode||'en-es', category||'all',
+         challengeType||'10', autoPlay ? 1 : 0,
+         JSON.stringify(autoPlayLangs || ['uk','us']));
+  res.json({ ok: true });
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────
