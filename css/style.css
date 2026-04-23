@@ -114,12 +114,12 @@ html, body {
 .btn-forget:hover { color: var(--red); }
 
 .home-copyright {
-  font-size: 0.72rem; color: rgba(255,255,255,0.25);
+  font-size: 0.72rem; color: rgba(255,255,255,0.6);
   letter-spacing: 0.5px; margin-top: 0.5rem;
 }
 
 .app-version {
-  font-size: 0.65rem; color: rgba(255,255,255,0.15);
+  font-size: 0.65rem; color: rgba(255,255,255,0.5);
   margin-top: 0.25rem;
 }
 
