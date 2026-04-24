@@ -48,11 +48,17 @@ app.post('/api/auth/google', async (req, res) => {
   const { credential } = req.body;
   if (!credential) return res.status(400).json({ error: 'Token requerido' });
   try {
+    console.log('[AUTH] Intentando verificar token de Google');
+    console.log('[AUTH] Client ID configurado:', GOOGLE_CLIENT_ID);
+    console.log('[AUTH] Primeros 50 caracteres del token:', credential.substring(0, 50) + '...');
+
     const ticket = await googleClient.verifyIdToken({
       idToken: credential,
       audience: GOOGLE_CLIENT_ID,
     });
     const p = ticket.getPayload();
+    console.log('[AUTH] ✓ Token verificado correctamente. Email:', p.email);
+
     db.prepare(`
       INSERT INTO users (sub, email, name, picture, last_login)
       VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
@@ -68,8 +74,42 @@ app.post('/api/auth/google', async (req, res) => {
       { expiresIn: '30d' }
     );
     res.json({ token, name: p.name, email: p.email, picture: p.picture });
-  } catch {
+  } catch (err) {
+    console.error('[AUTH] ✗ Error verificando token:', err.message);
+    console.error('[AUTH] Stack:', err.stack);
     res.status(401).json({ error: 'Token de Google inválido' });
+  }
+});
+
+// Debug endpoint para inspeccionar tokens (solo para desarrollo)
+app.post('/api/auth/debug', async (req, res) => {
+  const { credential } = req.body;
+  if (!credential) return res.status(400).json({ error: 'Token requerido' });
+
+  try {
+    // Decodificar sin verificar para inspeccionar (SOLO PARA DEBUG)
+    const parts = credential.split('.');
+    if (parts.length !== 3) {
+      return res.json({ error: 'Token tiene formato inválido (no es JWT)' });
+    }
+
+    const decoded = JSON.parse(Buffer.from(parts[1], 'base64').toString());
+    console.log('[DEBUG] Token decodificado:', JSON.stringify(decoded, null, 2));
+
+    res.json({
+      message: 'Token decodificado (sin verificación de firma)',
+      audience: decoded.aud,
+      issuer: decoded.iss,
+      expires_at: new Date(decoded.exp * 1000),
+      email: decoded.email,
+      name: decoded.name,
+      sub: decoded.sub,
+      clientIdEsperado: GOOGLE_CLIENT_ID,
+      audienciaCoincide: decoded.aud === GOOGLE_CLIENT_ID,
+    });
+  } catch (err) {
+    console.error('[DEBUG] Error decodificando:', err.message);
+    res.status(400).json({ error: err.message });
   }
 });
 

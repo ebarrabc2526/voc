@@ -201,14 +201,22 @@ function renderGoogleButton() {
 }
 
 function handleGoogleLogin(response) {
+  console.log('[FRONTEND] Token recibido de Google');
   fetch('/api/auth/google', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify({ credential: response.credential }),
   })
-    .then(r => r.json())
+    .then(r => {
+      console.log('[FRONTEND] Respuesta del servidor:', r.status);
+      return r.json();
+    })
     .then(data => {
-      if (data.error) throw new Error(data.error);
+      if (data.error) {
+        console.error('[FRONTEND] Error del servidor:', data.error);
+        throw new Error(data.error);
+      }
+      console.log('[FRONTEND] ✓ Autenticación exitosa');
       Auth.save(data.token, { name: data.name, email: data.email, picture: data.picture });
       State.playerName = data.name;
       updateHomeUI();
@@ -228,7 +236,10 @@ function handleGoogleLogin(response) {
         savePrefs();
       }
     })
-    .catch(e => alert('Error al iniciar sesión: ' + e.message));
+    .catch(e => {
+      console.error('[FRONTEND] Error completo:', e);
+      alert('Error al iniciar sesión: ' + e.message + '\n\nRevisa la consola (F12) para más detalles.');
+    });
 }
 
 function logout() {
