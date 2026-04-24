@@ -8,3 +8,6 @@ data/*.pdf
 .env
 .env.*
 vocabulary.db
+data/*.bak*
+data/*-checkpoint.json
+.claude/
