@@ -191,7 +191,7 @@ html, body {
   font-size: 0.95rem; font-weight: 600; cursor: pointer;
   transition: all var(--trans);
 }
-.mode-btn.active, .mode-btn:hover {
+.mode-btn.active {
   border-color: var(--gold); color: var(--gold);
   background: rgba(255,215,0,0.08);
 }
@@ -211,9 +211,6 @@ html, body {
   border-color: var(--blue-glow); color: var(--white);
   box-shadow: 0 0 16px rgba(100,100,255,0.5);
 }
-.level-btn:hover:not(.active) {
-  border-color: var(--blue-glow); color: var(--white);
-}
 .level-btn:disabled {
   opacity: 0.3; cursor: not-allowed; pointer-events: none;
 }
@@ -226,10 +223,6 @@ html, body {
   border-color: var(--gold); color: var(--gold);
   box-shadow: 0 0 16px rgba(255,215,0,0.35);
 }
-.level-btn-all:hover:not(.active) {
-  border-color: var(--gold); color: var(--gold);
-}
-
 #cat-container {
   display: flex; gap: 0.5rem; flex-wrap: wrap;
   max-height: 200px; overflow-y: auto;
@@ -252,7 +245,13 @@ html, body {
 .cat-btn.active {
   background: rgba(100,100,255,0.2); border-color: var(--blue-glow); color: var(--white);
 }
-.cat-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--white); }
+@media (hover: hover) {
+  .cat-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--white); }
+  .level-btn:hover:not(.active) { border-color: var(--blue-glow); color: var(--white); }
+  .level-btn-all:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+  .hof-filter-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--white); }
+  .mode-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,215,0,0.08); }
+}
 .cat-count { font-size: 0.7em; opacity: 0.6; margin-left: 4px; }
 
 .challenge-btn {
@@ -553,7 +552,6 @@ html, body {
   transition: all var(--trans);
 }
 .hof-filter-btn.active { background: rgba(255,215,0,0.15); border-color: var(--gold); color: var(--gold); }
-.hof-filter-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--white); }
 
 .hof-list { display: flex; flex-direction: column; gap: 0.4rem; }
 .hof-entry {
