@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.3.0';
+const APP_VERSION = '1.3.1';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -55,10 +55,7 @@ function getWordsForLevel(level) {
 function getWordsForLevelAndCategory(level, category) {
   const words = getWordsForLevel(level);
   if (category === 'all') return words;
-  // En TODOS cada palabra ya tiene su categoría definitiva — no suplementar con general
-  if (level === 'ALL') return words.filter(w => w.category === category);
-  // En niveles individuales incluir siempre palabras 'general' para ampliar el pool
-  return words.filter(w => w.category === category || w.category === 'general');
+  return words.filter(w => w.category === category);
 }
 
 function getCategoriesForLevel(level) {

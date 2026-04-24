@@ -139,7 +139,7 @@ app.get('/api/words', (req, res) => {
     if (!category || category === 'all') {
       rows = deduped;
     } else {
-      rows = deduped.filter(w => w.category === category || w.category === 'general');
+      rows = deduped.filter(w => w.category === category);
     }
   } else if (!category || category === 'all') {
     rows = db.prepare(`SELECT ${cols} FROM words WHERE level = ?`).all(level);
