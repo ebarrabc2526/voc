@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.3.1';
+const APP_VERSION = '1.3.2';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -353,15 +353,17 @@ function setChallenge(type) {
 function populateCategories() {
   const cats = getCategoriesForLevel(State.level);
   const words = getWordsForLevel(State.level);
+  // Si la categoría guardada ya no existe en este nivel, vuelve a 'all'.
+  if (!cats.includes(State.category)) State.category = 'all';
   const container = document.getElementById('cat-container');
   container.innerHTML = '';
+  let activeMarked = false;
   cats.forEach(cat => {
-    const generalCount = words.filter(w => w.category === 'general').length;
-    const n = cat === 'all'
-      ? words.length
-      : words.filter(w => w.category === cat).length + generalCount;
+    const n = cat === 'all' ? words.length : words.filter(w => w.category === cat).length;
     const btn = document.createElement('button');
-    btn.className = 'cat-btn' + (cat === State.category ? ' active' : '');
+    const isActive = !activeMarked && cat === State.category;
+    if (isActive) activeMarked = true;
+    btn.className = 'cat-btn' + (isActive ? ' active' : '');
     btn.dataset.cat = cat;
     btn.innerHTML = `${CATEGORY_NAMES[cat] || cat} <span class="cat-count">${n}</span>`;
     btn.onclick = () => setCategory(cat);
