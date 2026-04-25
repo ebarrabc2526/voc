@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.5.3';
+const APP_VERSION = '1.5.4';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
