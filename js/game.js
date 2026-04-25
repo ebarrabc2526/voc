@@ -281,7 +281,8 @@ const State = {
   playerName: '',
   totalCorrect: 0,
   totalAnswered: 0,
-  hofFilter: 'global'
+  hofFilter: 'global',
+  poolExhaustedWarned: false
 };
 
 // Dynamic prize ladder: €10 increments per question, accumulates across phases
@@ -425,6 +426,7 @@ async function startGame() {
   State.answering = false;
   State.totalCorrect = 0;
   State.totalAnswered = 0;
+  State.poolExhaustedWarned = false;
 
   updateLifelineUI();
   buildPrizeLadder();
@@ -446,6 +448,11 @@ function loadQuestion() {
   const qIdx = State.currentIndex % State.questions.length;
   if (qIdx === 0 && State.currentIndex > 0) {
     State.questions = shuffleArray([...getWordsForLevelAndCategory(State.level, State.category)]);
+    if (!State.poolExhaustedWarned) {
+      State.poolExhaustedWarned = true;
+      openModal('modal-pool-exhausted');
+      return;
+    }
   }
 
   // Refresh ladder prices at start of each new phase
@@ -720,6 +727,14 @@ function openModal(id) {
 function closeModal() {
   document.getElementById('overlay').classList.remove('active');
   document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+}
+function onPoolExhaustedEnd() {
+  closeModal();
+  endGame();
+}
+function onPoolExhaustedContinue() {
+  closeModal();
+  loadQuestion();
 }
 
 // ─── Prize Ladder ─────────────────────────────────────────────────────────────
