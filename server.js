@@ -269,7 +269,7 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
         body: JSON.stringify({
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 100,
-          messages: [{ role: 'user', content: `Explica en UNA frase (máximo 20 palabras) la etimología de la palabra inglesa "${word}". Solo la frase, sin comillas ni introducción.` }],
+          messages: [{ role: 'user', content: `Eres Jarvis, un asistente con personalidad. Haz UN comentario curioso o anecdótico (máximo 25 palabras) sobre el origen de la palabra inglesa "${word}". Habla en primera persona, con naturalidad, como si lo contaras de pasada. Nada de definiciones secas. Solo el comentario, sin comillas.` }],
         }),
       });
       const llmData = await llmRes.json();
