@@ -2,6 +2,8 @@ require('dotenv').config();
 const express    = require('express');
 const compression = require('compression');
 const path       = require('path');
+const os         = require('os');
+const { execSync } = require('child_process');
 const { OAuth2Client } = require('google-auth-library');
 const jwt        = require('jsonwebtoken');
 const Database   = require('better-sqlite3');
@@ -246,8 +248,44 @@ app.put('/api/prefs', requireAuth, (req, res) => {
 });
 
 // ─── TTS Expert ───────────────────────────────────────────────────────────────
+async function fishTTS(text, key, voiceId, lang) {
+  const body = {
+    text, reference_id: voiceId, format: 'mp3',
+    mp3_bitrate: 128, sample_rate: 44100,
+    temperature: 0.88, top_p: 0.92, latency: 'normal',
+    chunk_length: 300, normalize: true,
+  };
+  if (lang) body.language = lang;
+  const r = await fetch('https://api.fish.audio/v1/tts', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`Fish Audio ${r.status}`);
+  return Buffer.from(await r.arrayBuffer());
+}
+
+function concatMp3(buffers) {
+  if (buffers.length === 1) return buffers[0];
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'voc-tts-'));
+  try {
+    const lines = buffers.map((buf, i) => {
+      const f = path.join(dir, `seg${i}.mp3`);
+      fs.writeFileSync(f, buf);
+      return `file '${f}'`;
+    });
+    const listFile = path.join(dir, 'list.txt');
+    fs.writeFileSync(listFile, lines.join('\n'));
+    const out = path.join(dir, 'out.mp3');
+    execSync(`ffmpeg -y -f concat -safe 0 -i "${listFile}" -c copy "${out}"`, { stdio: 'pipe' });
+    return fs.readFileSync(out);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+}
+
 app.post('/api/tts-expert', requireAuth, async (req, res) => {
-  const { word, answer, correctLabel } = req.body || {};
+  const { word, answer, correctLabel, mode } = req.body || {};
   if (!word || !answer || !correctLabel) return res.status(400).json({ error: 'missing params' });
 
   const fishKey    = process.env.FISH_AUDIO_API_KEY;
@@ -277,34 +315,41 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
     } catch { /* opcional */ }
   }
 
-  // 2. Construir guión: hesitación + respuesta + etimología
+  // 2. Construir segmentos de audio
   const labelSpoken = { A: 'la a', B: 'la be', C: 'la ce', D: 'la de' }[correctLabel] || correctLabel;
-  const hes = [
-    `Mmm... a ver... sí, lo tengo. ${labelSpoken}: "${answer}".`,
-    `Uf, déjame pensar... ${labelSpoken}: "${answer}".`,
-    `Hmm... creo que ${labelSpoken}: "${answer}". Sí, eso es.`,
-    `A ver... esto lo sé... ${labelSpoken}: "${answer}". Estoy seguro.`,
-  ][Math.floor(Math.random() * 4)];
+  // [prefix before answer, suffix after answer]
+  const templates = [
+    [`Mmm... a ver... sí, lo tengo. ${labelSpoken}:`, `. `],
+    [`Uf, déjame pensar... ${labelSpoken}:`, `. `],
+    [`Hmm... creo que ${labelSpoken}:`, `. Sí, eso es. `],
+    [`A ver... esto lo sé... ${labelSpoken}:`, `. Estoy seguro. `],
+  ];
+  const [prefix, suffix] = templates[Math.floor(Math.random() * templates.length)];
 
-  const spoken = etymology ? `${hes} Por cierto, ${etymology}` : hes;
-  const html   = `<strong>${correctLabel}: "${answer}"</strong>`
-               + (etymology ? `<br><small style="opacity:.8">📖 ${etymology}</small>` : '');
+  const html = `<strong>${correctLabel}: "${answer}"</strong>`
+             + (etymology ? `<br><small style="opacity:.8">📖 ${etymology}</small>` : '');
 
-  // 3. TTS Fish Audio → base64
+  // 3. TTS → segmentos con idioma correcto → concatenar
   try {
-    const r = await fetch('https://api.fish.audio/v1/tts', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${fishKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text: spoken, reference_id: voiceId, format: 'mp3',
-        mp3_bitrate: 128, sample_rate: 44100,
-        temperature: 0.88, top_p: 0.92, latency: 'normal',
-        chunk_length: 300, normalize: true,
-      }),
-    });
-    if (!r.ok) throw new Error(`Fish Audio ${r.status}`);
-    const buf = await r.arrayBuffer();
-    res.json({ audio: Buffer.from(buf).toString('base64'), html });
+    let audioBuf;
+    const isEnAnswer = (mode === 'es-en'); // answer is an English word
+    if (isEnAnswer) {
+      // Spanish prefix | English answer | Spanish close/etymology
+      const closeText = etymology ? `${suffix}Por cierto, ${etymology}` : suffix.trim();
+      const bufs = await Promise.all([
+        fishTTS(prefix, fishKey, voiceId, null),
+        fishTTS(answer, fishKey, voiceId, 'en'),
+        ...(closeText ? [fishTTS(closeText, fishKey, voiceId, null)] : []),
+      ]);
+      audioBuf = concatMp3(bufs);
+    } else {
+      // All Spanish
+      const spoken = etymology
+        ? `${prefix} ${answer}${suffix}Por cierto, ${etymology}`
+        : `${prefix} ${answer}${suffix.trim()}`;
+      audioBuf = await fishTTS(spoken, fishKey, voiceId, null);
+    }
+    res.json({ audio: audioBuf.toString('base64'), html });
   } catch (e) {
     res.status(500).json({ error: e.message, html });
   }

@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.5.4';
+const APP_VERSION = '1.5.5';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -706,7 +706,7 @@ async function useExpert() {
     const r = await fetch('/api/tts-expert', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${Auth.token}` },
-      body: JSON.stringify({ word, answer, correctLabel }),
+      body: JSON.stringify({ word, answer, correctLabel, mode: State.mode }),
     });
     if (!r.ok) throw new Error('error');
     const data = await r.json();
