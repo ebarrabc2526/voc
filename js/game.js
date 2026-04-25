@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.4.3';
+const APP_VERSION = '1.4.4';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -730,7 +730,7 @@ function closeModal() {
 }
 function onPoolExhaustedEnd() {
   closeModal();
-  endGame();
+  endGame(true);
 }
 function onPoolExhaustedContinue() {
   closeModal();
@@ -922,9 +922,19 @@ function winGame() {
   }
 }
 
-function endGame() {
+function endGame(voluntary = false) {
   let title, msg, prize;
-  if (State.challengeType === '10') {
+  if (voluntary) {
+    title = '🏁 ¡Partida completada!';
+    if (State.challengeType === '10') {
+      msg = `Has respondido todas las palabras únicas · ${State.totalCorrect}/${State.totalAnswered} correctas`;
+      prize = State.safeZonePrize;
+    } else {
+      const phases = Math.floor(State.currentIndex / 10);
+      msg = `${phases} fase${phases !== 1 ? 's' : ''} completada${phases !== 1 ? 's' : ''} · ${State.totalCorrect}/${State.totalAnswered} correctas`;
+      prize = State.totalPrize;
+    }
+  } else if (State.challengeType === '10') {
     const reached = State.safeZonePrize;
     title = reached > 0 ? '💔 ¡Fallaste!' : '💔 ¡Lo siento!';
     msg = reached > 0
