@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.4.2';
+const APP_VERSION = '1.4.3';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -408,8 +408,8 @@ async function startGame() {
   savePrefs();
   await fetchWordsForLevel(State.level);
   const pool = getWordsForLevelAndCategory(State.level, State.category);
-  if (pool.length < 4) {
-    alert('¡No hay suficientes palabras en esta categoría y nivel! Prueba con "Todas las categorías".');
+  if (pool.length < 1) {
+    alert('¡No hay palabras en esta categoría y nivel! Prueba con "Todas las categorías".');
     return;
   }
   State.questions = shuffleArray([...pool]);
@@ -460,7 +460,7 @@ function loadQuestion() {
     refreshLadderPrizes(Math.floor(State.currentIndex / 10));
   }
 
-  const word = State.questions[State.challengeType === '10' ? State.currentIndex : qIdx];
+  const word = State.questions[qIdx];
   State.eliminatedOptions = [];
   State.answering = false;
 
