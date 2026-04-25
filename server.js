@@ -247,36 +247,65 @@ app.put('/api/prefs', requireAuth, (req, res) => {
 
 // ─── TTS Expert ───────────────────────────────────────────────────────────────
 app.post('/api/tts-expert', requireAuth, async (req, res) => {
-  const { text } = req.body || {};
-  if (!text) return res.status(400).json({ error: 'text required' });
+  const { word, answer, correctLabel } = req.body || {};
+  if (!word || !answer || !correctLabel) return res.status(400).json({ error: 'missing params' });
 
-  const apiKey = process.env.FISH_AUDIO_API_KEY;
-  const voiceId = process.env.FISH_AUDIO_VOICE_ID;
-  if (!apiKey || !voiceId) return res.status(503).json({ error: 'TTS not configured' });
+  const fishKey    = process.env.FISH_AUDIO_API_KEY;
+  const voiceId    = process.env.FISH_AUDIO_VOICE_ID;
+  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  if (!fishKey || !voiceId) return res.status(503).json({ error: 'TTS not configured' });
 
+  // 1. Etimología via Claude Haiku
+  let etymology = '';
+  if (anthropicKey) {
+    try {
+      const llmRes = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': anthropicKey,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 100,
+          messages: [{ role: 'user', content: `Explica en UNA frase (máximo 20 palabras) la etimología de la palabra inglesa "${word}". Solo la frase, sin comillas ni introducción.` }],
+        }),
+      });
+      const llmData = await llmRes.json();
+      etymology = llmData.content?.[0]?.text?.trim() || '';
+    } catch { /* opcional */ }
+  }
+
+  // 2. Construir guión: hesitación + respuesta + etimología
+  const hes = [
+    `Mmm... a ver... sí, lo tengo. La ${correctLabel}: "${answer}".`,
+    `Uf, déjame pensar... la ${correctLabel}: "${answer}".`,
+    `Hmm... creo que la ${correctLabel}: "${answer}". Sí, eso es.`,
+    `A ver... esto lo sé... la ${correctLabel}: "${answer}". Estoy seguro.`,
+  ][Math.floor(Math.random() * 4)];
+
+  const spoken = etymology ? `${hes} Por cierto, ${etymology}` : hes;
+  const html   = `<strong>${correctLabel}: "${answer}"</strong>`
+               + (etymology ? `<br><small style="opacity:.8">📖 ${etymology}</small>` : '');
+
+  // 3. TTS Fish Audio → base64
   try {
     const r = await fetch('https://api.fish.audio/v1/tts', {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      headers: { 'Authorization': `Bearer ${fishKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        text,
-        reference_id: voiceId,
-        format: 'mp3',
-        mp3_bitrate: 128,
-        sample_rate: 44100,
-        temperature: 0.88,
-        top_p: 0.92,
-        latency: 'normal',
-        chunk_length: 300,
-        normalize: true,
+        text: spoken, reference_id: voiceId, format: 'mp3',
+        mp3_bitrate: 128, sample_rate: 44100,
+        temperature: 0.88, top_p: 0.92, latency: 'normal',
+        chunk_length: 300, normalize: true,
       }),
     });
     if (!r.ok) throw new Error(`Fish Audio ${r.status}`);
     const buf = await r.arrayBuffer();
-    res.set('Content-Type', 'audio/mpeg');
-    res.send(Buffer.from(buf));
+    res.json({ audio: Buffer.from(buf).toString('base64'), html });
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.status(500).json({ error: e.message, html });
   }
 });
 
