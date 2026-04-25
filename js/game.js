@@ -617,10 +617,17 @@ function revealAnswer(selectedIndex) {
       if (State.lives <= 0) {
         setTimeout(() => endGame(), 1800);
       } else {
-        State.currentIndex  = (Math.floor(State.currentIndex / 10) + 1) * 10;
         State.safeZonePrize = 0;
         State.currentPrize  = 0;
-        setTimeout(() => loadQuestion(), 1800);
+        State.currentIndex++;
+        const phasesDone = State.currentIndex / 10;
+        const maxPhases  = State.challengeType === '100' ? 10 : State.challengeType === '1000' ? 100 : Infinity;
+        if (State.currentIndex % 10 === 0) {
+          // Última pregunta de la fase fallada — pasar a la siguiente fase
+          setTimeout(() => { if (phasesDone >= maxPhases) endGame(); else loadQuestion(); }, 1800);
+        } else {
+          setTimeout(() => loadQuestion(), 1800);
+        }
       }
     }
   }
