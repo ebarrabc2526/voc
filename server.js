@@ -278,11 +278,12 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
   }
 
   // 2. Construir guión: hesitación + respuesta + etimología
+  const labelSpoken = { A: 'la primera', B: 'la segunda', C: 'la tercera', D: 'la cuarta' }[correctLabel] || correctLabel;
   const hes = [
-    `Mmm... a ver... sí, lo tengo. La ${correctLabel}: "${answer}".`,
-    `Uf, déjame pensar... la ${correctLabel}: "${answer}".`,
-    `Hmm... creo que la ${correctLabel}: "${answer}". Sí, eso es.`,
-    `A ver... esto lo sé... la ${correctLabel}: "${answer}". Estoy seguro.`,
+    `Mmm... a ver... sí, lo tengo. ${labelSpoken}: "${answer}".`,
+    `Uf, déjame pensar... ${labelSpoken}: "${answer}".`,
+    `Hmm... creo que ${labelSpoken}: "${answer}". Sí, eso es.`,
+    `A ver... esto lo sé... ${labelSpoken}: "${answer}". Estoy seguro.`,
   ][Math.floor(Math.random() * 4)];
 
   const spoken = etymology ? `${hes} Por cierto, ${etymology}` : hes;
