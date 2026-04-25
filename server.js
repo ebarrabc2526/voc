@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express    = require('express');
 const compression = require('compression');
 const path       = require('path');
@@ -242,6 +243,41 @@ app.put('/api/prefs', requireAuth, (req, res) => {
          challengeType||'10', autoPlay ? 1 : 0,
          JSON.stringify(autoPlayLangs || ['uk','us']));
   res.json({ ok: true });
+});
+
+// ─── TTS Expert ───────────────────────────────────────────────────────────────
+app.post('/api/tts-expert', requireAuth, async (req, res) => {
+  const { text } = req.body || {};
+  if (!text) return res.status(400).json({ error: 'text required' });
+
+  const apiKey = process.env.FISH_AUDIO_API_KEY;
+  const voiceId = process.env.FISH_AUDIO_VOICE_ID;
+  if (!apiKey || !voiceId) return res.status(503).json({ error: 'TTS not configured' });
+
+  try {
+    const r = await fetch('https://api.fish.audio/v1/tts', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text,
+        reference_id: voiceId,
+        format: 'mp3',
+        mp3_bitrate: 128,
+        sample_rate: 44100,
+        temperature: 0.88,
+        top_p: 0.92,
+        latency: 'normal',
+        chunk_length: 300,
+        normalize: true,
+      }),
+    });
+    if (!r.ok) throw new Error(`Fish Audio ${r.status}`);
+    const buf = await r.arrayBuffer();
+    res.set('Content-Type', 'audio/mpeg');
+    res.send(Buffer.from(buf));
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────

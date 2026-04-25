@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.4.4';
+const APP_VERSION = '1.5.0';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -688,19 +688,49 @@ function useAudience() {
   openModal('modal-audience');
 }
 
-function useExpert() {
+async function useExpert() {
   const labels = ['A', 'B', 'C', 'D'];
   const correctLabel = labels[State.currentCorrectIndex];
   const correctText = State.currentOptions[State.currentCorrectIndex];
   const answer = State.mode === 'en-es' ? correctText.translation : correctText.word;
-  const msgs = [
-    `Mmm, déjame pensar... Yo diría que la respuesta es la <strong>${correctLabel}: "${answer}"</strong>. Estoy bastante seguro.`,
-    `¡Claro! Conozco esta. Es la <strong>${correctLabel}: "${answer}"</strong>, sin ninguna duda.`,
-    `A ver... creo que es la <strong>${correctLabel}: "${answer}"</strong>. Sí, eso es lo que recuerdo.`,
-    `Esta es buena. La respuesta correcta es <strong>${correctLabel}: "${answer}"</strong>. ¡Confía en mí!`
+
+  const scripts = [
+    { spoken: `Mmm... a ver... bueno... sí, lo tengo. La ${correctLabel}: "${answer}". Estoy seguro.`,
+      html:   `Mmm... a ver... <strong>${correctLabel}: "${answer}"</strong>. Estoy seguro.` },
+    { spoken: `Uf, déjame pensar... la ${correctLabel}: "${answer}". Sin duda.`,
+      html:   `Uf, déjame pensar... <strong>${correctLabel}: "${answer}"</strong>. Sin duda.` },
+    { spoken: `Hmm... interesante... creo que la ${correctLabel}: "${answer}". Sí, eso es.`,
+      html:   `Hmm... interesante... <strong>${correctLabel}: "${answer}"</strong>. Sí, eso es.` },
+    { spoken: `A ver... esto lo sé... um... la ${correctLabel}: "${answer}". Confía en mí.`,
+      html:   `A ver... esto lo sé... <strong>${correctLabel}: "${answer}"</strong>. Confía en mí.` },
   ];
-  document.getElementById('expert-message').innerHTML = msgs[Math.floor(Math.random() * msgs.length)];
+  const pick = scripts[Math.floor(Math.random() * scripts.length)];
+
+  const msgEl = document.getElementById('expert-message');
+  msgEl.innerHTML = '🎧 <em>Conectando con el experto...</em>';
   openModal('modal-expert');
+
+  if (!Auth.isLoggedIn()) {
+    msgEl.innerHTML = pick.html;
+    return;
+  }
+
+  try {
+    const r = await fetch('/api/tts-expert', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${Auth.token}` },
+      body: JSON.stringify({ text: pick.spoken }),
+    });
+    if (!r.ok) throw new Error('tts error');
+    const blob = await r.blob();
+    const url  = URL.createObjectURL(blob);
+    const audio = new window.Audio(url);
+    audio.onended = () => URL.revokeObjectURL(url);
+    msgEl.innerHTML = pick.html;
+    await audio.play();
+  } catch {
+    msgEl.innerHTML = pick.html;
+  }
 }
 
 function generateAudienceData(correctIndex) {
