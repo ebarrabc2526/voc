@@ -2,11 +2,10 @@ require('dotenv').config();
 const express    = require('express');
 const compression = require('compression');
 const path       = require('path');
-const os         = require('os');
-const { execSync } = require('child_process');
 const { OAuth2Client } = require('google-auth-library');
 const jwt        = require('jsonwebtoken');
 const Database   = require('better-sqlite3');
+const { dictionary: cmuDict } = require('cmu-pronouncing-dictionary');
 
 const app             = express();
 const PORT            = process.env.PORT || 3000;
@@ -248,7 +247,21 @@ app.put('/api/prefs', requireAuth, (req, res) => {
 });
 
 // ─── TTS Expert ───────────────────────────────────────────────────────────────
-async function fishTTS(text, key, voiceId) {
+
+// Convierte una palabra inglesa a phoneme tag de Fish Audio (Arpabet CMU)
+function enPhoneme(word) {
+  const phones = cmuDict[word.toLowerCase()];
+  return phones ? `<|phoneme_start|>${phones}<|phoneme_end|>` : word;
+}
+
+// Reemplaza todas las ocurrencias de una palabra inglesa en un texto
+// con su phoneme tag para que Fish Audio la pronuncie correctamente
+function injectPhonemes(text, word) {
+  const re = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+  return text.replace(re, enPhoneme(word));
+}
+
+async function fishTTS(text, key, voiceId, normalize = true) {
   const r = await fetch('https://api.fish.audio/v1/tts', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -256,43 +269,11 @@ async function fishTTS(text, key, voiceId) {
       text, reference_id: voiceId, format: 'mp3',
       mp3_bitrate: 128, sample_rate: 44100,
       temperature: 0.88, top_p: 0.92, latency: 'normal',
-      chunk_length: 300, normalize: true,
+      chunk_length: 300, normalize,
     }),
   });
   if (!r.ok) throw new Error(`Fish Audio ${r.status}`);
   return Buffer.from(await r.arrayBuffer());
-}
-
-const GTTS = '/home/ebarrab/.local/bin/gtts-cli';
-
-function gttsTTS(text) {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'voc-gtts-'));
-  try {
-    const outFile = path.join(dir, 'out.mp3');
-    execSync(`echo ${JSON.stringify(text)} | ${GTTS} --file - --lang en --output "${outFile}"`, { stdio: 'pipe' });
-    return fs.readFileSync(outFile);
-  } finally {
-    fs.rmSync(dir, { recursive: true, force: true });
-  }
-}
-
-function concatMp3(buffers) {
-  if (buffers.length === 1) return buffers[0];
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'voc-tts-'));
-  try {
-    const lines = buffers.map((buf, i) => {
-      const f = path.join(dir, `seg${i}.mp3`);
-      fs.writeFileSync(f, buf);
-      return `file '${f}'`;
-    });
-    const listFile = path.join(dir, 'list.txt');
-    fs.writeFileSync(listFile, lines.join('\n'));
-    const out = path.join(dir, 'out.mp3');
-    execSync(`ffmpeg -y -f concat -safe 0 -i "${listFile}" -c copy "${out}"`, { stdio: 'pipe' });
-    return fs.readFileSync(out);
-  } finally {
-    fs.rmSync(dir, { recursive: true, force: true });
-  }
 }
 
 app.post('/api/tts-expert', requireAuth, async (req, res) => {
@@ -340,36 +321,20 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
   const html = `<strong>${correctLabel}: "${answer}"</strong>`
              + (etymology ? `<br><small style="opacity:.8">📖 ${etymology}</small>` : '');
 
-  // 3. TTS → segmentos con idioma correcto → concatenar
+  // 3. TTS: una sola llamada a Fish Audio con phoneme tags para palabras inglesas
   try {
-    let audioBuf;
-    const isEnAnswer = (mode === 'es-en'); // answer is an English word
-    if (isEnAnswer) {
-      // Spanish prefix | English answer | Spanish close/etymology
-      // Also split closeBase around the English word if Claude mentions it there
-      const closeBase = etymology ? `${suffix}Por cierto, ${etymology}` : null;
-      const segList = [
-        { text: prefix, lang: null },
-        { text: answer, lang: 'en' },
-      ];
-      if (closeBase) {
-        const wordRe = new RegExp(`(${answer.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        const parts = closeBase.split(wordRe);
-        for (const part of parts) {
-          if (!part) continue;
-          segList.push({ text: part, lang: part.toLowerCase() === answer.toLowerCase() ? 'en' : null });
-        }
-      }
-      const bufs = await Promise.all(segList.map(s =>
-        s.lang === 'en' ? Promise.resolve(gttsTTS(s.text)) : fishTTS(s.text, fishKey, voiceId)
-      ));
-      audioBuf = concatMp3(bufs);
+    let spoken;
+    if (mode === 'es-en') {
+      // La respuesta es una palabra inglesa → sustituir con phoneme tag en todo el texto
+      const answerTag = enPhoneme(answer);
+      const close = etymology ? `${suffix}Por cierto, ${injectPhonemes(etymology, answer)}` : suffix.trim();
+      spoken = `${prefix} ${answerTag}${close}`;
     } else {
-      const spoken = etymology
+      spoken = etymology
         ? `${prefix} ${answer}${suffix}Por cierto, ${etymology}`
         : `${prefix} ${answer}${suffix.trim()}`;
-      audioBuf = await fishTTS(spoken, fishKey, voiceId, null);
     }
+    const audioBuf = await fishTTS(spoken, fishKey, voiceId, mode !== 'es-en');
     res.json({ audio: audioBuf.toString('base64'), html });
   } catch (e) {
     res.status(500).json({ error: e.message, html });
