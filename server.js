@@ -248,21 +248,32 @@ app.put('/api/prefs', requireAuth, (req, res) => {
 });
 
 // ─── TTS Expert ───────────────────────────────────────────────────────────────
-async function fishTTS(text, key, voiceId, lang) {
-  const body = {
-    text, reference_id: voiceId, format: 'mp3',
-    mp3_bitrate: 128, sample_rate: 44100,
-    temperature: 0.88, top_p: 0.92, latency: 'normal',
-    chunk_length: 300, normalize: true,
-  };
-  if (lang) body.language = lang;
+async function fishTTS(text, key, voiceId) {
   const r = await fetch('https://api.fish.audio/v1/tts', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      text, reference_id: voiceId, format: 'mp3',
+      mp3_bitrate: 128, sample_rate: 44100,
+      temperature: 0.88, top_p: 0.92, latency: 'normal',
+      chunk_length: 300, normalize: true,
+    }),
   });
   if (!r.ok) throw new Error(`Fish Audio ${r.status}`);
   return Buffer.from(await r.arrayBuffer());
+}
+
+const GTTS = '/home/ebarrab/.local/bin/gtts-cli';
+
+function gttsTTS(text) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'voc-gtts-'));
+  try {
+    const outFile = path.join(dir, 'out.mp3');
+    execSync(`echo ${JSON.stringify(text)} | ${GTTS} --file - --lang en --output "${outFile}"`, { stdio: 'pipe' });
+    return fs.readFileSync(outFile);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 }
 
 function concatMp3(buffers) {
@@ -349,7 +360,9 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
           segList.push({ text: part, lang: part.toLowerCase() === answer.toLowerCase() ? 'en' : null });
         }
       }
-      const bufs = await Promise.all(segList.map(s => fishTTS(s.text, fishKey, voiceId, s.lang)));
+      const bufs = await Promise.all(segList.map(s =>
+        s.lang === 'en' ? Promise.resolve(gttsTTS(s.text)) : fishTTS(s.text, fishKey, voiceId)
+      ));
       audioBuf = concatMp3(bufs);
     } else {
       const spoken = etymology
