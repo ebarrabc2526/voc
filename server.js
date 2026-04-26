@@ -335,15 +335,23 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
     const isEnAnswer = (mode === 'es-en'); // answer is an English word
     if (isEnAnswer) {
       // Spanish prefix | English answer | Spanish close/etymology
-      const closeText = etymology ? `${suffix}Por cierto, ${etymology}` : suffix.trim();
-      const bufs = await Promise.all([
-        fishTTS(prefix, fishKey, voiceId, null),
-        fishTTS(answer, fishKey, voiceId, 'en'),
-        ...(closeText ? [fishTTS(closeText, fishKey, voiceId, null)] : []),
-      ]);
+      // Also split closeBase around the English word if Claude mentions it there
+      const closeBase = etymology ? `${suffix}Por cierto, ${etymology}` : null;
+      const segList = [
+        { text: prefix, lang: null },
+        { text: answer, lang: 'en' },
+      ];
+      if (closeBase) {
+        const wordRe = new RegExp(`(${answer.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        const parts = closeBase.split(wordRe);
+        for (const part of parts) {
+          if (!part) continue;
+          segList.push({ text: part, lang: part.toLowerCase() === answer.toLowerCase() ? 'en' : null });
+        }
+      }
+      const bufs = await Promise.all(segList.map(s => fishTTS(s.text, fishKey, voiceId, s.lang)));
       audioBuf = concatMp3(bufs);
     } else {
-      // All Spanish
       const spoken = etymology
         ? `${prefix} ${answer}${suffix}Por cierto, ${etymology}`
         : `${prefix} ${answer}${suffix.trim()}`;
