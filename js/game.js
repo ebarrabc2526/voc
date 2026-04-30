@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.5.8';
+const APP_VERSION = '1.5.9';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -1179,7 +1179,11 @@ function renderChartCategories(sessions, categoryCounts) {
     v >= 80 ? 'rgba(0,230,118,0.75)' : v >= 55 ? 'rgba(100,100,255,0.75)' : 'rgba(255,90,90,0.75)'
   );
 
-  const ctx = document.getElementById('chart-categories').getContext('2d');
+  const canvas = document.getElementById('chart-categories');
+  const wrap = canvas.parentElement;
+  wrap.style.height = Math.max(200, entries.length * 30) + 'px';
+
+  const ctx = canvas.getContext('2d');
   _charts.categories = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -1188,6 +1192,7 @@ function renderChartCategories(sessions, categoryCounts) {
     },
     options: {
       indexAxis: 'y',
+      maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -1201,7 +1206,7 @@ function renderChartCategories(sessions, categoryCounts) {
       },
       scales: {
         x: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#888', callback: v => `${v}%` } },
-        y: { grid: { display: false }, ticks: { color: '#ccc', font: { size: 11 } } },
+        y: { grid: { display: false }, ticks: { color: '#ccc', font: { size: 11 }, autoSkip: false } },
       },
     },
   });
