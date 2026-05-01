@@ -1,0 +1,72 @@
+[
+  {
+    "word": "hand",
+    "status": "ok",
+    "path": "body/hand.jpg",
+    "bytes": 4993,
+    "attribution": "cottonbro CG studio"
+  },
+  {
+    "word": "foot",
+    "status": "ok",
+    "path": "body/foot.jpg",
+    "bytes": 9970,
+    "attribution": "Pixabay"
+  },
+  {
+    "word": "eye",
+    "status": "ok",
+    "path": "body/eye.jpg",
+    "bytes": 20621,
+    "attribution": "manoj anasuri"
+  },
+  {
+    "word": "ear",
+    "status": "ok",
+    "path": "body/ear.jpg",
+    "bytes": 14420,
+    "attribution": "Josh Withers"
+  },
+  {
+    "word": "nose",
+    "status": "ok",
+    "path": "body/nose.jpg",
+    "bytes": 16245,
+    "attribution": "Engin Binbas"
+  },
+  {
+    "word": "mouth",
+    "status": "ok",
+    "path": "body/mouth.jpg",
+    "bytes": 12033,
+    "attribution": "Amir SeilSepour"
+  },
+  {
+    "word": "head",
+    "status": "ok",
+    "path": "body/head.jpg",
+    "bytes": 15729,
+    "attribution": "Kevin Bidwell"
+  },
+  {
+    "word": "leg",
+    "status": "ok",
+    "path": "body/leg.jpg",
+    "bytes": 6291,
+    "attribution": "Carolina Basi"
+  },
+  {
+    "word": "arm",
+    "status": "ok",
+    "path": "body/arm.jpg",
+    "bytes": 8021,
+    "attribution": "Анастасия Триббиани"
+  },
+  {
+    "word": "hair",
+    "status": "ok",
+    "path": "body/hair.jpg",
+    "bytes": 9762,
+    "attribution": "Raymond  li"
+  }
+]

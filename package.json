@@ -1,6 +1,6 @@
 {
   "name": "voc",
-  "version": "1.7.1",
+  "version": "1.8.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,8 @@
     "db:restore": "node -e \"require('better-sqlite3')(process.env.DB || 'data/voc.db').exec(require('fs').readFileSync('data/voc.sql','utf8'))\"",
     "images:sync": "node scripts/sync-word-images.js",
     "images:colors": "node scripts/generate-color-swatches.js",
+    "images:fetch": "node scripts/fetch-images.js",
+    "images:audit-html": "node scripts/build-images-audit-html.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
