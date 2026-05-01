@@ -790,6 +790,45 @@ html, body {
   .prize-ladder { display: none; }
 }
 
+/* ── WORD IMAGE BOX ── */
+.word-image-box {
+  width: 100%;
+  max-width: 320px;
+  margin: 8px auto 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.word-image-box img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  height: auto;
+  display: block;
+}
+.word-image-box.hidden { display: none; }
+.progress-bar {
+  position: relative;
+  height: 6px;
+  background: rgba(0,0,0,.15);
+}
+.progress-bar .progress-fill {
+  height: 100%;
+  background: #4caf50;
+  width: 100%;
+  transition: none;
+}
+.progress-bar .progress-percent {
+  position: absolute;
+  right: 8px;
+  top: -18px;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--grey);
+}
+.progress-bar.hidden { display: none; }
+
 /* ── SCROLLBAR GLOBAL ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }

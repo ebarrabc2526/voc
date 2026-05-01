@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.7.0';
+const APP_VERSION = '1.7.1';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -119,8 +119,10 @@ const Audio = {
 let _imageTimer    = null;
 let _imageStartAt  = null;
 let _imageDurMs    = null;
+let _imageShown    = false;
+let _imageOnAdvance = null;  // callback para avanzar manualmente en modo pausa
 
-function showWordImage(word, category) {
+function showWordImage(word, category, onAdvance) {
   const box      = document.getElementById('word-image-box');
   const img      = document.getElementById('word-image');
   const progress = document.getElementById('word-image-progress');
@@ -128,15 +130,27 @@ function showWordImage(word, category) {
   const pctEl    = progress.querySelector('.progress-percent');
 
   if (_imageTimer) { cancelAnimationFrame(_imageTimer); _imageTimer = null; }
+  _imageOnAdvance = onAdvance || null;
 
-  img.onerror = () => hideWordImage();
+  // Click en la caja avanza (útil en modo pausa, también funciona durante timer)
+  box.onclick = () => {
+    if (_imageOnAdvance) {
+      const cb = _imageOnAdvance;
+      _imageOnAdvance = null;
+      hideWordImage();
+      cb();
+    }
+  };
+
+  img.onerror = () => { _imageShown = false; hideWordImage(); /* el caller hace fallback con su propio timeout */ };
   img.onload  = () => {
+    _imageShown = true;
     box.classList.remove('hidden');
     const seconds = (window.userPrefs?.imageDisplaySeconds != null
       ? window.userPrefs.imageDisplaySeconds : 5);
     if (seconds === 0) {
       progress.classList.add('hidden');
-      // queda visible hasta que el usuario avance
+      // queda visible hasta click; onAdvance lo avanzará
     } else {
       progress.classList.remove('hidden');
       _imageDurMs   = seconds * 1000;
@@ -147,8 +161,18 @@ function showWordImage(word, category) {
         const pct       = Math.round((remaining / _imageDurMs) * 100);
         fill.style.width  = pct + '%';
         pctEl.textContent = pct + '%';
-        if (remaining <= 0) { hideWordImage(); }
-        else { _imageTimer = requestAnimationFrame(tick); }
+        if (remaining <= 0) {
+          if (_imageOnAdvance) {
+            const cb = _imageOnAdvance;
+            _imageOnAdvance = null;
+            hideWordImage();
+            cb();
+          } else {
+            hideWordImage();
+          }
+        } else {
+          _imageTimer = requestAnimationFrame(tick);
+        }
       };
       tick();
     }
@@ -160,6 +184,7 @@ function hideWordImage() {
   const box = document.getElementById('word-image-box');
   if (box) box.classList.add('hidden');
   if (_imageTimer) { cancelAnimationFrame(_imageTimer); _imageTimer = null; }
+  _imageShown = false;
 }
 
 // ─── Cookie Helper (solo preferencias de juego) ───────────────────────────────
@@ -626,13 +651,11 @@ function revealAnswer(selectedIndex) {
 
   document.getElementById(`answer-${labels[State.currentCorrectIndex]}`).classList.add('correct');
 
-  // Mostrar imagen representativa si la categoría la tiene (onerror la oculta si no existe)
-  if (State.currentWord) {
-    showWordImage(State.currentWord.word, State.currentWord.category);
-  }
-
   const isPhaseMode = State.challengeType !== '10';
   const pos = isPhaseMode ? State.currentIndex % 10 : State.currentIndex;
+
+  // Determina el destino tras esta pregunta y muta el estado ya
+  let nextAction = null;  // 'load' | 'win' | 'end'
 
   if (isCorrect) {
     document.getElementById(`answer-${labels[selectedIndex]}`).classList.add('correct');
@@ -654,16 +677,15 @@ function revealAnswer(selectedIndex) {
     State.totalAnswered++;
 
     if (isPhaseMode && State.currentIndex % 10 === 0) {
-      // Phase complete — add full prize and start next phase
       State.totalPrize += prizes[9];
       State.safeZonePrize = 0;
       State.currentPrize  = 0;
       updateTotalPrizeDisplay();
       const phasesDone = State.currentIndex / 10;
       const maxPhases  = State.challengeType === '100' ? 10 : State.challengeType === '1000' ? 100 : Infinity;
-      setTimeout(() => { if (phasesDone >= maxPhases) winGame(); else loadQuestion(); }, 1500);
+      nextAction = phasesDone >= maxPhases ? 'win' : 'load';
     } else {
-      setTimeout(() => loadQuestion(), 1500);
+      nextAction = 'load';
     }
   } else {
     document.getElementById(`answer-${labels[selectedIndex]}`).classList.add('wrong');
@@ -676,15 +698,14 @@ function revealAnswer(selectedIndex) {
     updatePrizeLadder();
 
     if (!isPhaseMode) {
-      setTimeout(() => endGame(), 1800);
+      nextAction = 'end';
     } else {
-      // Phase fail — lock safe zone into total, move to next phase
       State.totalPrize += State.safeZonePrize;
       updateTotalPrizeDisplay();
       State.lives--;
       updateLivesDisplay();
       if (State.lives <= 0) {
-        setTimeout(() => endGame(), 1800);
+        nextAction = 'end';
       } else {
         State.safeZonePrize = 0;
         State.currentPrize  = 0;
@@ -692,13 +713,41 @@ function revealAnswer(selectedIndex) {
         const phasesDone = State.currentIndex / 10;
         const maxPhases  = State.challengeType === '100' ? 10 : State.challengeType === '1000' ? 100 : Infinity;
         if (State.currentIndex % 10 === 0) {
-          // Última pregunta de la fase fallada — pasar a la siguiente fase
-          setTimeout(() => { if (phasesDone >= maxPhases) endGame(); else loadQuestion(); }, 1800);
+          nextAction = phasesDone >= maxPhases ? 'end' : 'load';
         } else {
-          setTimeout(() => loadQuestion(), 1800);
+          nextAction = 'load';
         }
       }
     }
+  }
+
+  // Callback de avance (idempotente)
+  let advanced = false;
+  const advance = () => {
+    if (advanced) return;
+    advanced = true;
+    if (nextAction === 'win')      winGame();
+    else if (nextAction === 'end') endGame();
+    else                            loadQuestion();
+  };
+
+  // Mostrar imagen y sincronizar el avance con su timer/click
+  const fallbackMs = isCorrect ? 1500 : 1800;
+  if (State.currentWord) {
+    let imageReady = false;
+    const img = document.getElementById('word-image');
+    if (img) {
+      // Si falla la imagen (categoría sin ella), avanzamos con el delay normal
+      const onTimeout = setTimeout(() => { if (!imageReady) advance(); }, fallbackMs);
+      const orig = { onload: img.onload, onerror: img.onerror };
+      // showWordImage internamente reasigna onload/onerror; envolvemos para detectar
+      showWordImage(State.currentWord.word, State.currentWord.category, () => { imageReady = true; clearTimeout(onTimeout); advance(); });
+      // Si la imagen no carga jamás, el setTimeout fallback se encarga
+    } else {
+      setTimeout(advance, fallbackMs);
+    }
+  } else {
+    setTimeout(advance, fallbackMs);
   }
 }
 
