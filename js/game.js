@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.5.9';
+const APP_VERSION = '1.7.0';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -115,6 +115,53 @@ const Audio = {
   }
 };
 
+// ─── Word Image ───────────────────────────────────────────────────────────────
+let _imageTimer    = null;
+let _imageStartAt  = null;
+let _imageDurMs    = null;
+
+function showWordImage(word, category) {
+  const box      = document.getElementById('word-image-box');
+  const img      = document.getElementById('word-image');
+  const progress = document.getElementById('word-image-progress');
+  const fill     = progress.querySelector('.progress-fill');
+  const pctEl    = progress.querySelector('.progress-percent');
+
+  if (_imageTimer) { cancelAnimationFrame(_imageTimer); _imageTimer = null; }
+
+  img.onerror = () => hideWordImage();
+  img.onload  = () => {
+    box.classList.remove('hidden');
+    const seconds = (window.userPrefs?.imageDisplaySeconds != null
+      ? window.userPrefs.imageDisplaySeconds : 5);
+    if (seconds === 0) {
+      progress.classList.add('hidden');
+      // queda visible hasta que el usuario avance
+    } else {
+      progress.classList.remove('hidden');
+      _imageDurMs   = seconds * 1000;
+      _imageStartAt = Date.now();
+      const tick = () => {
+        const elapsed   = Date.now() - _imageStartAt;
+        const remaining = Math.max(0, _imageDurMs - elapsed);
+        const pct       = Math.round((remaining / _imageDurMs) * 100);
+        fill.style.width  = pct + '%';
+        pctEl.textContent = pct + '%';
+        if (remaining <= 0) { hideWordImage(); }
+        else { _imageTimer = requestAnimationFrame(tick); }
+      };
+      tick();
+    }
+  };
+  img.src = `/api/word-image/${encodeURIComponent(word.toLowerCase())}/${encodeURIComponent(category)}`;
+}
+
+function hideWordImage() {
+  const box = document.getElementById('word-image-box');
+  if (box) box.classList.add('hidden');
+  if (_imageTimer) { cancelAnimationFrame(_imageTimer); _imageTimer = null; }
+}
+
 // ─── Cookie Helper (solo preferencias de juego) ───────────────────────────────
 const Cookie = {
   get(key) {
@@ -132,22 +179,24 @@ const COOKIE_NAME = 'voc_prefs';
 function loadPrefs() {
   const p = Cookie.get(COOKIE_NAME);
   if (!p) return;
-  if (p.level)                    State.level         = p.level;
-  if (p.mode)                     State.mode          = p.mode;
-  if (p.category)                 State.category      = p.category;
-  if (p.challengeType)            State.challengeType = p.challengeType;
-  if (p.autoPlay !== undefined)   State.autoPlay      = p.autoPlay;
-  if (p.autoPlayLangs)            State.autoPlayLangs = p.autoPlayLangs;
+  if (p.level)                         State.level               = p.level;
+  if (p.mode)                          State.mode                = p.mode;
+  if (p.category)                      State.category            = p.category;
+  if (p.challengeType)                 State.challengeType       = p.challengeType;
+  if (p.autoPlay !== undefined)        State.autoPlay            = p.autoPlay;
+  if (p.autoPlayLangs)                 State.autoPlayLangs       = p.autoPlayLangs;
+  if (p.imageDisplaySeconds != null)   State.imageDisplaySeconds = p.imageDisplaySeconds;
 }
 
 function savePrefs() {
   Cookie.set(COOKIE_NAME, {
-    level:         State.level,
-    mode:          State.mode,
-    category:      State.category,
-    challengeType: State.challengeType,
-    autoPlay:      State.autoPlay,
-    autoPlayLangs: State.autoPlayLangs,
+    level:               State.level,
+    mode:                State.mode,
+    category:            State.category,
+    challengeType:       State.challengeType,
+    autoPlay:            State.autoPlay,
+    autoPlayLangs:       State.autoPlayLangs,
+    imageDisplaySeconds: State.imageDisplaySeconds,
   });
 }
 
@@ -224,12 +273,14 @@ function handleGoogleLogin(response) {
     })
     .then(prefs => {
       if (prefs) {
-        if (prefs.level)         State.level         = prefs.level;
-        if (prefs.mode)          State.mode          = prefs.mode;
-        if (prefs.category)      State.category      = prefs.category;
-        if (prefs.challengeType) State.challengeType = prefs.challengeType;
-        if (prefs.autoPlay !== undefined) State.autoPlay    = prefs.autoPlay;
-        if (prefs.autoPlayLangs) State.autoPlayLangs = prefs.autoPlayLangs;
+        if (prefs.level)                        State.level               = prefs.level;
+        if (prefs.mode)                         State.mode                = prefs.mode;
+        if (prefs.category)                     State.category            = prefs.category;
+        if (prefs.challengeType)                State.challengeType       = prefs.challengeType;
+        if (prefs.autoPlay !== undefined)       State.autoPlay            = prefs.autoPlay;
+        if (prefs.autoPlayLangs)                State.autoPlayLangs       = prefs.autoPlayLangs;
+        if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
+        window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
         savePrefs();
       }
     })
@@ -268,6 +319,7 @@ const State = {
   challengeType: '10',
   autoPlay: false,
   autoPlayLangs: ['uk', 'us'],
+  imageDisplaySeconds: 5,
   questions: [],
   currentIndex: 0,
   currentPrize: 0,
@@ -284,6 +336,9 @@ const State = {
   hofFilter: 'global',
   poolExhaustedWarned: false
 };
+
+// Alias global usado por showWordImage
+window.userPrefs = { imageDisplaySeconds: 5 };
 
 // Dynamic prize ladder: €10 increments per question, accumulates across phases
 const SAFE_ZONES = [3, 6]; // 0-indexed positions within each phase
@@ -437,6 +492,8 @@ async function startGame() {
 
 // ─── Question Engine ──────────────────────────────────────────────────────────
 function loadQuestion() {
+  hideWordImage();
+
   if (State.challengeType === '10' && State.currentIndex >= 10) {
     winGame(); return;
   }
@@ -568,6 +625,11 @@ function revealAnswer(selectedIndex) {
   const isCorrect = selectedIndex === State.currentCorrectIndex;
 
   document.getElementById(`answer-${labels[State.currentCorrectIndex]}`).classList.add('correct');
+
+  // Mostrar imagen representativa si la categoría la tiene (onerror la oculta si no existe)
+  if (State.currentWord) {
+    showWordImage(State.currentWord.word, State.currentWord.category);
+  }
 
   const isPhaseMode = State.challengeType !== '10';
   const pos = isPhaseMode ? State.currentIndex % 10 : State.currentIndex;
@@ -904,6 +966,14 @@ function saveOptions() {
   State.autoPlay      = document.getElementById('opt-autoplay').checked;
   State.autoPlayLangs = ['uk', 'us', 'es'].filter(l => document.getElementById(`opt-lang-${l}`).checked);
   document.getElementById('opt-langs-wrap').style.display = State.autoPlay ? '' : 'none';
+
+  const imgEl = document.getElementById('opt-image-seconds');
+  if (imgEl) {
+    const v = parseInt(imgEl.value, 10);
+    State.imageDisplaySeconds = (!isNaN(v) && v >= 0 && v <= 30) ? v : 5;
+    window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
+  }
+
   savePrefs();
   // Guardar al servidor si está autenticado
   if (Auth.isLoggedIn()) {
@@ -911,12 +981,13 @@ function saveOptions() {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${Auth.token}` },
       body: JSON.stringify({
-        level: State.level,
-        mode: State.mode,
-        category: State.category,
-        challengeType: State.challengeType,
-        autoPlay: State.autoPlay,
-        autoPlayLangs: State.autoPlayLangs,
+        level:               State.level,
+        mode:                State.mode,
+        category:            State.category,
+        challengeType:       State.challengeType,
+        autoPlay:            State.autoPlay,
+        autoPlayLangs:       State.autoPlayLangs,
+        imageDisplaySeconds: State.imageDisplaySeconds,
       }),
     }).catch(() => {});
   }
@@ -1066,6 +1137,8 @@ async function showProfile() {
   document.getElementById('opt-lang-us').checked   = State.autoPlayLangs.includes('us');
   document.getElementById('opt-lang-es').checked   = State.autoPlayLangs.includes('es');
   document.getElementById('opt-langs-wrap').style.display = State.autoPlay ? '' : 'none';
+  const imgSecEl = document.getElementById('opt-image-seconds');
+  if (imgSecEl) imgSecEl.value = State.imageDisplaySeconds != null ? State.imageDisplaySeconds : 5;
 
   showScreen('screen-profile');
   showProfileTab('stats');
@@ -1388,6 +1461,7 @@ function displayAppVersion() {
 document.addEventListener('DOMContentLoaded', () => {
   Auth.init();
   loadPrefs();
+  window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds != null ? State.imageDisplaySeconds : 5;
   displayAppVersion();
   updateHomeUI();
   showHome();

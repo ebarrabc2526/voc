@@ -208,6 +208,15 @@
       </button>
     </div>
 
+    <!-- Word Image Box (visible tras revelar respuesta, solo categorías con imagen) -->
+    <div id="word-image-box" class="word-image-box hidden">
+      <img id="word-image" alt=""/>
+      <div id="word-image-progress" class="progress-bar hidden">
+        <div class="progress-fill"></div>
+        <span class="progress-percent">100%</span>
+      </div>
+    </div>
+
   </div><!-- /.game-main -->
 </div><!-- /#screen-game -->
 
@@ -361,6 +370,16 @@
           <label class="lang-check"><input type="checkbox" id="opt-lang-es" onchange="saveOptions()"> 🇪🇸 Español</label>
         </div>
       </div>
+      <div class="options-section">
+        <div class="options-title">🖼️ Imagen de la palabra</div>
+        <div class="option-row">
+          <label for="opt-image-seconds">Tiempo de imagen (segundos):</label>
+          <input type="number" id="opt-image-seconds" min="0" max="30" value="5"
+                 style="width:4rem;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:inherit;font-size:.95rem"
+                 onchange="saveOptions()">
+        </div>
+        <div style="font-size:.8rem;opacity:.6;margin-top:4px">0 = pausa hasta pulsar el botón de avanzar</div>
+      </div>
     </div>
 
     <div style="text-align:center">
@@ -374,7 +393,7 @@
 <div id="confetti-container"></div>
 
 <!-- Scripts -->
-<script src="js/game.js?v=1.5.9"></script>
+<script src="js/game.js?v=1.7.0"></script>
 <script>
   // exitGame helper
   function exitGame() {

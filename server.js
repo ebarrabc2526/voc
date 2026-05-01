@@ -30,6 +30,15 @@ const MIGRATION_002 = path.join(__dirname, 'migrations', '002_users_prefs.sql');
 if (fs.existsSync(MIGRATION_002)) {
   db.exec(fs.readFileSync(MIGRATION_002, 'utf8'));
 }
+// Migración 005: tabla word_images + columna image_display_seconds
+const MIGRATION_005 = path.join(__dirname, 'migrations', '005_word_images.sql');
+if (fs.existsSync(MIGRATION_005)) {
+  db.exec(fs.readFileSync(MIGRATION_005, 'utf8'));
+  const cols005 = db.prepare('PRAGMA table_info(user_prefs)').all().map(r => r.name);
+  if (!cols005.includes('image_display_seconds')) {
+    db.prepare('ALTER TABLE user_prefs ADD COLUMN image_display_seconds INTEGER NOT NULL DEFAULT 5').run();
+  }
+}
 
 function requireAuth(req, res, next) {
   const token = (req.headers.authorization || '').replace('Bearer ', '');
@@ -219,30 +228,39 @@ app.get('/api/prefs', requireAuth, (req, res) => {
   const row = db.prepare('SELECT * FROM user_prefs WHERE sub = ?').get(req.user.sub);
   if (!row) return res.json(null);
   res.json({
-    level:         row.level,
-    mode:          row.mode,
-    category:      row.category,
-    challengeType: row.challenge_type,
-    autoPlay:      !!row.auto_play,
-    autoPlayLangs: JSON.parse(row.auto_play_langs),
+    level:               row.level,
+    mode:                row.mode,
+    category:            row.category,
+    challengeType:       row.challenge_type,
+    autoPlay:            !!row.auto_play,
+    autoPlayLangs:       JSON.parse(row.auto_play_langs),
+    imageDisplaySeconds: row.image_display_seconds != null ? row.image_display_seconds : 5,
   });
 });
 
 app.put('/api/prefs', requireAuth, (req, res) => {
-  const { level, mode, category, challengeType, autoPlay, autoPlayLangs } = req.body;
+  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds } = req.body;
+  // Validar imageDisplaySeconds: entero 0-30
+  let imgSecs = 5;
+  if (imageDisplaySeconds !== undefined) {
+    const parsed = parseInt(imageDisplaySeconds, 10);
+    imgSecs = (!isNaN(parsed) && parsed >= 0 && parsed <= 30) ? parsed : 5;
+  }
   db.prepare(`
-    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(sub) DO UPDATE SET
       level = excluded.level,
       mode = excluded.mode,
       category = excluded.category,
       challenge_type = excluded.challenge_type,
       auto_play = excluded.auto_play,
-      auto_play_langs = excluded.auto_play_langs
+      auto_play_langs = excluded.auto_play_langs,
+      image_display_seconds = excluded.image_display_seconds
   `).run(req.user.sub, level||'A1', mode||'en-es', category||'all',
          challengeType||'10', autoPlay ? 1 : 0,
-         JSON.stringify(autoPlayLangs || ['uk','us']));
+         JSON.stringify(autoPlayLangs || ['uk','us']),
+         imgSecs);
   res.json({ ok: true });
 });
 
@@ -339,6 +357,32 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: e.message, html });
   }
+});
+
+// ─── Word Images ─────────────────────────────────────────────────────────────
+
+// GET /api/word-image/:word/:category → BLOB SVG (sin auth, contenido educativo)
+app.get('/api/word-image/:word/:category', (req, res) => {
+  const row = db.prepare(
+    'SELECT image_data, image_mime FROM word_images WHERE word_lower=? AND category=?'
+  ).get(req.params.word.toLowerCase(), req.params.category);
+  if (!row) return res.status(404).json({ error: 'image not found' });
+  res.set('Content-Type', row.image_mime);
+  res.set('Cache-Control', 'public, max-age=86400, immutable');
+  res.send(Buffer.isBuffer(row.image_data) ? row.image_data : Buffer.from(row.image_data));
+});
+
+// GET /api/word-image-meta/:word/:category → JSON metadata
+app.get('/api/word-image-meta/:word/:category', (req, res) => {
+  const row = db.prepare(
+    'SELECT source, metadata, generated_at FROM word_images WHERE word_lower=? AND category=?'
+  ).get(req.params.word.toLowerCase(), req.params.category);
+  if (!row) return res.status(404).json({ error: 'image not found' });
+  res.json({
+    source:       row.source,
+    metadata:     row.metadata ? JSON.parse(row.metadata) : null,
+    generated_at: row.generated_at,
+  });
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────

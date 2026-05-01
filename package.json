@@ -9,6 +9,8 @@
     "seed": "node scripts/seed-from-pdf.js",
     "db:dump": "node scripts/dump-db.js",
     "db:restore": "node -e \"require('better-sqlite3')(process.env.DB || 'data/voc.db').exec(require('fs').readFileSync('data/voc.sql','utf8'))\"",
+    "images:sync": "node scripts/sync-word-images.js",
+    "images:colors": "node scripts/generate-color-swatches.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
