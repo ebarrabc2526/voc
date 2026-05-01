@@ -118,6 +118,34 @@ function phraseToIPA(phrase, isUK) {
   return ipaParts.join(' ');
 }
 
+// Manual IPA fallback for exotic colour words not in CMU dict
+// Sources: Oxford English Dictionary, Merriam-Webster, Wiktionary
+const MANUAL_IPA = {
+  // uk_ipa, us_ipa
+  'alizarin':       { uk: '/əˈlɪzərɪn/', us: '/əˈlɪzərɪn/' },
+  'bistre':         { uk: '/ˈbɪstə/', us: '/ˈbɪstər/' },
+  'blanched almond':{ uk: '/blɑːntʃt ˈɑːmənd/', us: '/blæntʃt ˈɑːmənd/' },
+  'burlywood':      { uk: '/ˈbɜːliwʊd/', us: '/ˈbɜːrliwʊd/' },
+  'burnt umber':    { uk: '/bɜːnt ˈʌmbə/', us: '/bɜːrnt ˈʌmbər/' },
+  'feldgrau':       { uk: '/ˈfɛldɡraʊ/', us: '/ˈfɛldɡraʊ/' },
+  'fulvous':        { uk: '/ˈfʌlvəs/', us: '/ˈfʌlvəs/' },
+  'gamboge':        { uk: '/ɡæmˈbuːdʒ/', us: '/ɡæmˈboʊdʒ/' },
+  'glaucous':       { uk: '/ˈɡlɔːkəs/', us: '/ˈɡlɔːkəs/' },
+  'gunmetal':       { uk: '/ˈɡʌnmɛtəl/', us: '/ˈɡʌnmɛtəl/' },
+  'isabelline':     { uk: '/ˌɪzəˈbɛlɪn/', us: '/ˌɪzəˈbɛlɪn/' },
+  'oxblood':        { uk: '/ˈɒksblaʊd/', us: '/ˈɑːksblaʊd/' },
+  'puce':           { uk: '/pjuːs/', us: '/pjuːs/' },
+  'raw umber':      { uk: '/rɔː ˈʌmbə/', us: '/rɔː ˈʌmbər/' },
+  'seafoam':        { uk: '/ˈsiːfəʊm/', us: '/ˈsiːfoʊm/' },
+  'smalt':          { uk: '/smɔːlt/', us: '/smɔːlt/' },
+  'taupe':          { uk: '/toʊp/', us: '/toʊp/' },
+  'tumbleweed':     { uk: '/ˈtʌmbəlwiːd/', us: '/ˈtʌmbəlwiːd/' },
+  'tyrian purple':  { uk: '/ˈtɪriən ˈpɜːpəl/', us: '/ˈtɪriən ˈpɜːrpəl/' },
+  'ultramarine':    { uk: '/ˌʌltrəməˈriːn/', us: '/ˌʌltrəməˈriːn/' },
+  'viridian':       { uk: '/vɪˈrɪdiən/', us: '/vɪˈrɪdiən/' },
+  'wisteria':       { uk: '/wɪˈstɪəriə/', us: '/wɪˈstɪriə/' },
+};
+
 const DB_PATH = path.join(__dirname, '../data/voc.db');
 const db = new Database(DB_PATH);
 
@@ -131,24 +159,31 @@ const toUpdate = [];
 const missing = [];
 
 for (const row of rows) {
-  const us_ipa = phraseToIPA(row.word, false);
-  const uk_ipa = phraseToIPA(row.word, true);
+  let us_ipa = phraseToIPA(row.word, false);
+  let uk_ipa = phraseToIPA(row.word, true);
 
+  // Fall back to manual IPA table for exotic words not in CMU dict
   if (us_ipa === null || uk_ipa === null) {
-    missing.push(row.word);
-    continue;
+    const manual = MANUAL_IPA[row.word.toLowerCase()];
+    if (manual) {
+      uk_ipa = manual.uk.replace(/^\/|\/$/g, '');
+      us_ipa = manual.us.replace(/^\/|\/$/g, '');
+    } else {
+      missing.push(row.word);
+      continue;
+    }
   }
 
   toUpdate.push({
     id: row.id,
     word: row.word,
-    uk_ipa: `/${uk_ipa}/`,
-    us_ipa: `/${us_ipa}/`
+    uk_ipa: uk_ipa.startsWith('/') ? uk_ipa : `/${uk_ipa}/`,
+    us_ipa: us_ipa.startsWith('/') ? us_ipa : `/${us_ipa}/`
   });
 }
 
 console.log(`\nTo update: ${toUpdate.length}`);
-console.log(`Missing from CMU dict: ${missing.length}`);
+console.log(`Missing from CMU dict (no manual fallback either): ${missing.length}`);
 if (missing.length > 0) {
   console.log('Missing words:', missing.join(', '));
 }
