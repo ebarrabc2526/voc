@@ -7,6 +7,8 @@
     "setup": "node scripts/setup-db.js",
     "start": "node server.js",
     "seed": "node scripts/seed-from-pdf.js",
+    "db:dump": "node scripts/dump-db.js",
+    "db:restore": "node -e \"require('better-sqlite3')(process.env.DB || 'data/voc.db').exec(require('fs').readFileSync('data/voc.sql','utf8'))\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
