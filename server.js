@@ -361,15 +361,30 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
 
 // ─── Word Images ─────────────────────────────────────────────────────────────
 
-// GET /api/word-image/:word/:category → BLOB SVG (sin auth, contenido educativo)
+// GET /api/word-image/:word/:category → SVG desde fichero (o BLOB legacy si path es NULL)
 app.get('/api/word-image/:word/:category', (req, res) => {
   const row = db.prepare(
-    'SELECT image_data, image_mime FROM word_images WHERE word_lower=? AND category=?'
+    'SELECT path, image_data, image_mime FROM word_images WHERE word_lower=? AND category=?'
   ).get(req.params.word.toLowerCase(), req.params.category);
   if (!row) return res.status(404).json({ error: 'image not found' });
-  res.set('Content-Type', row.image_mime);
+
   res.set('Cache-Control', 'public, max-age=86400, immutable');
-  res.send(Buffer.isBuffer(row.image_data) ? row.image_data : Buffer.from(row.image_data));
+
+  if (row.path) {
+    const abs = path.join(__dirname, 'data', 'images', row.path);
+    const fs = require('fs');
+    if (!fs.existsSync(abs)) return res.status(404).json({ error: 'image file missing' });
+    res.set('Content-Type', row.image_mime);
+    return res.sendFile(abs);
+  }
+
+  // Compat: BLOB legacy (path IS NULL)
+  if (row.image_data && row.image_data.length > 0) {
+    res.set('Content-Type', row.image_mime);
+    return res.send(Buffer.isBuffer(row.image_data) ? row.image_data : Buffer.from(row.image_data));
+  }
+
+  return res.status(404).json({ error: 'image not found' });
 });
 
 // GET /api/word-image-meta/:word/:category → JSON metadata

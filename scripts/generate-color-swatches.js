@@ -5,6 +5,7 @@
 const path     = require('path');
 const Database = require('better-sqlite3');
 const hexMap   = require('../data/colors-hex.json');
+const { writeImage } = require('./lib/image-storage');
 
 const DB_PATH = path.join(__dirname, '..', 'data', 'voc.db');
 const db = new Database(DB_PATH);
@@ -72,10 +73,13 @@ for (const r of rows) {
 }
 
 // Preparar statements
-const checkExists = db.prepare('SELECT 1 FROM word_images WHERE word_lower=? AND category=?');
+const checkExists = db.prepare('SELECT path FROM word_images WHERE word_lower=? AND category=?');
 const insert = db.prepare(`
-  INSERT INTO word_images (word_lower, category, image_data, image_mime, source, metadata)
-  VALUES (?, 'colours', ?, 'image/svg+xml', 'color_swatch', ?)
+  INSERT INTO word_images (word_lower, category, image_data, image_mime, source, metadata, path)
+  VALUES (?, 'colours', X'', 'image/svg+xml', 'color_swatch', ?, ?)
+`);
+const updatePath = db.prepare(`
+  UPDATE word_images SET path = ?, image_data = X'' WHERE word_lower = ? AND category = 'colours'
 `);
 
 let generated = 0;
@@ -92,8 +96,10 @@ const insertMany = db.transaction(() => {
       continue;
     }
 
-    // Skip si ya existe
-    if (checkExists.get(word_lower, 'colours')) {
+    const existing = checkExists.get(word_lower, 'colours');
+
+    // Skip si ya existe y tiene path
+    if (existing && existing.path) {
       skipped++;
       continue;
     }
@@ -101,7 +107,15 @@ const insertMany = db.transaction(() => {
     const rgb = hexToRgb(hex);
     const svg = buildSvg(hex, translation, rgb);
     const meta = JSON.stringify({ hex: hex.toUpperCase(), rgb: [rgb.r, rgb.g, rgb.b] });
-    insert.run(word_lower, Buffer.from(svg, 'utf8'), meta);
+    const svgBuf = Buffer.from(svg, 'utf8');
+    const rel = writeImage(word_lower, 'colours', 'image/svg+xml', svgBuf);
+
+    if (existing) {
+      // Fila existente sin path: actualizar
+      updatePath.run(rel, word_lower);
+    } else {
+      insert.run(word_lower, meta, rel);
+    }
     generated++;
   }
 });
