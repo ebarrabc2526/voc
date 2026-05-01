@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>VOC – English Vocabulary Master</title>
   <meta name="description" content="Aprende vocabulario inglés jugando a ¿Quién quiere ser millonario?">
-  <link rel="stylesheet" href="css/style.css?v=1.7.1">
+  <link rel="stylesheet" href="css/style.css?v=2.1.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer
           onload="initGoogleSignIn()"></script>
@@ -79,6 +79,12 @@
         <button class="mode-btn" data-mode="es-en" onclick="setMode('es-en')">
           🇪🇸 Español → Inglés
         </button>
+        <button class="mode-btn" data-mode="flag-to-es" onclick="setMode('flag-to-es')">
+          🚩 Bandera → País (ES)
+        </button>
+        <button class="mode-btn" data-mode="es-to-flag" onclick="setMode('es-to-flag')">
+          🌍 País (ES) → Bandera
+        </button>
       </div>
     </div>
 
@@ -149,12 +155,13 @@
         <span class="lifeline-label">Experto</span>
       </button>
 
-      <button class="lifeline-btn" id="btn-exit-game" onclick="exitGame()"
-              style="margin-left:auto; border-color:rgba(255,50,50,.3); color:#ff6666">
-        <span class="lifeline-icon">🚪</span>
-        <span class="lifeline-label">Salir</span>
-      </button>
     </div>
+
+    <!-- Botón salir fijo abajo-izquierda -->
+    <button class="btn-exit-fixed" id="btn-exit-game" onclick="exitGame()" title="Salir">
+      <span class="lifeline-icon">🚪</span>
+      <span class="lifeline-label">Salir</span>
+    </button>
 
     <!-- Counter & Prize -->
     <div class="question-header">
@@ -164,6 +171,9 @@
 
     <!-- Question Card -->
     <div id="question-card">
+      <div id="question-flag" class="question-flag hidden">
+        <img id="question-flag-img" alt="" />
+      </div>
       <div id="word-text" class="word-text"></div>
 
       <!-- IPA Row -->
@@ -258,6 +268,7 @@
       <button class="hof-filter-btn"        data-hof="B2"     onclick="filterHof('B2')">B2</button>
       <button class="hof-filter-btn"        data-hof="C1"     onclick="filterHof('C1')">C1</button>
       <button class="hof-filter-btn"        data-hof="C2"     onclick="filterHof('C2')">C2</button>
+      <button class="hof-filter-btn"        data-hof="flags"  onclick="filterHof('flags')">🚩 Banderas</button>
     </div>
 
     <div id="hof-list"><!-- populated by JS --></div>
@@ -292,6 +303,9 @@
     <button class="btn-secondary" onclick="closeModal()">Colgar</button>
   </div>
 </div>
+
+<!-- Indicador mini para auto-experto (sin modal completo) -->
+<div id="expert-mini" class="expert-mini hidden" aria-hidden="true">🎧</div>
 
 <div id="modal-pool-exhausted" class="modal">
   <h3>⚠️ Sin palabras nuevas</h3>
@@ -371,14 +385,35 @@
         </div>
       </div>
       <div class="options-section">
+        <div class="options-title">📞 Experto</div>
+        <div class="option-row">
+          <span>Comentar siempre tras responder</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="opt-expert-after-correct" onchange="saveOptions()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div style="font-size:.8rem;opacity:.6;margin-top:4px">Si aciertas, el experto te confirma sin dudar. Si fallas, lamenta el fallo y te explica. No se repite si has usado el comodín del experto en esa pregunta.</div>
+      </div>
+
+      <div class="options-section">
         <div class="options-title">🖼️ Imagen de la palabra</div>
         <div class="option-row">
-          <label for="opt-image-seconds">Tiempo de imagen (segundos):</label>
-          <input type="number" id="opt-image-seconds" min="0" max="30" value="5"
-                 style="width:4rem;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:inherit;font-size:.95rem"
-                 onchange="saveOptions()">
+          <span>Mostrar imagen tras responder</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="opt-show-images" checked onchange="saveOptions()">
+            <span class="toggle-slider"></span>
+          </label>
         </div>
-        <div style="font-size:.8rem;opacity:.6;margin-top:4px">0 = pausa hasta pulsar el botón de avanzar</div>
+        <div id="opt-image-seconds-wrap">
+          <div class="option-row">
+            <label for="opt-image-seconds">Tiempo de imagen (segundos):</label>
+            <input type="number" id="opt-image-seconds" min="0" max="30" value="5"
+                   style="width:4rem;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:inherit;font-size:.95rem"
+                   onchange="saveOptions()">
+          </div>
+          <div style="font-size:.8rem;opacity:.6;margin-top:4px">0 = la imagen se queda visible hasta que pulses sobre la propia imagen para avanzar</div>
+        </div>
       </div>
     </div>
 
@@ -393,7 +428,7 @@
 <div id="confetti-container"></div>
 
 <!-- Scripts -->
-<script src="js/game.js?v=1.7.1"></script>
+<script src="js/game.js?v=2.1.0"></script>
 <script>
   // exitGame helper
   function exitGame() {

@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '1.7.1';
+const APP_VERSION = '2.1.0';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -35,7 +35,58 @@ const CATEGORY_NAMES = {
   military:           'Militar',
   religion:           'Religión',
   science:            'Ciencia',
+  flags:              'Banderas',
 };
+
+// ─── Web Audio API para experto (autoplay-friendly) ──────────────────────────
+// Usamos AudioContext en lugar de HTMLAudioElement: una vez resumido por un
+// gesto del usuario, los buffers se pueden reproducir sin restricciones aunque
+// hayan pasado por timeouts/await fetch.
+let _audioCtx = null;
+let _audioCtxResumed = false;
+let _currentSource = null;
+
+function getAudioCtx() {
+  if (!_audioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    _audioCtx = new Ctx();
+  }
+  return _audioCtx;
+}
+
+// Llamar dentro de un gesto del usuario (click) para resumir el contexto.
+function primeExpertAudio() {
+  try {
+    const ctx = getAudioCtx();
+    if (!ctx) return;
+    if (ctx.state === 'suspended') {
+      ctx.resume().then(() => { _audioCtxResumed = true; })
+                  .catch(e => console.warn('[expert] resume falló', e));
+    } else {
+      _audioCtxResumed = true;
+    }
+  } catch (e) { console.warn('[expert] prime exception', e); }
+}
+
+// Reproduce un ArrayBuffer (mp3) y resuelve cuando termina.
+async function playAudioBuffer(arrayBuffer) {
+  const ctx = getAudioCtx();
+  if (!ctx) throw new Error('AudioContext no disponible');
+  if (ctx.state === 'suspended') {
+    try { await ctx.resume(); } catch {}
+  }
+  const buffer = await ctx.decodeAudioData(arrayBuffer.slice(0));
+  return new Promise((resolve) => {
+    if (_currentSource) { try { _currentSource.stop(); } catch {} _currentSource = null; }
+    const src = ctx.createBufferSource();
+    src.buffer = buffer;
+    src.connect(ctx.destination);
+    src.onended = () => { _currentSource = null; resolve(); };
+    src.start();
+    _currentSource = src;
+  });
+}
 
 // ─── Words Cache ──────────────────────────────────────────────────────────────
 const WordsCache = {};
@@ -122,7 +173,10 @@ let _imageDurMs    = null;
 let _imageShown    = false;
 let _imageOnAdvance = null;  // callback para avanzar manualmente en modo pausa
 
-function showWordImage(word, category, onAdvance) {
+function showWordImage(word, category, callbacks) {
+  // callbacks puede ser un función (onAdvance) o un objeto { onStarted, onAdvance }
+  const cb = (typeof callbacks === 'function') ? { onAdvance: callbacks } : (callbacks || {});
+
   const box      = document.getElementById('word-image-box');
   const img      = document.getElementById('word-image');
   const progress = document.getElementById('word-image-progress');
@@ -130,15 +184,15 @@ function showWordImage(word, category, onAdvance) {
   const pctEl    = progress.querySelector('.progress-percent');
 
   if (_imageTimer) { cancelAnimationFrame(_imageTimer); _imageTimer = null; }
-  _imageOnAdvance = onAdvance || null;
+  _imageOnAdvance = cb.onAdvance || null;
 
   // Click en la caja avanza (útil en modo pausa, también funciona durante timer)
   box.onclick = () => {
     if (_imageOnAdvance) {
-      const cb = _imageOnAdvance;
+      const advCb = _imageOnAdvance;
       _imageOnAdvance = null;
       hideWordImage();
-      cb();
+      advCb();
     }
   };
 
@@ -146,6 +200,7 @@ function showWordImage(word, category, onAdvance) {
   img.onload  = () => {
     _imageShown = true;
     box.classList.remove('hidden');
+    if (cb.onStarted) cb.onStarted();
     const seconds = (window.userPrefs?.imageDisplaySeconds != null
       ? window.userPrefs.imageDisplaySeconds : 5);
     if (seconds === 0) {
@@ -211,6 +266,8 @@ function loadPrefs() {
   if (p.autoPlay !== undefined)        State.autoPlay            = p.autoPlay;
   if (p.autoPlayLangs)                 State.autoPlayLangs       = p.autoPlayLangs;
   if (p.imageDisplaySeconds != null)   State.imageDisplaySeconds = p.imageDisplaySeconds;
+  if (p.showImages !== undefined)      State.showImages          = !!p.showImages;
+  if (p.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!p.expertAfterCorrect;
 }
 
 function savePrefs() {
@@ -222,6 +279,8 @@ function savePrefs() {
     autoPlay:            State.autoPlay,
     autoPlayLangs:       State.autoPlayLangs,
     imageDisplaySeconds: State.imageDisplaySeconds,
+    showImages:          State.showImages,
+    expertAfterCorrect:  State.expertAfterCorrect,
   });
 }
 
@@ -271,6 +330,29 @@ function renderGoogleButton() {
   });
 }
 
+function applyServerPrefs(prefs) {
+  if (!prefs) return;
+  if (prefs.level)                        State.level               = prefs.level;
+  if (prefs.mode)                         State.mode                = prefs.mode;
+  if (prefs.category)                     State.category            = prefs.category;
+  if (prefs.challengeType)                State.challengeType       = prefs.challengeType;
+  if (prefs.autoPlay !== undefined)       State.autoPlay            = prefs.autoPlay;
+  if (prefs.autoPlayLangs)                State.autoPlayLangs       = prefs.autoPlayLangs;
+  if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
+  if (prefs.showImages !== undefined)     State.showImages          = !!prefs.showImages;
+  if (prefs.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!prefs.expertAfterCorrect;
+  window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
+  window.userPrefs.showImages          = State.showImages;
+  savePrefs();
+}
+
+function fetchServerPrefs(token) {
+  return fetch('/api/prefs', { headers: { Authorization: `Bearer ${token}` } })
+    .then(r => r.ok ? r.json() : null)
+    .then(applyServerPrefs)
+    .catch(e => console.error('[prefs] fetch error', e));
+}
+
 function handleGoogleLogin(response) {
   console.log('[FRONTEND] Token recibido de Google');
   fetch('/api/auth/google', {
@@ -291,23 +373,7 @@ function handleGoogleLogin(response) {
       Auth.save(data.token, { name: data.name, email: data.email, picture: data.picture });
       State.playerName = data.name;
       updateHomeUI();
-      // Cargar preferencias del servidor
-      return fetch('/api/prefs', {
-        headers: { Authorization: `Bearer ${data.token}` },
-      }).then(r => r.json());
-    })
-    .then(prefs => {
-      if (prefs) {
-        if (prefs.level)                        State.level               = prefs.level;
-        if (prefs.mode)                         State.mode                = prefs.mode;
-        if (prefs.category)                     State.category            = prefs.category;
-        if (prefs.challengeType)                State.challengeType       = prefs.challengeType;
-        if (prefs.autoPlay !== undefined)       State.autoPlay            = prefs.autoPlay;
-        if (prefs.autoPlayLangs)                State.autoPlayLangs       = prefs.autoPlayLangs;
-        if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
-        window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
-        savePrefs();
-      }
+      return fetchServerPrefs(data.token);
     })
     .catch(e => {
       console.error('[FRONTEND] Error completo:', e);
@@ -345,6 +411,9 @@ const State = {
   autoPlay: false,
   autoPlayLangs: ['uk', 'us'],
   imageDisplaySeconds: 5,
+  showImages: true,
+  expertAfterCorrect: false,
+  expertUsedThisQuestion: false,
   questions: [],
   currentIndex: 0,
   currentPrize: 0,
@@ -363,7 +432,7 @@ const State = {
 };
 
 // Alias global usado por showWordImage
-window.userPrefs = { imageDisplaySeconds: 5 };
+window.userPrefs = { imageDisplaySeconds: 5, showImages: true };
 
 // Dynamic prize ladder: €10 increments per question, accumulates across phases
 const SAFE_ZONES = [3, 6]; // 0-indexed positions within each phase
@@ -377,6 +446,7 @@ function getPhasePrizes(phase) {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
 }
 function showHome() { showScreen('screen-home'); }
 async function showSetup() {
@@ -405,11 +475,24 @@ async function showSetup() {
 function showHallOfFame() { displayHallOfFame(); showScreen('screen-halloffame'); }
 
 // ─── Setup ────────────────────────────────────────────────────────────────────
-function setMode(mode) {
+async function setMode(mode) {
   State.mode = mode;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+  // En modos de banderas, fijar categoría a 'flags' y nivel ALL
+  if (mode === 'flag-to-es' || mode === 'es-to-flag') {
+    State.level = 'ALL';
+    State.category = 'flags';
+    await fetchWordsForLevel('ALL');
+    populateCategories();
+    document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-level="ALL"]')?.classList.add('active');
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-cat="flags"]')?.classList.add('active');
+  }
 }
+
+function isFlagMode(m) { return m === 'flag-to-es' || m === 'es-to-flag'; }
 async function setLevel(level) {
   State.level = level;
   document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
@@ -484,7 +567,8 @@ function updateSetupUI() {
 
 // ─── Game Init ────────────────────────────────────────────────────────────────
 async function startGame() {
-  Audio.init();
+  try { Audio.init(); } catch (e) { console.warn('[startGame] Audio.init', e); }
+  try { primeExpertAudio(); } catch (e) { console.warn('[startGame] primeExpertAudio', e); }
   savePrefs();
   await fetchWordsForLevel(State.level);
   const pool = getWordsForLevelAndCategory(State.level, State.category);
@@ -545,6 +629,7 @@ function loadQuestion() {
   const word = State.questions[qIdx];
   State.eliminatedOptions = [];
   State.answering = false;
+  State.expertUsedThisQuestion = false;
 
   const options = generateOptions(word);
   displayQuestion(word, options);
@@ -595,18 +680,38 @@ function displayQuestion(word, { options, correctIndex }) {
   State.currentOptions = options;
   State.currentCorrectIndex = correctIndex;
 
-  // Word display
-  const isEnToEs = State.mode === 'en-es';
-  const questionText = isEnToEs ? word.word : word.translation;
-  const showIPA = isEnToEs;
+  const mode = State.mode;
+  const isEnToEs = mode === 'en-es';
+  const flagMode = isFlagMode(mode);
+  const flagQ    = mode === 'flag-to-es';
+  const flagOpt  = mode === 'es-to-flag';
 
+  // Pregunta principal
+  let questionText = '';
+  if (flagQ) questionText = '';                 // se muestra solo bandera
+  else if (flagOpt) questionText = word.translation;  // nombre en español
+  else questionText = isEnToEs ? word.word : word.translation;
   document.getElementById('word-text').textContent = questionText;
+
+  // Bandera de pregunta (modo flag-to-es)
+  const flagBox = document.getElementById('question-flag');
+  const flagImg = document.getElementById('question-flag-img');
+  if (flagQ) {
+    flagImg.src = `/api/word-image/${encodeURIComponent(word.word.toLowerCase())}/flags`;
+    flagBox.classList.remove('hidden');
+  } else {
+    flagBox.classList.add('hidden');
+    flagImg.src = '';
+  }
+
+  // IPA / audio: solo en modos de palabra
+  const showIPA = isEnToEs && !flagMode;
   document.getElementById('ipa-uk').textContent = showIPA ? word.uk_ipa : '';
   document.getElementById('ipa-us').textContent = showIPA ? word.us_ipa : '';
   document.getElementById('ipa-row').style.display = showIPA ? 'flex' : 'none';
-  document.getElementById('audio-row').style.display = showIPA ? 'flex' : 'none';
+  document.getElementById('audio-row').style.display = (isEnToEs || mode === 'es-en') && !flagMode ? 'flex' : 'none';
   State.currentWord = word;
-  autoPlayWord();
+  if (!flagMode) autoPlayWord();
 
   const labels = ['A', 'B', 'C', 'D'];
   const card  = document.getElementById('question-card');
@@ -614,10 +719,17 @@ function displayQuestion(word, { options, correctIndex }) {
   // Reset buttons — direct class reset, no opacity animation so GPU layer is never stale
   options.forEach((opt, i) => {
     const btn = document.getElementById(`answer-${labels[i]}`);
-    btn.className = 'answer-btn';
+    btn.className = 'answer-btn' + (flagOpt ? ' flag-option' : '');
     btn.disabled  = false;
     btn.querySelector('.answer-label').textContent = labels[i];
-    btn.querySelector('.answer-text').textContent  = isEnToEs ? opt.translation : opt.word;
+    const textEl = btn.querySelector('.answer-text');
+    if (flagOpt) {
+      textEl.innerHTML = `<img src="/api/word-image/${encodeURIComponent(opt.word.toLowerCase())}/flags" alt="${opt.translation}">`;
+    } else if (flagQ) {
+      textEl.textContent = opt.translation;  // nombre español del país
+    } else {
+      textEl.textContent = isEnToEs ? opt.translation : opt.word;
+    }
   });
 
   // Animate card with transform only — no opacity, no GPU compositing layer,
@@ -633,6 +745,9 @@ function displayQuestion(word, { options, correctIndex }) {
 function selectAnswer(index) {
   if (State.answering || State.eliminatedOptions.includes(index)) return;
   State.answering = true;
+  // Re-priming en cada click — gesto fresco del usuario para mantener
+  // el audio del experto desbloqueado en navegadores estrictos (iOS).
+  try { primeExpertAudio(); } catch (e) { console.warn('[selectAnswer] prime', e); }
 
   const labels = ['A', 'B', 'C', 'D'];
   const btn = document.getElementById(`answer-${labels[index]}`);
@@ -731,21 +846,29 @@ function revealAnswer(selectedIndex) {
     else                            loadQuestion();
   };
 
-  // Mostrar imagen y sincronizar el avance con su timer/click
+  // Mostrar imagen y sincronizar el avance con su timer/click.
+  // Lógica: arrancamos un fallback timer de fallbackMs por si la imagen no
+  // carga (categoría sin imagen). Si la imagen SÍ carga, onStarted cancela
+  // ese fallback y el avance vendrá de onAdvance (al cumplirse el timer
+  // de imagen, o al click en modo pausa).
   const fallbackMs = isCorrect ? 1500 : 1800;
-  if (State.currentWord) {
-    let imageReady = false;
-    const img = document.getElementById('word-image');
-    if (img) {
-      // Si falla la imagen (categoría sin ella), avanzamos con el delay normal
-      const onTimeout = setTimeout(() => { if (!imageReady) advance(); }, fallbackMs);
-      const orig = { onload: img.onload, onerror: img.onerror };
-      // showWordImage internamente reasigna onload/onerror; envolvemos para detectar
-      showWordImage(State.currentWord.word, State.currentWord.category, () => { imageReady = true; clearTimeout(onTimeout); advance(); });
-      // Si la imagen no carga jamás, el setTimeout fallback se encarga
-    } else {
-      setTimeout(advance, fallbackMs);
-    }
+
+  // Auto-experto tras responder (si está activado y no se usó el comodín)
+  const autoExpert = State.expertAfterCorrect && !State.expertUsedThisQuestion;
+  const expertCtx  = isCorrect ? 'auto-correct' : 'auto-wrong';
+
+  if (autoExpert) {
+    // Pequeña pausa para mostrar la respuesta correcta antes del experto
+    setTimeout(() => {
+      useExpert(() => { advance(); }, expertCtx);
+    }, 600);
+  } else if (State.currentWord && State.showImages !== false && !isFlagMode(State.mode)) {
+    // En modos de banderas, la bandera ya está visible — no abrir el word-image-box
+    const fallbackTimer = setTimeout(advance, fallbackMs);
+    showWordImage(State.currentWord.word, State.currentWord.category, {
+      onStarted: () => clearTimeout(fallbackTimer),
+      onAdvance: advance,
+    });
   } else {
     setTimeout(advance, fallbackMs);
   }
@@ -760,7 +883,11 @@ function useLifeline(type) {
 
   if (type === 'fifty') useFiftyFifty();
   else if (type === 'audience') useAudience();
-  else if (type === 'expert') useExpert();
+  else if (type === 'expert') {
+    State.expertUsedThisQuestion = true;
+    try { primeExpertAudio(); } catch {}
+    useExpert();
+  }
 }
 
 function useFiftyFifty() {
@@ -799,39 +926,90 @@ function useAudience() {
   openModal('modal-audience');
 }
 
-async function useExpert() {
+async function useExpert(onFinished, context = 'lifeline') {
   const labels = ['A', 'B', 'C', 'D'];
   const correctLabel = labels[State.currentCorrectIndex];
   const correctText  = State.currentOptions[State.currentCorrectIndex];
-  const answer       = State.mode === 'en-es' ? correctText.translation : correctText.word;
+  const flagMode     = isFlagMode(State.mode);
+  // En banderas la respuesta hablada es el nombre del país en español;
+  // el "word" pasa el nombre en inglés (país) al backend para identificar la bandera.
+  const answer       = flagMode
+    ? correctText.translation
+    : (State.mode === 'en-es' ? correctText.translation : correctText.word);
   const word         = correctText.word;
   const fallbackHtml = `<strong>${correctLabel}: "${answer}"</strong>`;
+  const useMini      = context !== 'lifeline';
 
   const msgEl = document.getElementById('expert-message');
-  msgEl.innerHTML = '🎧 <em>Consultando al experto...</em>';
-  openModal('modal-expert');
+  const miniEl = document.getElementById('expert-mini');
 
-  if (!Auth.isLoggedIn()) { msgEl.innerHTML = fallbackHtml; return; }
+  const showUI = () => {
+    if (useMini) {
+      miniEl?.classList.remove('hidden');
+    } else {
+      msgEl.innerHTML = '🎧 <em>Consultando al experto...</em>';
+      openModal('modal-expert');
+    }
+  };
+  const hideUI = () => {
+    if (useMini) miniEl?.classList.add('hidden');
+  };
+  const finish = (() => {
+    let done = false;
+    return () => {
+      if (done) return;
+      done = true;
+      hideUI();
+      if (onFinished) onFinished();
+    };
+  })();
+
+  showUI();
+
+  if (!Auth.isLoggedIn()) {
+    if (!useMini) msgEl.innerHTML = fallbackHtml;
+    setTimeout(finish, 1200);
+    return;
+  }
 
   try {
     const r = await fetch('/api/tts-expert', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${Auth.token}` },
-      body: JSON.stringify({ word, answer, correctLabel, mode: State.mode }),
+      body: JSON.stringify({ word, answer, correctLabel, mode: State.mode, context }),
     });
-    if (!r.ok) throw new Error('error');
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
-    msgEl.innerHTML = data.html || fallbackHtml;
-    if (data.audio) {
-      const bytes = Uint8Array.from(atob(data.audio), c => c.charCodeAt(0));
-      const blob  = new Blob([bytes], { type: 'audio/mpeg' });
-      const url   = URL.createObjectURL(blob);
-      const audio = new window.Audio(url);
-      audio.onended = () => URL.revokeObjectURL(url);
-      await audio.play();
+    if (!useMini) msgEl.innerHTML = data.html || fallbackHtml;
+
+    if (!data.audio) {
+      console.warn('[expert] sin audio en respuesta');
+      setTimeout(finish, 1500);
+      return;
     }
-  } catch {
-    msgEl.innerHTML = fallbackHtml;
+
+    const bytes = Uint8Array.from(atob(data.audio), c => c.charCodeAt(0));
+    console.log('[expert] play()', { context, useMini, ctxResumed: _audioCtxResumed, audioBytes: bytes.length });
+
+    // Safety timer en caso de que el play cuelgue
+    const safetyTimer = setTimeout(() => {
+      console.warn('[expert] safety timeout — forzando avance');
+      finish();
+    }, 60000);
+
+    try {
+      await playAudioBuffer(bytes.buffer);
+      clearTimeout(safetyTimer);
+      finish();
+    } catch (e) {
+      console.warn('[expert] play falló', e);
+      clearTimeout(safetyTimer);
+      setTimeout(finish, 800);
+    }
+  } catch (e) {
+    console.warn('[expert] fetch error', e);
+    if (!useMini) msgEl.innerHTML = fallbackHtml;
+    setTimeout(finish, 1200);
   }
 }
 
@@ -1016,12 +1194,23 @@ function saveOptions() {
   State.autoPlayLangs = ['uk', 'us', 'es'].filter(l => document.getElementById(`opt-lang-${l}`).checked);
   document.getElementById('opt-langs-wrap').style.display = State.autoPlay ? '' : 'none';
 
+  const showImgEl = document.getElementById('opt-show-images');
+  if (showImgEl) {
+    State.showImages = showImgEl.checked;
+    window.userPrefs.showImages = State.showImages;
+    const wrap = document.getElementById('opt-image-seconds-wrap');
+    if (wrap) wrap.style.display = State.showImages ? '' : 'none';
+  }
+
   const imgEl = document.getElementById('opt-image-seconds');
   if (imgEl) {
     const v = parseInt(imgEl.value, 10);
     State.imageDisplaySeconds = (!isNaN(v) && v >= 0 && v <= 30) ? v : 5;
     window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   }
+
+  const eacEl = document.getElementById('opt-expert-after-correct');
+  if (eacEl) State.expertAfterCorrect = eacEl.checked;
 
   savePrefs();
   // Guardar al servidor si está autenticado
@@ -1037,6 +1226,8 @@ function saveOptions() {
         autoPlay:            State.autoPlay,
         autoPlayLangs:       State.autoPlayLangs,
         imageDisplaySeconds: State.imageDisplaySeconds,
+        showImages:          State.showImages,
+        expertAfterCorrect:  State.expertAfterCorrect,
       }),
     }).catch(() => {});
   }
@@ -1098,7 +1289,7 @@ function saveGameStats(prize) {
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${Auth.token}` },
     body: JSON.stringify({
       level:      State.level,
-      mode:       State.mode === 'en-es' ? 'EN→ES' : 'ES→EN',
+      mode:       modeLabel(State.mode),
       challenge:  `Reto ${State.challengeType === 'infinite' ? '∞' : State.challengeType}`,
       category:   State.category,
       prize:      prize,
@@ -1107,6 +1298,16 @@ function saveGameStats(prize) {
       max_streak: State.maxStreak,
     }),
   }).catch(e => console.error('[stats]', e));
+}
+
+function modeLabel(m) {
+  switch (m) {
+    case 'en-es':       return 'EN→ES';
+    case 'es-en':       return 'ES→EN';
+    case 'flag-to-es':  return 'BAND→ES';
+    case 'es-to-flag':  return 'ES→BAND';
+    default:            return m;
+  }
 }
 
 function showResultScreen(won, title, msg, prize) {
@@ -1136,7 +1337,7 @@ function saveToHallOfFame() {
 
   const entry = {
     level:     State.level,
-    mode:      State.mode === 'en-es' ? 'EN→ES' : 'ES→EN',
+    mode:      modeLabel(State.mode),
     challenge: `Reto ${State.challengeType === 'infinite' ? '∞' : State.challengeType}`,
     category:  CATEGORY_NAMES[State.category] || State.category,
     score:     State.challengeType === '10' ? State.currentPrize : State.totalPrize,
@@ -1188,6 +1389,12 @@ async function showProfile() {
   document.getElementById('opt-langs-wrap').style.display = State.autoPlay ? '' : 'none';
   const imgSecEl = document.getElementById('opt-image-seconds');
   if (imgSecEl) imgSecEl.value = State.imageDisplaySeconds != null ? State.imageDisplaySeconds : 5;
+  const showImgEl = document.getElementById('opt-show-images');
+  if (showImgEl) showImgEl.checked = State.showImages !== false;
+  const imgSecWrap = document.getElementById('opt-image-seconds-wrap');
+  if (imgSecWrap) imgSecWrap.style.display = (State.showImages !== false) ? '' : 'none';
+  const eacEl = document.getElementById('opt-expert-after-correct');
+  if (eacEl) eacEl.checked = !!State.expertAfterCorrect;
 
   showScreen('screen-profile');
   showProfileTab('stats');
@@ -1386,7 +1593,10 @@ function displayHallOfFame() {
       }
     })
     .then(hof => {
-      const subset = filter === 'global' ? hof : hof.filter(e => e.level === filter);
+      let subset;
+      if (filter === 'global')      subset = hof;
+      else if (filter === 'flags')  subset = hof.filter(e => e.mode === 'BAND→ES' || e.mode === 'ES→BAND');
+      else                          subset = hof.filter(e => e.level === filter && e.mode !== 'BAND→ES' && e.mode !== 'ES→BAND');
 
       const players = {};
       subset.forEach(e => {
@@ -1420,7 +1630,9 @@ function renderHofList(list, entries, filter) {
     '<span class="crown crown-silver">👑</span>',
     '<span class="crown crown-bronze">👑</span>'
   ];
-  const levelLabel = filter === 'global' ? 'todos los niveles' : `nivel ${filter}`;
+  const levelLabel = filter === 'global' ? 'todos los niveles'
+                   : filter === 'flags'  ? 'banderas'
+                   : `nivel ${filter}`;
   list.innerHTML = '';
   entries.forEach((entry, i) => {
     const rank      = i < 3 ? `${i + 1}` : `${i + 1}`;
@@ -1514,4 +1726,5 @@ document.addEventListener('DOMContentLoaded', () => {
   displayAppVersion();
   updateHomeUI();
   showHome();
+  if (Auth.isLoggedIn()) fetchServerPrefs(Auth.token);
 });

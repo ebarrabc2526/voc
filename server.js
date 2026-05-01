@@ -38,6 +38,9 @@ if (fs.existsSync(MIGRATION_005)) {
   if (!cols005.includes('image_display_seconds')) {
     db.prepare('ALTER TABLE user_prefs ADD COLUMN image_display_seconds INTEGER NOT NULL DEFAULT 5').run();
   }
+  if (!cols005.includes('show_images')) {
+    db.prepare('ALTER TABLE user_prefs ADD COLUMN show_images INTEGER NOT NULL DEFAULT 1').run();
+  }
 }
 
 function requireAuth(req, res, next) {
@@ -235,20 +238,22 @@ app.get('/api/prefs', requireAuth, (req, res) => {
     autoPlay:            !!row.auto_play,
     autoPlayLangs:       JSON.parse(row.auto_play_langs),
     imageDisplaySeconds: row.image_display_seconds != null ? row.image_display_seconds : 5,
+    showImages:          row.show_images == null ? true : !!row.show_images,
   });
 });
 
 app.put('/api/prefs', requireAuth, (req, res) => {
-  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds } = req.body;
+  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds, showImages } = req.body;
   // Validar imageDisplaySeconds: entero 0-30
   let imgSecs = 5;
   if (imageDisplaySeconds !== undefined) {
     const parsed = parseInt(imageDisplaySeconds, 10);
     imgSecs = (!isNaN(parsed) && parsed >= 0 && parsed <= 30) ? parsed : 5;
   }
+  const showImg = (showImages === undefined || showImages === null) ? 1 : (showImages ? 1 : 0);
   db.prepare(`
-    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds, show_images)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(sub) DO UPDATE SET
       level = excluded.level,
       mode = excluded.mode,
@@ -256,11 +261,12 @@ app.put('/api/prefs', requireAuth, (req, res) => {
       challenge_type = excluded.challenge_type,
       auto_play = excluded.auto_play,
       auto_play_langs = excluded.auto_play_langs,
-      image_display_seconds = excluded.image_display_seconds
+      image_display_seconds = excluded.image_display_seconds,
+      show_images = excluded.show_images
   `).run(req.user.sub, level||'A1', mode||'en-es', category||'all',
          challengeType||'10', autoPlay ? 1 : 0,
          JSON.stringify(autoPlayLangs || ['uk','us']),
-         imgSecs);
+         imgSecs, showImg);
   res.json({ ok: true });
 });
 
@@ -295,18 +301,27 @@ async function fishTTS(text, key, voiceId, normalize = true) {
 }
 
 app.post('/api/tts-expert', requireAuth, async (req, res) => {
-  const { word, answer, correctLabel, mode } = req.body || {};
+  const { word, answer, correctLabel, mode, context } = req.body || {};
   if (!word || !answer || !correctLabel) return res.status(400).json({ error: 'missing params' });
+  // context: 'lifeline' (default — duda y responde), 'auto-correct' (afirma directo), 'auto-wrong' (lamenta y explica)
+  const ctx = context === 'auto-correct' || context === 'auto-wrong' ? context : 'lifeline';
 
   const fishKey    = process.env.FISH_AUDIO_API_KEY;
   const voiceId    = process.env.FISH_AUDIO_VOICE_ID;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   if (!fishKey || !voiceId) return res.status(503).json({ error: 'TTS not configured' });
 
-  // 1. Etimología via Claude Haiku
-  let etymology = '';
+  // 1. Explicación via Claude Haiku.
+  //    - Modo banderas: SIGNIFICADO/ORIGEN de colores y símbolos + dato curioso del país (NO etimología).
+  //    - Resto: etimología/curiosidad de la palabra inglesa.
+  const isFlagMode = mode === 'flag-to-es' || mode === 'es-to-flag';
+  let explanation = '';
   if (anthropicKey) {
     try {
+      const systemPrompt = `Eres Jarvis, un asistente con personalidad. Hablas en castellano de España, primera persona, tono firme, afirmativo y directo al grano. NUNCA empiezas con muletillas, dudas, interjecciones de pensamiento ni frases de relleno (prohibido: "Mmm", "Hmm", "Ehh", "Ahh", "Uff", "A ver", "Vamos a ver", "Déjame ver", "Déjame pensar", "Déjame contarte", "Pues", "Pues mira", "Bueno", "Mira", "Sabes", "Verás", "Fíjate", "Te cuento", "Curiosamente", "Interesante", "Resulta que", "Pues bien"). Tu primera palabra debe ser un sustantivo, verbo, artículo o preposición que forme parte de la afirmación. Sin comillas, sin listas, sin titulares.`;
+      const userPrompt = isFlagMode
+        ? `Tema: la BANDERA de ${answer} y el país. Máximo 70 palabras. Explica el SIGNIFICADO y ORIGEN de sus colores y símbolos, y cierra con un dato curioso del país. PROHIBIDO hablar de etimología de la palabra "${answer}" o del idioma; céntrate solo en la bandera y el país. Texto corrido, una o dos frases, en castellano.`
+        : `Tema: la palabra inglesa "${word}". Máximo 25 palabras. Cuenta su origen, etimología o una curiosidad sobre ella. Texto corrido, en castellano.`;
       const llmRes = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
@@ -316,43 +331,83 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
         },
         body: JSON.stringify({
           model: 'claude-haiku-4-5-20251001',
-          max_tokens: 100,
-          messages: [{ role: 'user', content: `Eres Jarvis, un asistente con personalidad. Haz UN comentario curioso o anecdótico (máximo 25 palabras) sobre el origen de la palabra inglesa "${word}". Habla en primera persona, con naturalidad, como si lo contaras de pasada. Nada de definiciones secas. Solo el comentario, sin comillas.` }],
+          max_tokens: isFlagMode ? 320 : 120,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: userPrompt }],
         }),
       });
       const llmData = await llmRes.json();
-      etymology = llmData.content?.[0]?.text?.trim() || '';
+      explanation = llmData.content?.[0]?.text?.trim() || '';
+      // Saneador agresivo: recorta repetidamente muletillas iniciales aunque vayan
+      // encadenadas ("Pues mira, a ver, ..." → "...").
+      const fillerRegex = /^[\s,.\-—:;¡!¿?"«»'`´·]*(?:mmm+|hmm+|ehh+|ahh+|uff+|pues(?:\s+(?:mira|bien))?|bueno|a\s+ver|vamos\s+a\s+ver|déjame(?:\s+(?:pensar|contarte|ver))?|mira|sabes|verás|curiosamente|interesante|resulta\s+que|te\s+cuento|fíjate|ostras|vaya|ah|oh|eh)\b[\s,.\-—:;¡!¿?]*/i;
+      let prev;
+      do { prev = explanation; explanation = explanation.replace(fillerRegex, '').trim(); } while (explanation && explanation !== prev);
+      if (explanation) explanation = explanation.charAt(0).toUpperCase() + explanation.slice(1);
     } catch { /* opcional */ }
   }
+  // Mantener nombre `etymology` para no tocar el resto del flujo.
+  const etymology = explanation;
 
-  // 2. Construir segmentos de audio
+  // 2. Construir segmentos de audio según contexto
   const labelSpoken = { A: 'la a', B: 'la be', C: 'la ce', D: 'la de' }[correctLabel] || correctLabel;
-  // [prefix before answer, suffix after answer]
-  const templates = [
-    [`Mmm... a ver... sí, lo tengo. ${labelSpoken}:`, `. `],
-    [`Uf, déjame pensar... ${labelSpoken}:`, `. `],
-    [`Hmm... creo que ${labelSpoken}:`, `. Sí, eso es. `],
-    [`A ver... esto lo sé... ${labelSpoken}:`, `. Estoy seguro. `],
+  const fallbackTail = etymology || answer;
+
+  // Lamentos para auto-wrong (sin "la a:"... entra directo al lamento + explicación)
+  const wrongLaments = [
+    '¡Oh, no! Casi rozas la gloria.',
+    'Ay madre, esa se te ha resbalado entre los dedos.',
+    'Vaya por Dios, qué cerca y qué lejos.',
+    'Uy, error de cálculo.',
+    'Ains, no era esa.',
+    'Tropezón clásico.',
+    'Así se aprende.',
   ];
-  const [prefix, suffix] = templates[Math.floor(Math.random() * templates.length)];
 
   const html = `<strong>${correctLabel}: "${answer}"</strong>`
              + (etymology ? `<br><small style="opacity:.8">📖 ${etymology}</small>` : '');
 
-  // 3. TTS: una sola llamada a Fish Audio con phoneme tags para palabras inglesas
+  // 3. Construir texto hablado según contexto
   try {
     let spoken;
-    if (mode === 'es-en') {
-      // La respuesta es una palabra inglesa → sustituir con phoneme tag en todo el texto
-      const answerTag = enPhoneme(answer);
-      const close = etymology ? `${suffix}Por cierto, ${injectPhonemes(etymology, answer)}` : suffix.trim();
-      spoken = `${prefix} ${answerTag}${close}`;
+    const useEnPhonemes = !isFlagMode && mode === 'es-en';
+
+    if (ctx === 'auto-correct') {
+      // ACIERTO: directo a la explicación, sin "la a:", sin "por cierto",
+      // sin afirmaciones tipo "¡eso es!". Solo la etimología/dato.
+      if (etymology) {
+        spoken = useEnPhonemes ? injectPhonemes(etymology, answer) : etymology;
+      } else {
+        // Sin etimología → fallback mínimo: solo la respuesta
+        spoken = useEnPhonemes ? enPhoneme(answer) : answer;
+      }
+    } else if (ctx === 'auto-wrong') {
+      // Fallo: lamento original + explicación directa
+      const lament = wrongLaments[Math.floor(Math.random() * wrongLaments.length)];
+      const correctPhrase = `Era ${labelSpoken}: ${useEnPhonemes ? enPhoneme(answer) : answer}.`;
+      const tail = etymology ? (useEnPhonemes ? injectPhonemes(etymology, answer) : etymology) : '';
+      spoken = `${lament} ${correctPhrase} ${tail}`.trim();
     } else {
-      spoken = etymology
-        ? `${prefix} ${answer}${suffix}Por cierto, ${etymology}`
-        : `${prefix} ${answer}${suffix.trim()}`;
+      // Lifeline (comodín manual): duda y responde
+      const dudaTemplates = [
+        [`Mmm... a ver... sí, lo tengo. ${labelSpoken}:`, `. `],
+        [`Uf, déjame pensar... ${labelSpoken}:`, `. `],
+        [`Hmm... creo que ${labelSpoken}:`, `. Sí, eso es. `],
+        [`A ver... esto lo sé... ${labelSpoken}:`, `. Estoy seguro. `],
+      ];
+      const [prefix, suffix] = dudaTemplates[Math.floor(Math.random() * dudaTemplates.length)];
+      if (useEnPhonemes) {
+        const answerTag = enPhoneme(answer);
+        const close = etymology ? `${suffix}Por cierto, ${injectPhonemes(etymology, answer)}` : suffix.trim();
+        spoken = `${prefix} ${answerTag}${close}`;
+      } else {
+        spoken = etymology
+          ? `${prefix} ${answer}${suffix}Por cierto, ${etymology}`
+          : `${prefix} ${answer}${suffix.trim()}`;
+      }
     }
-    const audioBuf = await fishTTS(spoken, fishKey, voiceId, mode !== 'es-en');
+
+    const audioBuf = await fishTTS(spoken, fishKey, voiceId, useEnPhonemes);
     res.json({ audio: audioBuf.toString('base64'), html });
   } catch (e) {
     res.status(500).json({ error: e.message, html });
