@@ -364,7 +364,7 @@ html, body {
 .game-main {
   flex: 1;
   display: flex; flex-direction: column; align-items: center;
-  padding: 1.2rem 1.5rem 1.5rem;
+  padding: 1.2rem 1.5rem 90px;   /* bottom: hueco para Salir fijo abajo-izquierda */
   gap: 1rem; overflow-y: auto;
 }
 
@@ -387,6 +387,12 @@ html, body {
   box-shadow: 0 4px 16px var(--gold-glow);
 }
 .lifeline-btn.used { opacity: 0.25; cursor: not-allowed; }
+.lifeline-btn.armed {
+  background: rgba(255,215,0,0.2);
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 12px var(--gold-glow), inset 0 0 8px rgba(255,215,0,0.15);
+}
 .lifeline-icon { font-size: 1.4rem; }
 .lifeline-label { font-size: 0.65rem; color: var(--grey); }
 
@@ -807,14 +813,15 @@ html, body {
 }
 .lang-check input { accent-color: var(--gold); width: 16px; height: 16px; cursor: pointer; }
 
-/* Botón salir fijo arriba-derecha (botón cuadrado). En móvil se ajusta
-   en el bloque RESPONSIVE — esta regla base DEBE ir antes de los @media. */
+/* Botón salir fijo abajo-izquierda (botón cuadrado). En móvil se ajusta
+   en el bloque RESPONSIVE — esta regla base DEBE ir antes de los @media.
+   Posición elegida para no competir con la barra de comodines arriba. */
 .btn-exit-fixed {
   position: fixed;
-  top: 12px;
-  right: 12px;
-  bottom: auto;
-  left: auto;
+  bottom: 12px;
+  left: 12px;
+  top: auto;
+  right: auto;
   z-index: 100;
   padding: 0.5rem 0.6rem;
   background: rgba(0,0,0,0.55);
@@ -867,7 +874,7 @@ html, body {
   .streak-label{ font-size: 0.7rem; }
 
   .game-main {
-    padding: 0.6rem 0.7rem 0.8rem;
+    padding: 0.6rem 0.7rem 80px;   /* bottom extra para no chocar con Salir fijo */
     gap: 0.85rem;
     justify-content: flex-start;   /* alineado arriba, no centrado */
     min-height: 100vh;
@@ -892,12 +899,12 @@ html, body {
 
   .word-image-box { max-width: 280px; margin: 6px auto 0; }
 
-  /* Botón salir: cuadrado en la esquina arriba-derecha, respetando notch. */
+  /* Botón salir: cuadrado en la esquina abajo-izquierda, respetando notch. */
   .btn-exit-fixed {
-    top: calc(8px + env(safe-area-inset-top, 0px)) !important;
-    right: calc(8px + env(safe-area-inset-right, 0px)) !important;
-    bottom: auto !important;
-    left: auto !important;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important;
+    left: calc(8px + env(safe-area-inset-left, 0px)) !important;
+    top: auto !important;
+    right: auto !important;
     width: 48px !important;
     height: 48px !important;
     padding: 0.3rem !important;
@@ -917,7 +924,7 @@ html, body {
   .prize-ladder { width: 78px; min-width: 78px; padding: 0.4rem 0.18rem; }
   .ladder-prize { font-size: 0.62rem; }
   .ladder-num   { font-size: 0.55rem; min-width: 12px; }
-  .game-main { padding: 0.5rem 0.55rem 0.7rem; gap: 0.7rem; }
+  .game-main { padding: 0.5rem 0.55rem 70px; gap: 0.7rem; }
   #word-text { font-size: 1.7rem; }
   .lifeline-btn { min-width: 60px; padding: 0.45rem 0.55rem; }
   .lifeline-label { font-size: 0.6rem; }

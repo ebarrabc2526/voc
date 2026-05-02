@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.1';
+const APP_VERSION = '2.1.2';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -268,7 +268,6 @@ function loadPrefs() {
   if (p.imageDisplaySeconds != null)   State.imageDisplaySeconds = p.imageDisplaySeconds;
   if (p.showImages !== undefined)      State.showImages          = !!p.showImages;
   if (p.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!p.expertAfterCorrect;
-  if (p.expertExplainButton !== undefined) State.expertExplainButton = !!p.expertExplainButton;
 }
 
 function savePrefs() {
@@ -282,7 +281,6 @@ function savePrefs() {
     imageDisplaySeconds: State.imageDisplaySeconds,
     showImages:          State.showImages,
     expertAfterCorrect:  State.expertAfterCorrect,
-    expertExplainButton: State.expertExplainButton,
   });
 }
 
@@ -343,7 +341,6 @@ function applyServerPrefs(prefs) {
   if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
   if (prefs.showImages !== undefined)     State.showImages          = !!prefs.showImages;
   if (prefs.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!prefs.expertAfterCorrect;
-  if (prefs.expertExplainButton !== undefined) State.expertExplainButton = !!prefs.expertExplainButton;
   window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   window.userPrefs.showImages          = State.showImages;
   savePrefs();
@@ -416,9 +413,8 @@ const State = {
   imageDisplaySeconds: 5,
   showImages: true,
   expertAfterCorrect: false,
-  expertExplainButton: false,
   expertUsedThisQuestion: false,
-  explainUsedThisQuestion: false,
+  explainArmedThisQuestion: false,
   questions: [],
   currentIndex: 0,
   currentPrize: 0,
@@ -635,7 +631,7 @@ function loadQuestion() {
   State.eliminatedOptions = [];
   State.answering = false;
   State.expertUsedThisQuestion = false;
-  State.explainUsedThisQuestion = false;
+  State.explainArmedThisQuestion = false;
 
   const options = generateOptions(word);
   displayQuestion(word, options);
@@ -877,8 +873,11 @@ function revealAnswer(selectedIndex) {
   // de imagen, o al click en modo pausa).
   const fallbackMs = isCorrect ? 1500 : 1800;
 
-  // Auto-experto tras responder (si está activado y no se usó el comodín)
-  const autoExpert = State.expertAfterCorrect && !State.expertUsedThisQuestion;
+  // Auto-experto tras responder: dispara si está activa la opción global
+  // ("Comentar siempre tras responder") o si el usuario armó el botón
+  // 💡 para esta pregunta. No se repite si ya se usó el comodín del experto.
+  const autoExpert = (State.expertAfterCorrect || State.explainArmedThisQuestion)
+                     && !State.expertUsedThisQuestion;
   const expertCtx  = isCorrect ? 'auto-correct' : 'auto-wrong';
 
   if (autoExpert) {
@@ -914,15 +913,16 @@ function useLifeline(type) {
   }
 }
 
-// Botón de explicación rápida (no es comodín contable, un uso por pregunta).
+// Botón "Explicación tras responder": toggle por pregunta.
+// Si está armado al responder, el experto da la explicación post-respuesta
+// (auto-correct si aciertas, auto-wrong si fallas) — igual que la opción
+// "Comentar siempre tras responder", pero solo para esta pregunta.
 function useExplainButton() {
-  if (!State.expertExplainButton) return;
-  if (State.explainUsedThisQuestion) return;
-  State.explainUsedThisQuestion = true;
+  if (State.answering) return;
+  State.explainArmedThisQuestion = !State.explainArmedThisQuestion;
   try { primeExpertAudio(); } catch {}
   Audio.playLifeline();
   updateLifelineUI();
-  useExpert(undefined, 'explain');
 }
 window.useExplainButton = useExplainButton;
 
@@ -1189,12 +1189,11 @@ function updateLifelineUI() {
     const btn = document.getElementById(id);
     if (btn) btn.classList.toggle('used', !State.lifelines[key]);
   });
-  // Botón de explicación: visible solo si la opción está activa.
-  // Marca 'used' cuando ya se ha usado en esta pregunta.
+  // Botón de explicación: siempre visible. Marca 'armed' cuando el usuario
+  // lo ha activado para esta pregunta (el experto explicará tras responder).
   const explainBtn = document.getElementById('lifeline-explain');
   if (explainBtn) {
-    explainBtn.style.display = State.expertExplainButton ? '' : 'none';
-    explainBtn.classList.toggle('used', !!State.explainUsedThisQuestion);
+    explainBtn.classList.toggle('armed', !!State.explainArmedThisQuestion);
   }
 }
 
@@ -1254,9 +1253,6 @@ function saveOptions() {
 
   const eacEl = document.getElementById('opt-expert-after-correct');
   if (eacEl) State.expertAfterCorrect = eacEl.checked;
-  const eebEl = document.getElementById('opt-expert-explain-button');
-  if (eebEl) State.expertExplainButton = eebEl.checked;
-  updateLifelineUI();
 
   savePrefs();
   // Guardar al servidor si está autenticado
@@ -1274,7 +1270,6 @@ function saveOptions() {
         imageDisplaySeconds: State.imageDisplaySeconds,
         showImages:          State.showImages,
         expertAfterCorrect:  State.expertAfterCorrect,
-        expertExplainButton: State.expertExplainButton,
       }),
     }).catch(() => {});
   }
@@ -1442,8 +1437,6 @@ async function showProfile() {
   if (imgSecWrap) imgSecWrap.style.display = (State.showImages !== false) ? '' : 'none';
   const eacEl = document.getElementById('opt-expert-after-correct');
   if (eacEl) eacEl.checked = !!State.expertAfterCorrect;
-  const eebEl = document.getElementById('opt-expert-explain-button');
-  if (eebEl) eebEl.checked = !!State.expertExplainButton;
 
   showScreen('screen-profile');
   showProfileTab('stats');
