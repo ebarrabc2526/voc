@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>VOC – English Vocabulary Master</title>
   <meta name="description" content="Aprende vocabulario inglés jugando a ¿Quién quiere ser millonario?">
-  <link rel="stylesheet" href="css/style.css?v=2.2.4">
+  <link rel="stylesheet" href="css/style.css?v=2.2.5">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0/dist/chartjs-plugin-zoom.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer
           onload="initGoogleSignIn()"></script>
 </head>
@@ -364,7 +366,11 @@
       </div>
 
       <div class="chart-section">
-        <div class="chart-title">📈 Historial de premios</div>
+        <div class="chart-title">
+          📈 Historial de premios
+          <button type="button" class="chart-reset-btn" onclick="resetChartHistoryZoom()" title="Reset zoom">↺</button>
+        </div>
+        <div class="chart-hint">Arrastra para desplazar · rueda/pinza para zoom</div>
         <div class="chart-wrap"><canvas id="chart-history"></canvas></div>
       </div>
 
@@ -439,7 +445,7 @@
 <div id="confetti-container"></div>
 
 <!-- Scripts -->
-<script src="js/game.js?v=2.2.4"></script>
+<script src="js/game.js?v=2.2.5"></script>
 <script>
   // exitGame helper
   function exitGame() {

@@ -815,8 +815,24 @@ html, body {
 .chart-title {
   font-size: 0.85rem; font-weight: 700; color: var(--white);
   margin-bottom: 0.8rem; letter-spacing: 0.5px;
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
 }
-.chart-wrap { position: relative; height: 200px; }
+.chart-reset-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white);
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  font-size: 1rem; line-height: 1;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.chart-reset-btn:hover { background: rgba(255,215,0,0.2); }
+.chart-hint {
+  font-size: 0.7rem; opacity: 0.55; margin: -0.4rem 0 0.6rem;
+}
+.chart-wrap { position: relative; height: 200px; touch-action: none; }
 .chart-wrap-sm { height: 240px; }
 .profile-tabs {
   display: flex; gap: 0.5rem;

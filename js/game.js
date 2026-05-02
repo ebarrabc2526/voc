@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.2.4';
+const APP_VERSION = '2.2.5';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -1639,13 +1639,31 @@ function chartDefaults() {
 }
 
 function renderChartHistory(sessions) {
-  const last = sessions.slice(-30);
-  const labels = last.map((_, i) => `#${sessions.length - last.length + i + 1}`);
-  const data   = last.map(s => s.prize);
+  // Mostramos el histórico completo con pan + zoom; arranque enfocado en
+  // las últimas ~30 partidas (si hay menos, todo el rango).
+  const labels = sessions.map((_, i) => `#${i + 1}`);
+  const data   = sessions.map(s => s.prize);
   const ctx    = document.getElementById('chart-history').getContext('2d');
   const grad   = ctx.createLinearGradient(0, 0, 0, 200);
   grad.addColorStop(0, 'rgba(255,215,0,0.35)');
   grad.addColorStop(1, 'rgba(255,215,0,0)');
+
+  const N = sessions.length;
+  const initialMin = Math.max(0, N - 30);
+  const initialMax = Math.max(0, N - 1);
+
+  // Recalcula el eje Y según el rango X visible — los ejes se adaptan al hacer pan/zoom.
+  const adaptY = ({ chart }) => {
+    const xs = chart.scales.x;
+    const lo = Math.max(0, Math.ceil(xs.min));
+    const hi = Math.min(data.length - 1, Math.floor(xs.max));
+    if (hi < lo) return;
+    let max = 0;
+    for (let i = lo; i <= hi; i++) if (data[i] > max) max = data[i];
+    chart.options.scales.y.suggestedMax = max > 0 ? max * 1.05 : 10;
+    chart.update('none');
+  };
+
   _charts.history = new Chart(ctx, {
     type: 'line',
     data: {
@@ -1670,23 +1688,61 @@ function renderChartHistory(sessions) {
           callbacks: {
             label: ctx => `Premio: ${formatPrize(ctx.raw)}`,
             afterLabel: ctx => {
-              const s = last[ctx.dataIndex];
+              const s = sessions[ctx.dataIndex];
+              if (!s) return '';
               return `${s.level} · ${s.challenge} · ${s.correct}/${s.total} correctas`;
             },
           },
         },
+        zoom: {
+          limits: {
+            x: { min: 0, max: Math.max(0, N - 1), minRange: 2 },
+          },
+          pan: {
+            enabled: true,
+            mode: 'x',
+            modifierKey: null,
+            onPan: adaptY,
+          },
+          zoom: {
+            wheel:  { enabled: true, speed: 0.1 },
+            pinch:  { enabled: true },
+            drag:   { enabled: false },
+            mode:   'x',
+            onZoom: adaptY,
+          },
+        },
       },
       scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#888', maxTicksLimit: 10 } },
+        x: {
+          grid:   { color: 'rgba(255,255,255,0.06)' },
+          ticks:  { color: '#888', maxTicksLimit: 10, autoSkip: true },
+          min:    initialMin,
+          max:    initialMax,
+        },
         y: {
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#888', callback: v => formatPrize(v) },
+          grid:        { color: 'rgba(255,255,255,0.06)' },
+          ticks:       { color: '#888', callback: v => formatPrize(v) },
           beginAtZero: true,
         },
       },
     },
   });
+  // Ajusta Y al rango inicial visible
+  adaptY({ chart: _charts.history });
 }
+
+function resetChartHistoryZoom() {
+  const c = _charts.history;
+  if (!c) return;
+  if (typeof c.resetZoom === 'function') c.resetZoom();
+  // Tras reset, restituye el rango por defecto (últimas 30) y readapta Y
+  const N = c.data.labels.length;
+  c.options.scales.x.min = Math.max(0, N - 30);
+  c.options.scales.x.max = Math.max(0, N - 1);
+  c.update('none');
+}
+window.resetChartHistoryZoom = resetChartHistoryZoom;
 
 function renderChartCategories(sessions, categoryCounts) {
   // Only count sessions with a specific category (not 'all')
