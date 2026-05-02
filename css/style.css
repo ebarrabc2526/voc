@@ -455,6 +455,31 @@ html, body {
 }
 .country-gps:active { transform: scale(0.95); }
 
+/* País + miniatura de bandera (modos capital) */
+.country-with-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-wrap: nowrap;
+}
+.country-with-flag .flag-thumb {
+  display: inline-block;
+  height: 1em;
+  width: auto;
+  max-height: 28px;
+  vertical-align: middle;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+#word-text .country-with-flag .flag-thumb {
+  height: 0.8em;
+  max-height: 38px;
+}
+.answer-btn .country-with-flag {
+  width: 100%;
+  justify-content: space-between;
+}
+
 .ipa-row {
   display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
   margin-bottom: 0.5rem;

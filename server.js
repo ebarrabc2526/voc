@@ -313,7 +313,7 @@ async function fishTTS(text, key, voiceId, normalize = true) {
 }
 
 app.post('/api/tts-expert', requireAuth, async (req, res) => {
-  const { word, answer, correctLabel, mode, context } = req.body || {};
+  const { word, answer, country, capital, correctLabel, mode, context } = req.body || {};
   if (!word || !answer || !correctLabel) return res.status(400).json({ error: 'missing params' });
   // context:
   //   'lifeline'      — duda y responde (comodín manual)
@@ -335,14 +335,20 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
   // 1. Explicación via Claude Haiku.
   //    - Modo banderas: SIGNIFICADO/ORIGEN de colores y símbolos + dato curioso del país (NO etimología).
   //    - Resto: etimología/curiosidad de la palabra inglesa.
-  const isFlagMode = mode === 'flag-to-es' || mode === 'es-to-flag';
+  const isFlagMode    = mode === 'flag-to-es' || mode === 'es-to-flag';
+  const isCapitalMode = mode === 'es-to-capital' || mode === 'capital-to-es';
   let explanation = '';
   if (anthropicKey) {
     try {
       const systemPrompt = `Eres Jarvis, un asistente con personalidad. Hablas en castellano de España, primera persona, tono firme, afirmativo y directo al grano. NUNCA empiezas con muletillas, dudas, interjecciones de pensamiento ni frases de relleno (prohibido: "Mmm", "Hmm", "Ehh", "Ahh", "Uff", "A ver", "Vamos a ver", "Déjame ver", "Déjame pensar", "Déjame contarte", "Pues", "Pues mira", "Bueno", "Mira", "Sabes", "Verás", "Fíjate", "Te cuento", "Curiosamente", "Interesante", "Resulta que", "Pues bien"). Tu primera palabra debe ser un sustantivo, verbo, artículo o preposición que forme parte de la afirmación. Sin comillas, sin listas, sin titulares.`;
-      const userPrompt = isFlagMode
-        ? `Tema: la BANDERA de ${answer} y el país. Máximo 70 palabras. Explica el SIGNIFICADO y ORIGEN de sus colores y símbolos, y cierra con un dato curioso del país. PROHIBIDO hablar de etimología de la palabra "${answer}" o del idioma; céntrate solo en la bandera y el país. Texto corrido, una o dos frases, en castellano.`
-        : `Tema: la palabra inglesa "${word}". Máximo 25 palabras. Cuenta su origen, etimología o una curiosidad sobre ella. Texto corrido, en castellano.`;
+      let userPrompt;
+      if (isCapitalMode) {
+        userPrompt = `Tema: la ciudad de ${capital || answer}, capital de ${country || answer}. Máximo 60 palabras. Cuenta un dato histórico, geográfico o cultural curioso de la ciudad y/o el país. PROHIBIDO etimología de la palabra; céntrate en la ciudad y el país. Texto corrido, una o dos frases, en castellano.`;
+      } else if (isFlagMode) {
+        userPrompt = `Tema: la BANDERA de ${answer} y el país. Máximo 70 palabras. Explica el SIGNIFICADO y ORIGEN de sus colores y símbolos, y cierra con un dato curioso del país. PROHIBIDO hablar de etimología de la palabra "${answer}" o del idioma; céntrate solo en la bandera y el país. Texto corrido, una o dos frases, en castellano.`;
+      } else {
+        userPrompt = `Tema: la palabra inglesa "${word}". Máximo 25 palabras. Cuenta su origen, etimología o una curiosidad sobre ella. Texto corrido, en castellano.`;
+      }
       const llmRes = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
@@ -352,7 +358,7 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
         },
         body: JSON.stringify({
           model: 'claude-haiku-4-5-20251001',
-          max_tokens: isFlagMode ? 320 : 120,
+          max_tokens: (isFlagMode || isCapitalMode) ? 320 : 120,
           system: systemPrompt,
           messages: [{ role: 'user', content: userPrompt }],
         }),

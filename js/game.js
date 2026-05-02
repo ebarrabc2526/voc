@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.6';
+const APP_VERSION = '2.1.7';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -492,11 +492,12 @@ async function setMode(mode) {
   State.mode = mode;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
-  // En modos de banderas, fijar categoría a 'flags' y nivel ALL
-  if (mode === 'flag-to-es' || mode === 'es-to-flag') {
+  // En modos de banderas/capitales, fijar categoría a 'flags' y nivel ALL
+  if (isFlagMode(mode) || isCapitalMode(mode)) {
     State.level = 'ALL';
     State.category = 'flags';
     await fetchWordsForLevel('ALL');
+    if (isCapitalMode(mode)) await loadCapitals();
     populateCategories();
     document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
     document.querySelector('[data-level="ALL"]')?.classList.add('active');
@@ -505,7 +506,24 @@ async function setMode(mode) {
   }
 }
 
-function isFlagMode(m) { return m === 'flag-to-es' || m === 'es-to-flag'; }
+function isFlagMode(m)    { return m === 'flag-to-es' || m === 'es-to-flag'; }
+function isCapitalMode(m) { return m === 'es-to-capital' || m === 'capital-to-es'; }
+
+// ─── Capitals (capital en castellano por país, indexado por word EN en minúsculas)
+const Capitals = {};
+let _capitalsLoaded = false;
+async function loadCapitals() {
+  if (_capitalsLoaded) return;
+  try {
+    const r = await fetch('/data/flags-iso.json');
+    const arr = await r.json();
+    arr.forEach(x => { if (x.en && x.capital) Capitals[x.en.toLowerCase()] = x.capital; });
+    _capitalsLoaded = true;
+  } catch (e) { console.warn('[capitals] load failed', e); }
+}
+function getCapital(word) {
+  return word && word.word ? (Capitals[word.word.toLowerCase()] || '') : '';
+}
 async function setLevel(level) {
   State.level = level;
   document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
@@ -698,6 +716,24 @@ function displayQuestion(word, { options, correctIndex }) {
   const flagMode = isFlagMode(mode);
   const flagQ    = mode === 'flag-to-es';
   const flagOpt  = mode === 'es-to-flag';
+  const capMode  = isCapitalMode(mode);
+  const esToCap  = mode === 'es-to-capital';
+  const capToEs  = mode === 'capital-to-es';
+
+  // Helper: span con nombre del país + miniatura de bandera a la derecha
+  const renderCountryWithFlag = (country, enWord) => {
+    const wrap = document.createElement('span');
+    wrap.className = 'country-with-flag';
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'country-name';
+    nameSpan.textContent = country;
+    const flagThumb = document.createElement('img');
+    flagThumb.className = 'flag-thumb';
+    flagThumb.src = `/api/word-image/${encodeURIComponent(enWord.toLowerCase())}/flags`;
+    flagThumb.alt = '';
+    wrap.append(nameSpan, flagThumb);
+    return wrap;
+  };
 
   // Pregunta principal
   const wordTextEl = document.getElementById('word-text');
@@ -720,6 +756,13 @@ function displayQuestion(word, { options, correctIndex }) {
     gpsLink.setAttribute('aria-label', `Ver ${country} en Google Maps`);
     gpsLink.textContent = '📍';
     wordTextEl.append(nameSpan, gpsLink);
+  } else if (esToCap) {
+    // País en español + bandera mini a la derecha → adivinar capital
+    wordTextEl.innerHTML = '';
+    wordTextEl.append(renderCountryWithFlag(word.translation, word.word));
+  } else if (capToEs) {
+    // Capital → adivinar país (sin bandera en pregunta)
+    wordTextEl.textContent = getCapital(word);
   } else {
     wordTextEl.textContent = isEnToEs ? word.word : word.translation;
   }
@@ -736,13 +779,13 @@ function displayQuestion(word, { options, correctIndex }) {
   }
 
   // IPA / audio: solo en modos de palabra
-  const showIPA = isEnToEs && !flagMode;
+  const showIPA = isEnToEs && !flagMode && !capMode;
   document.getElementById('ipa-uk').textContent = showIPA ? word.uk_ipa : '';
   document.getElementById('ipa-us').textContent = showIPA ? word.us_ipa : '';
   document.getElementById('ipa-row').style.display = showIPA ? 'flex' : 'none';
-  document.getElementById('audio-row').style.display = (isEnToEs || mode === 'es-en') && !flagMode ? 'flex' : 'none';
+  document.getElementById('audio-row').style.display = (isEnToEs || mode === 'es-en') && !flagMode && !capMode ? 'flex' : 'none';
   State.currentWord = word;
-  if (!flagMode) autoPlayWord();
+  if (!flagMode && !capMode) autoPlayWord();
 
   const labels = ['A', 'B', 'C', 'D'];
   const card  = document.getElementById('question-card');
@@ -758,6 +801,13 @@ function displayQuestion(word, { options, correctIndex }) {
       textEl.innerHTML = `<img src="/api/word-image/${encodeURIComponent(opt.word.toLowerCase())}/flags" alt="${opt.translation}">`;
     } else if (flagQ) {
       textEl.textContent = opt.translation;  // nombre español del país
+    } else if (esToCap) {
+      // Opciones = capitales (texto)
+      textEl.textContent = getCapital(opt);
+    } else if (capToEs) {
+      // Opciones = países en español + bandera mini a la derecha
+      textEl.innerHTML = '';
+      textEl.append(renderCountryWithFlag(opt.translation, opt.word));
     } else {
       textEl.textContent = isEnToEs ? opt.translation : opt.word;
     }
@@ -996,12 +1046,18 @@ async function useExpert(onFinished, context = 'lifeline') {
   const correctLabel = labels[State.currentCorrectIndex];
   const correctText  = State.currentOptions[State.currentCorrectIndex];
   const flagMode     = isFlagMode(State.mode);
-  // En banderas la respuesta hablada es el nombre del país en español;
-  // el "word" pasa el nombre en inglés (país) al backend para identificar la bandera.
-  const answer       = flagMode
-    ? correctText.translation
-    : (State.mode === 'en-es' ? correctText.translation : correctText.word);
+  const capMode      = isCapitalMode(State.mode);
+  const showFlag     = flagMode || capMode;
+  // En banderas/capitales la respuesta hablada depende del modo;
+  // 'word' pasa siempre el nombre en inglés del país al backend.
+  let answer;
+  if (State.mode === 'es-to-capital')      answer = getCapital(correctText);
+  else if (State.mode === 'capital-to-es') answer = correctText.translation;
+  else if (flagMode)                       answer = correctText.translation;
+  else                                     answer = (State.mode === 'en-es' ? correctText.translation : correctText.word);
   const word         = correctText.word;
+  const country      = correctText.translation;
+  const capital      = capMode ? getCapital(correctText) : '';
   const fallbackHtml = `<strong>${correctLabel}: "${answer}"</strong>`;
   const useMini      = context !== 'lifeline';
 
@@ -1051,7 +1107,7 @@ async function useExpert(onFinished, context = 'lifeline') {
     const r = await fetch('/api/tts-expert', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${Auth.token}` },
-      body: JSON.stringify({ word, answer, correctLabel, mode: State.mode, context }),
+      body: JSON.stringify({ word, answer, country, capital, correctLabel, mode: State.mode, context }),
     });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
@@ -1064,7 +1120,7 @@ async function useExpert(onFinished, context = 'lifeline') {
       if (useMini) {
         miniEl?.classList.add('hidden');
         if (flagWrap) {
-          if (flagMode) {
+          if (showFlag) {
             flagWrap.innerHTML = `<img class="expert-flag" src="/api/word-image/${encodeURIComponent(word.toLowerCase())}/flags" alt="">`;
             flagWrap.classList.remove('hidden');
           } else {
@@ -1407,8 +1463,10 @@ function modeLabel(m) {
   switch (m) {
     case 'en-es':       return 'EN→ES';
     case 'es-en':       return 'ES→EN';
-    case 'flag-to-es':  return 'BAND→ES';
-    case 'es-to-flag':  return 'ES→BAND';
+    case 'flag-to-es':    return 'BAND→ES';
+    case 'es-to-flag':    return 'ES→BAND';
+    case 'es-to-capital': return 'PAÍS→CAP';
+    case 'capital-to-es': return 'CAP→PAÍS';
     default:            return m;
   }
 }
@@ -1830,4 +1888,5 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHomeUI();
   showHome();
   if (Auth.isLoggedIn()) fetchServerPrefs(Auth.token);
+  loadCapitals();
 });
