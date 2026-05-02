@@ -1,0 +1,3395 @@
+{
+  "summary": {
+    "candidates_raw": 316,
+    "after_filters": 216,
+    "accepted": 206,
+    "review": 10,
+    "rejected_filters": 100,
+    "rejected_semantic": 0,
+    "by_level": {
+      "C1": 80,
+      "C2": 93,
+      "B2": 33
+    },
+    "estimated_final_colours": 375
+  },
+  "accepted": [
+    {
+      "word": "air force blue",
+      "translation": "azul aviación",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "alice blue",
+      "translation": "azul Alicia",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "alizarin",
+      "translation": "alizarina",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amaranth",
+      "translation": "amaranto",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amethyst",
+      "translation": "amatista",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "antique white",
+      "translation": "blanco antiguo",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "aquamarine",
+      "translation": "aguamarina",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "avocado",
+      "translation": "aguacate",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bisque",
+      "translation": "bisque",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "bistre",
+      "translation": "bistre",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bittersweet",
+      "translation": "agridulce",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "blanched almond",
+      "translation": "almendra blanqueada",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "blue green",
+      "translation": "azul verdoso",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "blue violet",
+      "translation": "azul violeta",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "bone",
+      "translation": "hueso",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bottle green",
+      "translation": "verde botella",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "brick red",
+      "translation": "rojo ladrillo",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "buff",
+      "translation": "beige claro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "burlywood",
+      "translation": "madera oscura",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "burnt orange",
+      "translation": "naranja quemado",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "burnt sienna",
+      "translation": "tierra de Siena tostada",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "burnt umber",
+      "translation": "tierra de sombra tostada",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "butterscotch",
+      "translation": "caramelo de mantequilla",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "byzantium",
+      "translation": "morado bizantino",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cadet blue",
+      "translation": "azul cadete",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "cadmium yellow",
+      "translation": "amarillo cadmio",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "camel",
+      "translation": "camello",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cardinal",
+      "translation": "rojo cardenal",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "carnation pink",
+      "translation": "rosa clavel",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "carolina blue",
+      "translation": "azul Carolina",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "celadon",
+      "translation": "celadón",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cerise",
+      "translation": "cereza",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "champagne",
+      "translation": "champán",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chrome yellow",
+      "translation": "amarillo cromo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cinnabar",
+      "translation": "cinabrio",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "citrine",
+      "translation": "citrino",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cobalt blue",
+      "translation": "azul cobalto",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cornflower",
+      "translation": "azul aciano",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "cornflower blue",
+      "translation": "azul aciano",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark blue",
+      "translation": "azul oscuro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark cyan",
+      "translation": "cian oscuro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark goldenrod",
+      "translation": "vara de oro oscura",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark gray",
+      "translation": "gris oscuro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark green",
+      "translation": "verde oscuro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark khaki",
+      "translation": "caqui oscuro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark magenta",
+      "translation": "magenta oscura",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark olive green",
+      "translation": "verde oliva oscuro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark orange",
+      "translation": "naranja oscuro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark orchid",
+      "translation": "orquídea oscura",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark red",
+      "translation": "rojo oscuro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark salmon",
+      "translation": "salmón oscuro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark sea green",
+      "translation": "verde mar oscuro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark slate blue",
+      "translation": "azul pizarra oscuro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark slate gray",
+      "translation": "gris pizarra oscuro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark turquoise",
+      "translation": "turquesa oscuro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark violet",
+      "translation": "violeta oscuro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "deep pink",
+      "translation": "rosa intenso",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "deep sky blue",
+      "translation": "azul cielo intenso",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dim gray",
+      "translation": "gris tenue",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dodger blue",
+      "translation": "azul Dodger",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "ecru",
+      "translation": "crudo",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "eggplant",
+      "translation": "berenjena",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "eggshell",
+      "translation": "blanco cáscara de huevo",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "electric blue",
+      "translation": "azul eléctrico",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fawn",
+      "translation": "leonado",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "feldgrau",
+      "translation": "gris campo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fern",
+      "translation": "verde helecho",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fire engine red",
+      "translation": "rojo fuego",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "firebrick",
+      "translation": "rojo ladrillo oscuro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "flax",
+      "translation": "lino",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "floral white",
+      "translation": "blanco floral",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "fulvous",
+      "translation": "fulvo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "gainsboro",
+      "translation": "gainsboro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "gamboge",
+      "translation": "gutagamba",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ghost white",
+      "translation": "blanco fantasma",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "ginger",
+      "translation": "jengibre",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "glaucous",
+      "translation": "glauco",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "goldenrod",
+      "translation": "vara de oro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "grape",
+      "translation": "uva",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "green yellow",
+      "translation": "verde amarillento",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "gunmetal",
+      "translation": "gris metalizado",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "heliotrope",
+      "translation": "heliotropo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "honey",
+      "translation": "miel",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "honeydew",
+      "translation": "melón verde claro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "hooker green",
+      "translation": "verde Hooker",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "hot pink",
+      "translation": "rosa intenso",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "hunter green",
+      "translation": "verde cazador",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "indian red",
+      "translation": "rojo indio",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "isabelline",
+      "translation": "isabelino",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ivory black",
+      "translation": "negro marfil",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jasmine",
+      "translation": "jazmín",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jungle green",
+      "translation": "verde selva",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "lamp black",
+      "translation": "negro humo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lavender blush",
+      "translation": "lavanda sonrojada",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lawn green",
+      "translation": "verde césped",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lemon chiffon",
+      "translation": "amarillo limón claro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lemon yellow",
+      "translation": "amarillo limón",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "light blue",
+      "translation": "azul claro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light coral",
+      "translation": "coral claro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light cyan",
+      "translation": "cian claro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light goldenrod yellow",
+      "translation": "amarillo vara de oro claro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light gray",
+      "translation": "gris claro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light green",
+      "translation": "verde claro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light pink",
+      "translation": "rosa claro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light salmon",
+      "translation": "salmón claro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light sea green",
+      "translation": "verde mar claro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light sky blue",
+      "translation": "azul cielo claro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light slate gray",
+      "translation": "gris pizarra claro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light steel blue",
+      "translation": "azul acero claro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light yellow",
+      "translation": "amarillo claro",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lime green",
+      "translation": "verde lima",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "linen",
+      "translation": "lino",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "magenta rose",
+      "translation": "rosa magenta",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "marigold",
+      "translation": "amarillo caléndula",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "medium aquamarine",
+      "translation": "aguamarina media",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium blue",
+      "translation": "azul medio",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium orchid",
+      "translation": "orquídea media",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium purple",
+      "translation": "púrpura medio",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium sea green",
+      "translation": "verde mar medio",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium slate blue",
+      "translation": "azul pizarra medio",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium spring green",
+      "translation": "verde primavera medio",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium turquoise",
+      "translation": "turquesa media",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium violet red",
+      "translation": "rojo violeta medio",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "melon",
+      "translation": "melón",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "mint cream",
+      "translation": "crema de menta",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "misty rose",
+      "translation": "rosa brumoso",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "moccasin",
+      "translation": "mocasín",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "moss green",
+      "translation": "verde musgo",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mulberry",
+      "translation": "mora oscura",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "myrtle",
+      "translation": "verde mirto",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "naples yellow",
+      "translation": "amarillo Nápoles",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "navajo white",
+      "translation": "blanco navajo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "navy",
+      "translation": "azul marino",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "nude",
+      "translation": "desnudo",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "oatmeal",
+      "translation": "avena",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "off white",
+      "translation": "blanco roto",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "old lace",
+      "translation": "encaje antiguo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "olive drab",
+      "translation": "verde oliva apagado",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "orange red",
+      "translation": "rojo anaranjado",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "orchid",
+      "translation": "orquídea",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "oxblood",
+      "translation": "rojo sangre de toro",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pale goldenrod",
+      "translation": "vara de oro pálida",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale green",
+      "translation": "verde pálido",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale turquoise",
+      "translation": "turquesa pálido",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale violet red",
+      "translation": "rojo violeta pálido",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "papaya whip",
+      "translation": "papaya suave",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peach puff",
+      "translation": "melocotón suave",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peacock blue",
+      "translation": "azul pavo real",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "persian rose",
+      "translation": "rosa persa",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pine green",
+      "translation": "verde pino",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "pistachio",
+      "translation": "pistacho",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "prussian blue",
+      "translation": "azul de Prusia",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "puce",
+      "translation": "color pulga",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "racing green",
+      "translation": "verde carreras",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raspberry",
+      "translation": "frambuesa",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raw sienna",
+      "translation": "tierra de Siena natural",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raw umber",
+      "translation": "tierra de sombra natural",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "rebecca purple",
+      "translation": "púrpura Rebecca",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "red orange",
+      "translation": "rojo anaranjado",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "red violet",
+      "translation": "rojo violeta",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "robin egg blue",
+      "translation": "azul huevo de petirrojo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "rose gold",
+      "translation": "oro rosado",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "rosy brown",
+      "translation": "marrón rosado",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "russet",
+      "translation": "rojizo pardo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "saddle brown",
+      "translation": "marrón silla",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sandy brown",
+      "translation": "marrón arena",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sea green",
+      "translation": "verde mar",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "seafoam",
+      "translation": "espuma de mar",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "seashell",
+      "translation": "concha de mar",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sepia",
+      "translation": "sepia",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "shamrock",
+      "translation": "verde trébol",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "slate blue",
+      "translation": "azul pizarra",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "slate gray",
+      "translation": "gris pizarra",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "smalt",
+      "translation": "azul esmalte",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "smoke",
+      "translation": "humo",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "soot",
+      "translation": "hollín",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sorrel",
+      "translation": "alazán",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "spring green",
+      "translation": "verde primavera",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "spruce",
+      "translation": "verde abeto",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "steel blue",
+      "translation": "azul acero",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "stone",
+      "translation": "piedra",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "straw",
+      "translation": "paja",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tangerine",
+      "translation": "mandarina",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "taupe",
+      "translation": "topo",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "terracotta",
+      "translation": "terracota",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "thistle",
+      "translation": "cardo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "titanium white",
+      "translation": "blanco titanio",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tomato",
+      "translation": "rojo tomate",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "tumbleweed",
+      "translation": "marrón rodabejo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "tyrian purple",
+      "translation": "púrpura de Tiro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ultramarine",
+      "translation": "ultramar",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "vandyke brown",
+      "translation": "marrón Van Dyck",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "violet blue",
+      "translation": "azul violeta",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "violet red",
+      "translation": "rojo violeta",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "viridian",
+      "translation": "viridiano",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "warm white",
+      "translation": "blanco cálido",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wedgwood",
+      "translation": "azul Wedgwood",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wenge",
+      "translation": "wengué",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wheat",
+      "translation": "trigo",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "white smoke",
+      "translation": "humo blanco",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "wild strawberry",
+      "translation": "fresa silvestre",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "wisteria",
+      "translation": "glicinia",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "xanadu",
+      "translation": "xanadú",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "yellow green",
+      "translation": "verde amarillento",
+      "level": "B2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "common",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "yellow orange",
+      "translation": "amarillo anaranjado",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "zinc white",
+      "translation": "blanco zinc",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "sources": [
+        "wikipedia"
+      ]
+    }
+  ],
+  "review": [
+    {
+      "word": "artichoke",
+      "translation": "verde alcachofa",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "significado dominante es la verdura alcachofa; como color es nombre Crayola (C2 verde grisáceo)",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "asparagus",
+      "translation": "verde espárrago",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "significado dominante es la verdura espárrago; como color es nombre Crayola (C2 verde pálido)",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chamois",
+      "translation": "gamuza",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "doble significado: gamuza (cuero) vs. amarillo gamuza; ambiguo",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cornsilk",
+      "translation": "seda de maíz",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "nombre de la seda del maíz; como color CSS es amarillo muy claro; poco usado fuera de CSS",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dawn",
+      "translation": "color alba",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "significado dominante es amanecer; como color de uso poético/raro",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "dusk",
+      "translation": "color crepúsculo",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "significado dominante es crepúsculo; como color de uso poético/raro",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fallow",
+      "translation": "pardo claro",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "doble significado: tierra en barbecho vs. color pardo claro; raro como color",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "granny smith apple",
+      "translation": "verde manzana",
+      "level": "C1",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "standard",
+      "reason": "referencia a variedad de manzana; 4 palabras exactas; uso como color es informal",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "peru",
+      "translation": "marrón Peru",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "topónimo (país); CSS147 lo usa como color marrón naranja; puede confundir al estudiante",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sunset",
+      "translation": "color ocaso",
+      "level": "C2",
+      "category": "colours",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "semantic_class": "rare",
+      "reason": "significado dominante es puesta de sol; como color es informal/poético",
+      "action": "revisar antes de insertar",
+      "sources": [
+        "wikipedia"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "word": "alabaster",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amber",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "apricot",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "aqua",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "ash",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "auburn",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "azure",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "baby blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "beige",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "black",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "blush",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bronze",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "brown",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "burgundy",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "canary",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "caramel",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "carmine",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cerulean",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "charcoal",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chartreuse",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cherry",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chestnut",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "chocolate",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cinnamon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "claret",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cobalt",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "coffee",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "copper",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "coral",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cream",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "crimson",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cyan",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "denim",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ebony",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "emerald",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "forest green",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "fuchsia",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "gold",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "gray",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "green",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "hazel",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "indigo",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ivory",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jade",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jet",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "kelly green",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "khaki",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lavender",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "lemon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lilac",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lime",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "magenta",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mahogany",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "maroon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mauve",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "midnight blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "mint",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mocha",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mustard",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "navy blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "ochre",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "olive",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "onyx",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "orange",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peach",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "pearl",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "periwinkle",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "pewter",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pine",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pink",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "platinum",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "plum",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "powder blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "purple",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "red",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "rose",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "royal blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ruby",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "rust",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "saffron",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sage",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "salmon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sapphire",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "scarlet",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sienna",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "silver",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sky blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "slate",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "snow",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "tan",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "teal",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "topaz",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "turquoise",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "vermilion",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "violet",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "walnut",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "white",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "wine",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "yellow",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    }
+  ]
+}

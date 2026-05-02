@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.2';
+const APP_VERSION = '2.1.3';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -152,6 +152,15 @@ const Audio = {
     this.tone(880, 0.1);
     setTimeout(() => this.tone(1046, 0.2), 120);
   },
+  // Toggle del botón Explicación: ascendente al armar, descendente al desarmar.
+  playExplainArm() {
+    this.tone(587.33, 0.08, 'triangle', 0.22);              // D5
+    setTimeout(() => this.tone(880, 0.18, 'triangle', 0.22), 90);  // A5
+  },
+  playExplainDisarm() {
+    this.tone(880, 0.08, 'triangle', 0.18);                 // A5
+    setTimeout(() => this.tone(523.25, 0.18, 'triangle', 0.18), 90); // C5
+  },
   playTick() {
     this.tone(1200, 0.06, 'square', 0.1);
   },
@@ -267,7 +276,6 @@ function loadPrefs() {
   if (p.autoPlayLangs)                 State.autoPlayLangs       = p.autoPlayLangs;
   if (p.imageDisplaySeconds != null)   State.imageDisplaySeconds = p.imageDisplaySeconds;
   if (p.showImages !== undefined)      State.showImages          = !!p.showImages;
-  if (p.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!p.expertAfterCorrect;
 }
 
 function savePrefs() {
@@ -280,7 +288,6 @@ function savePrefs() {
     autoPlayLangs:       State.autoPlayLangs,
     imageDisplaySeconds: State.imageDisplaySeconds,
     showImages:          State.showImages,
-    expertAfterCorrect:  State.expertAfterCorrect,
   });
 }
 
@@ -340,7 +347,6 @@ function applyServerPrefs(prefs) {
   if (prefs.autoPlayLangs)                State.autoPlayLangs       = prefs.autoPlayLangs;
   if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
   if (prefs.showImages !== undefined)     State.showImages          = !!prefs.showImages;
-  if (prefs.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!prefs.expertAfterCorrect;
   window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   window.userPrefs.showImages          = State.showImages;
   savePrefs();
@@ -412,7 +418,6 @@ const State = {
   autoPlayLangs: ['uk', 'us'],
   imageDisplaySeconds: 5,
   showImages: true,
-  expertAfterCorrect: false,
   expertUsedThisQuestion: false,
   explainArmedThisQuestion: false,
   questions: [],
@@ -873,11 +878,9 @@ function revealAnswer(selectedIndex) {
   // de imagen, o al click en modo pausa).
   const fallbackMs = isCorrect ? 1500 : 1800;
 
-  // Auto-experto tras responder: dispara si está activa la opción global
-  // ("Comentar siempre tras responder") o si el usuario armó el botón
-  // 💡 para esta pregunta. No se repite si ya se usó el comodín del experto.
-  const autoExpert = (State.expertAfterCorrect || State.explainArmedThisQuestion)
-                     && !State.expertUsedThisQuestion;
+  // Auto-experto tras responder: dispara si el usuario armó el botón 💡
+  // para esta pregunta. No se repite si ya se usó el comodín del experto.
+  const autoExpert = State.explainArmedThisQuestion && !State.expertUsedThisQuestion;
   const expertCtx  = isCorrect ? 'auto-correct' : 'auto-wrong';
 
   if (autoExpert) {
@@ -921,7 +924,8 @@ function useExplainButton() {
   if (State.answering) return;
   State.explainArmedThisQuestion = !State.explainArmedThisQuestion;
   try { primeExpertAudio(); } catch {}
-  Audio.playLifeline();
+  if (State.explainArmedThisQuestion) Audio.playExplainArm();
+  else                                Audio.playExplainDisarm();
   updateLifelineUI();
 }
 window.useExplainButton = useExplainButton;
@@ -1251,9 +1255,6 @@ function saveOptions() {
     window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   }
 
-  const eacEl = document.getElementById('opt-expert-after-correct');
-  if (eacEl) State.expertAfterCorrect = eacEl.checked;
-
   savePrefs();
   // Guardar al servidor si está autenticado
   if (Auth.isLoggedIn()) {
@@ -1269,7 +1270,6 @@ function saveOptions() {
         autoPlayLangs:       State.autoPlayLangs,
         imageDisplaySeconds: State.imageDisplaySeconds,
         showImages:          State.showImages,
-        expertAfterCorrect:  State.expertAfterCorrect,
       }),
     }).catch(() => {});
   }
@@ -1435,8 +1435,6 @@ async function showProfile() {
   if (showImgEl) showImgEl.checked = State.showImages !== false;
   const imgSecWrap = document.getElementById('opt-image-seconds-wrap');
   if (imgSecWrap) imgSecWrap.style.display = (State.showImages !== false) ? '' : 'none';
-  const eacEl = document.getElementById('opt-expert-after-correct');
-  if (eacEl) eacEl.checked = !!State.expertAfterCorrect;
 
   showScreen('screen-profile');
   showProfileTab('stats');

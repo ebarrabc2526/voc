@@ -1,0 +1,2065 @@
+{
+  "accepted_count": 216,
+  "rejected_count": 100,
+  "accepted": [
+    {
+      "word": "air force blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "alice blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "alizarin",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amaranth",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amethyst",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "antique white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "aquamarine",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "artichoke",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "asparagus",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "avocado",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bisque",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "bistre",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bittersweet",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "blanched almond",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "blue green",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "blue violet",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "bone",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bottle green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "brick red",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "buff",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "burlywood",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "burnt orange",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "burnt sienna",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "burnt umber",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "butterscotch",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "byzantium",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cadet blue",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "cadmium yellow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "camel",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cardinal",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "carnation pink",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "carolina blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "celadon",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cerise",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chamois",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "champagne",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chrome yellow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cinnabar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "citrine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cobalt blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cornflower",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "cornflower blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cornsilk",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark cyan",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark goldenrod",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark khaki",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark magenta",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark olive green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark orange",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark orchid",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark salmon",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark slate blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark slate gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark turquoise",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark violet",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dawn",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "deep pink",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "deep sky blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dim gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dodger blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dusk",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ecru",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "eggplant",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "eggshell",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "electric blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fallow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fawn",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "feldgrau",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fern",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fire engine red",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "firebrick",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "flax",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "floral white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "fulvous",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "gainsboro",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "gamboge",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ghost white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "ginger",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "glaucous",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "goldenrod",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "granny smith apple",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "grape",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "green yellow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "gunmetal",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "heliotrope",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "honey",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "honeydew",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "hooker green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "hot pink",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "hunter green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "indian red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "isabelline",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ivory black",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jasmine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jungle green",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "lamp black",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lavender blush",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lawn green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lemon chiffon",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lemon yellow",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "light blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light coral",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light cyan",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light goldenrod yellow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light pink",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light salmon",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light sky blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light slate gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light steel blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light yellow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lime green",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "linen",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "magenta rose",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "marigold",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "medium aquamarine",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium orchid",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium purple",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium slate blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium spring green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium turquoise",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium violet red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "melon",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "mint cream",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "misty rose",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "moccasin",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "moss green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mulberry",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "myrtle",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "naples yellow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "navajo white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "navy",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "nude",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "oatmeal",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "off white",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "old lace",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "olive drab",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "orange red",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "orchid",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "oxblood",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pale goldenrod",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale turquoise",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale violet red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "papaya whip",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peach puff",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peacock blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "persian rose",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "peru",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pine green",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "pistachio",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "prussian blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "puce",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "racing green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raspberry",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raw sienna",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raw umber",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "rebecca purple",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "red orange",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "red violet",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "robin egg blue",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "rose gold",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "rosy brown",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "russet",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "saddle brown",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sandy brown",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "seafoam",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "seashell",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sepia",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "shamrock",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "slate blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "slate gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "smalt",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "smoke",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "soot",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sorrel",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "spring green",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "spruce",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "steel blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "stone",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "straw",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sunset",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tangerine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "taupe",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "terracotta",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "thistle",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "titanium white",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tomato",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "tumbleweed",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "tyrian purple",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ultramarine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "vandyke brown",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "violet blue",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "violet red",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "viridian",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "warm white",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wedgwood",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wenge",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wheat",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "white smoke",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "wild strawberry",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "wisteria",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "xanadu",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "yellow green",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "yellow orange",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "zinc white",
+      "sources": [
+        "wikipedia"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "word": "alabaster",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amber",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "apricot",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "aqua",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "ash",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "auburn",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "azure",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "baby blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "beige",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "black",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "blush",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bronze",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "brown",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "burgundy",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "canary",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "caramel",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "carmine",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cerulean",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "charcoal",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chartreuse",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cherry",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chestnut",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "chocolate",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cinnamon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "claret",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cobalt",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "coffee",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "copper",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "coral",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cream",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "crimson",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cyan",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "denim",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ebony",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "emerald",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "forest green",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "fuchsia",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "gold",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "gray",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "green",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "hazel",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "indigo",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ivory",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jade",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jet",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "kelly green",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "khaki",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lavender",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "lemon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lilac",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lime",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "magenta",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mahogany",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "maroon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mauve",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "midnight blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "mint",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mocha",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mustard",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "navy blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "ochre",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "olive",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "onyx",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "orange",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peach",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "pearl",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "periwinkle",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "pewter",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pine",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pink",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "platinum",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "plum",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "powder blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "purple",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "red",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "rose",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "royal blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ruby",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "rust",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "saffron",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sage",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "salmon",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sapphire",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "scarlet",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sienna",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "silver",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sky blue",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "slate",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "snow",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "tan",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "teal",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "topaz",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "turquoise",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "vermilion",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "violet",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "walnut",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "white",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "wine",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "yellow",
+      "reason": "ya existe en BD (lemas_unicos)",
+      "sources": [
+        "css"
+      ]
+    }
+  ]
+}

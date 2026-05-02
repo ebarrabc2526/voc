@@ -1,0 +1,1156 @@
+{
+  "total": 169,
+  "lemas_unicos": [
+    "alabaster",
+    "amber",
+    "apricot",
+    "aqua",
+    "argent",
+    "ash",
+    "aubergine",
+    "auburn",
+    "azure",
+    "baby blue",
+    "beige",
+    "black",
+    "blackness",
+    "blacks",
+    "blue",
+    "bluish",
+    "blush",
+    "brass",
+    "brick",
+    "bronze",
+    "brown",
+    "burgundy",
+    "canary",
+    "caramel",
+    "carmine",
+    "cerulean",
+    "charcoal",
+    "chartreuse",
+    "cherry",
+    "chestnut",
+    "chocolate",
+    "cinnamon",
+    "claret",
+    "cobalt",
+    "coffee",
+    "colored",
+    "coloring",
+    "colour",
+    "copper",
+    "coral",
+    "cream",
+    "crimson",
+    "cyan",
+    "denim",
+    "dun",
+    "ebony",
+    "emerald",
+    "emeralds",
+    "forest green",
+    "fuchsia",
+    "garnet",
+    "gold",
+    "golden",
+    "gray",
+    "grays",
+    "green",
+    "grey",
+    "hazel",
+    "hue",
+    "hues",
+    "indigo",
+    "ivory",
+    "jade",
+    "jet",
+    "kelly green",
+    "khaki",
+    "lavender",
+    "lemon",
+    "lilac",
+    "lime",
+    "magenta",
+    "mahogany",
+    "maroon",
+    "mauve",
+    "midnight blue",
+    "mint",
+    "mocha",
+    "moss",
+    "mustard",
+    "navy blue",
+    "ochre",
+    "olive",
+    "onyx",
+    "orange",
+    "pastel",
+    "peach",
+    "pearl",
+    "periwinkle",
+    "pewter",
+    "pied",
+    "pine",
+    "pink",
+    "pinks",
+    "platinum",
+    "plum",
+    "powder blue",
+    "purple",
+    "red",
+    "reddish",
+    "reds",
+    "rose",
+    "rosy",
+    "rouge",
+    "royal blue",
+    "rubies",
+    "ruby",
+    "rust",
+    "saffron",
+    "sage",
+    "salmon",
+    "sapphire",
+    "scarlet",
+    "shade",
+    "sienna",
+    "silver",
+    "silvery",
+    "sky blue",
+    "slate",
+    "snow",
+    "tan",
+    "tans",
+    "tawny",
+    "teal",
+    "tinge",
+    "tint",
+    "topaz",
+    "turquoise",
+    "vermilion",
+    "violet",
+    "walnut",
+    "white",
+    "whiteness",
+    "wine",
+    "yellow",
+    "yellows"
+  ],
+  "filas": [
+    {
+      "id": 64756,
+      "word": "alabaster",
+      "level": "C2",
+      "translation": "alabastro"
+    },
+    {
+      "id": 12951,
+      "word": "amber",
+      "level": "B1",
+      "translation": "ámbar"
+    },
+    {
+      "id": 64707,
+      "word": "apricot",
+      "level": "C1",
+      "translation": "albaricoque"
+    },
+    {
+      "id": 52388,
+      "word": "aqua",
+      "level": "C1",
+      "translation": "aguamarina"
+    },
+    {
+      "id": 52406,
+      "word": "argent",
+      "level": "C2",
+      "translation": "plata"
+    },
+    {
+      "id": 64753,
+      "word": "ash",
+      "level": "B2",
+      "translation": "gris ceniza"
+    },
+    {
+      "id": 64737,
+      "word": "aubergine",
+      "level": "C2",
+      "translation": "berenjena"
+    },
+    {
+      "id": 36549,
+      "word": "auburn",
+      "level": "C2",
+      "translation": "castaño rojizo"
+    },
+    {
+      "id": 39029,
+      "word": "azure",
+      "level": "C2",
+      "translation": "azul celeste"
+    },
+    {
+      "id": 64732,
+      "word": "baby blue",
+      "level": "B2",
+      "translation": "azul bebé"
+    },
+    {
+      "id": 23146,
+      "word": "beige",
+      "level": "C1",
+      "translation": "beige"
+    },
+    {
+      "id": 696,
+      "word": "black",
+      "level": "A2",
+      "translation": "negro"
+    },
+    {
+      "id": 2429,
+      "word": "black",
+      "level": "B1",
+      "translation": "negro"
+    },
+    {
+      "id": 28633,
+      "word": "blackness",
+      "level": "C1",
+      "translation": "negrura"
+    },
+    {
+      "id": 16191,
+      "word": "blacks",
+      "level": "B2",
+      "translation": "negros"
+    },
+    {
+      "id": 703,
+      "word": "blue",
+      "level": "A2",
+      "translation": "azul"
+    },
+    {
+      "id": 2442,
+      "word": "blue",
+      "level": "B1",
+      "translation": "azul"
+    },
+    {
+      "id": 7612,
+      "word": "blue",
+      "level": "C1",
+      "translation": "azul"
+    },
+    {
+      "id": 9304,
+      "word": "blue",
+      "level": "C2",
+      "translation": "azul"
+    },
+    {
+      "id": 49137,
+      "word": "bluish",
+      "level": "C2",
+      "translation": "azulado"
+    },
+    {
+      "id": 64740,
+      "word": "blush",
+      "level": "C1",
+      "translation": "rosa pálido"
+    },
+    {
+      "id": 64760,
+      "word": "brass",
+      "level": "C1",
+      "translation": "latón"
+    },
+    {
+      "id": 64702,
+      "word": "brick",
+      "level": "B2",
+      "translation": "rojo ladrillo"
+    },
+    {
+      "id": 7631,
+      "word": "bronze",
+      "level": "C1",
+      "translation": "bronce"
+    },
+    {
+      "id": 9332,
+      "word": "bronze",
+      "level": "C2",
+      "translation": "bronce"
+    },
+    {
+      "id": 741,
+      "word": "brown",
+      "level": "A2",
+      "translation": "marrón"
+    },
+    {
+      "id": 2500,
+      "word": "brown",
+      "level": "B1",
+      "translation": "marrón"
+    },
+    {
+      "id": 20069,
+      "word": "burgundy",
+      "level": "C1",
+      "translation": "burdeos"
+    },
+    {
+      "id": 64713,
+      "word": "canary",
+      "level": "C1",
+      "translation": "amarillo canario"
+    },
+    {
+      "id": 64748,
+      "word": "caramel",
+      "level": "B2",
+      "translation": "caramelo"
+    },
+    {
+      "id": 21590,
+      "word": "carmine",
+      "level": "C1",
+      "translation": "carmín"
+    },
+    {
+      "id": 64728,
+      "word": "cerulean",
+      "level": "C2",
+      "translation": "azul cerúleo"
+    },
+    {
+      "id": 64750,
+      "word": "charcoal",
+      "level": "C1",
+      "translation": "gris carbón"
+    },
+    {
+      "id": 49664,
+      "word": "chartreuse",
+      "level": "C2",
+      "translation": "amarillo verdoso"
+    },
+    {
+      "id": 64701,
+      "word": "cherry",
+      "level": "B2",
+      "translation": "rojo cereza"
+    },
+    {
+      "id": 64746,
+      "word": "chestnut",
+      "level": "C1",
+      "translation": "castaño"
+    },
+    {
+      "id": 64742,
+      "word": "chocolate",
+      "level": "B1",
+      "translation": "chocolate"
+    },
+    {
+      "id": 64749,
+      "word": "cinnamon",
+      "level": "C1",
+      "translation": "canela"
+    },
+    {
+      "id": 64705,
+      "word": "claret",
+      "level": "C2",
+      "translation": "clarete"
+    },
+    {
+      "id": 64727,
+      "word": "cobalt",
+      "level": "C1",
+      "translation": "azul cobalto"
+    },
+    {
+      "id": 64743,
+      "word": "coffee",
+      "level": "B1",
+      "translation": "color café"
+    },
+    {
+      "id": 15481,
+      "word": "colored",
+      "level": "B2",
+      "translation": "de colores"
+    },
+    {
+      "id": 24040,
+      "word": "coloring",
+      "level": "C1",
+      "translation": "coloración"
+    },
+    {
+      "id": 854,
+      "word": "colour",
+      "level": "A2",
+      "translation": "color"
+    },
+    {
+      "id": 2680,
+      "word": "colour",
+      "level": "B1",
+      "translation": "color"
+    },
+    {
+      "id": 7687,
+      "word": "colour",
+      "level": "C1",
+      "translation": "color"
+    },
+    {
+      "id": 9423,
+      "word": "colour",
+      "level": "C2",
+      "translation": "color"
+    },
+    {
+      "id": 64759,
+      "word": "copper",
+      "level": "C1",
+      "translation": "cobrizo"
+    },
+    {
+      "id": 64228,
+      "word": "coral",
+      "level": "B2",
+      "translation": "coral"
+    },
+    {
+      "id": 64714,
+      "word": "cream",
+      "level": "B1",
+      "translation": "crema"
+    },
+    {
+      "id": 20997,
+      "word": "crimson",
+      "level": "C1",
+      "translation": "carmesí"
+    },
+    {
+      "id": 64724,
+      "word": "cyan",
+      "level": "C1",
+      "translation": "cian"
+    },
+    {
+      "id": 64731,
+      "word": "denim",
+      "level": "B2",
+      "translation": "azul vaquero"
+    },
+    {
+      "id": 25241,
+      "word": "dun",
+      "level": "C1",
+      "translation": "pardo"
+    },
+    {
+      "id": 27906,
+      "word": "ebony",
+      "level": "C1",
+      "translation": "ébano"
+    },
+    {
+      "id": 17747,
+      "word": "emerald",
+      "level": "B2",
+      "translation": "esmeralda"
+    },
+    {
+      "id": 25664,
+      "word": "emeralds",
+      "level": "C1",
+      "translation": "esmeraldas"
+    },
+    {
+      "id": 64717,
+      "word": "forest green",
+      "level": "C1",
+      "translation": "verde bosque"
+    },
+    {
+      "id": 64735,
+      "word": "fuchsia",
+      "level": "C1",
+      "translation": "fucsia"
+    },
+    {
+      "id": 27453,
+      "word": "garnet",
+      "level": "C1",
+      "translation": "granate"
+    },
+    {
+      "id": 1153,
+      "word": "gold",
+      "level": "A2",
+      "translation": "oro"
+    },
+    {
+      "id": 3254,
+      "word": "gold",
+      "level": "B1",
+      "translation": "oro"
+    },
+    {
+      "id": 1154,
+      "word": "golden",
+      "level": "A2",
+      "translation": "dorado"
+    },
+    {
+      "id": 3255,
+      "word": "golden",
+      "level": "B1",
+      "translation": "dorado"
+    },
+    {
+      "id": 5998,
+      "word": "golden",
+      "level": "B2",
+      "translation": "dorado"
+    },
+    {
+      "id": 12508,
+      "word": "gray",
+      "level": "A2",
+      "translation": "gris"
+    },
+    {
+      "id": 51707,
+      "word": "grays",
+      "level": "C2",
+      "translation": "grises"
+    },
+    {
+      "id": 1177,
+      "word": "green",
+      "level": "A2",
+      "translation": "verde"
+    },
+    {
+      "id": 3283,
+      "word": "green",
+      "level": "B1",
+      "translation": "verde"
+    },
+    {
+      "id": 6012,
+      "word": "green",
+      "level": "B2",
+      "translation": "verde"
+    },
+    {
+      "id": 9907,
+      "word": "green",
+      "level": "C2",
+      "translation": "verde"
+    },
+    {
+      "id": 6013,
+      "word": "grey",
+      "level": "B2",
+      "translation": "gris"
+    },
+    {
+      "id": 8084,
+      "word": "grey",
+      "level": "C1",
+      "translation": "gris"
+    },
+    {
+      "id": 16662,
+      "word": "hazel",
+      "level": "B2",
+      "translation": "color avellana"
+    },
+    {
+      "id": 26480,
+      "word": "hue",
+      "level": "C1",
+      "translation": "matiz"
+    },
+    {
+      "id": 45115,
+      "word": "hues",
+      "level": "C2",
+      "translation": "tonalidades"
+    },
+    {
+      "id": 29970,
+      "word": "indigo",
+      "level": "C1",
+      "translation": "índigo"
+    },
+    {
+      "id": 64752,
+      "word": "ivory",
+      "level": "C1",
+      "translation": "marfil"
+    },
+    {
+      "id": 64718,
+      "word": "jade",
+      "level": "C1",
+      "translation": "verde jade"
+    },
+    {
+      "id": 64757,
+      "word": "jet",
+      "level": "C1",
+      "translation": "negro azabache"
+    },
+    {
+      "id": 64721,
+      "word": "kelly green",
+      "level": "C2",
+      "translation": "verde irlandés"
+    },
+    {
+      "id": 33574,
+      "word": "khaki",
+      "level": "C2",
+      "translation": "caqui"
+    },
+    {
+      "id": 64738,
+      "word": "lavender",
+      "level": "C1",
+      "translation": "lavanda"
+    },
+    {
+      "id": 64712,
+      "word": "lemon",
+      "level": "B1",
+      "translation": "amarillo limón"
+    },
+    {
+      "id": 29255,
+      "word": "lilac",
+      "level": "C1",
+      "translation": "lila"
+    },
+    {
+      "id": 64715,
+      "word": "lime",
+      "level": "B1",
+      "translation": "verde lima"
+    },
+    {
+      "id": 35477,
+      "word": "magenta",
+      "level": "C2",
+      "translation": "magenta"
+    },
+    {
+      "id": 64745,
+      "word": "mahogany",
+      "level": "C1",
+      "translation": "caoba"
+    },
+    {
+      "id": 27360,
+      "word": "maroon",
+      "level": "C1",
+      "translation": "granate"
+    },
+    {
+      "id": 41312,
+      "word": "mauve",
+      "level": "C2",
+      "translation": "malva"
+    },
+    {
+      "id": 64733,
+      "word": "midnight blue",
+      "level": "C1",
+      "translation": "azul medianoche"
+    },
+    {
+      "id": 64719,
+      "word": "mint",
+      "level": "B2",
+      "translation": "verde menta"
+    },
+    {
+      "id": 64744,
+      "word": "mocha",
+      "level": "C1",
+      "translation": "moca"
+    },
+    {
+      "id": 64723,
+      "word": "moss",
+      "level": "C1",
+      "translation": "verde musgo"
+    },
+    {
+      "id": 64709,
+      "word": "mustard",
+      "level": "C1",
+      "translation": "mostaza"
+    },
+    {
+      "id": 3766,
+      "word": "navy blue",
+      "level": "B1",
+      "translation": "azul marino"
+    },
+    {
+      "id": 64710,
+      "word": "ochre",
+      "level": "C1",
+      "translation": "ocre"
+    },
+    {
+      "id": 64716,
+      "word": "olive",
+      "level": "B2",
+      "translation": "verde oliva"
+    },
+    {
+      "id": 64758,
+      "word": "onyx",
+      "level": "C2",
+      "translation": "negro ónice"
+    },
+    {
+      "id": 1533,
+      "word": "orange",
+      "level": "A2",
+      "translation": "naranja"
+    },
+    {
+      "id": 3866,
+      "word": "orange",
+      "level": "B1",
+      "translation": "naranja"
+    },
+    {
+      "id": 45472,
+      "word": "pastel",
+      "level": "C2",
+      "translation": "pastel"
+    },
+    {
+      "id": 64706,
+      "word": "peach",
+      "level": "B2",
+      "translation": "melocotón"
+    },
+    {
+      "id": 64761,
+      "word": "pearl",
+      "level": "B2",
+      "translation": "perla"
+    },
+    {
+      "id": 64729,
+      "word": "periwinkle",
+      "level": "C2",
+      "translation": "azul pervinca"
+    },
+    {
+      "id": 64754,
+      "word": "pewter",
+      "level": "C2",
+      "translation": "peltre"
+    },
+    {
+      "id": 26756,
+      "word": "pied",
+      "level": "C1",
+      "translation": "de varios colores"
+    },
+    {
+      "id": 64722,
+      "word": "pine",
+      "level": "C1",
+      "translation": "verde pino"
+    },
+    {
+      "id": 122,
+      "word": "pink",
+      "level": "A1",
+      "translation": "rosa"
+    },
+    {
+      "id": 1602,
+      "word": "pink",
+      "level": "A2",
+      "translation": "rosa"
+    },
+    {
+      "id": 3982,
+      "word": "pink",
+      "level": "B1",
+      "translation": "rosa"
+    },
+    {
+      "id": 40098,
+      "word": "pinks",
+      "level": "C2",
+      "translation": "rosas"
+    },
+    {
+      "id": 64762,
+      "word": "platinum",
+      "level": "C1",
+      "translation": "platino"
+    },
+    {
+      "id": 64736,
+      "word": "plum",
+      "level": "C1",
+      "translation": "ciruela"
+    },
+    {
+      "id": 64734,
+      "word": "powder blue",
+      "level": "C1",
+      "translation": "azul pálido"
+    },
+    {
+      "id": 123,
+      "word": "purple",
+      "level": "A1",
+      "translation": "púrpura"
+    },
+    {
+      "id": 1657,
+      "word": "purple",
+      "level": "A2",
+      "translation": "púrpura"
+    },
+    {
+      "id": 4103,
+      "word": "purple",
+      "level": "B1",
+      "translation": "púrpura"
+    },
+    {
+      "id": 124,
+      "word": "red",
+      "level": "A1",
+      "translation": "rojo"
+    },
+    {
+      "id": 1689,
+      "word": "red",
+      "level": "A2",
+      "translation": "rojo"
+    },
+    {
+      "id": 4186,
+      "word": "red",
+      "level": "B1",
+      "translation": "rojo"
+    },
+    {
+      "id": 6771,
+      "word": "red",
+      "level": "B2",
+      "translation": "rojo"
+    },
+    {
+      "id": 10560,
+      "word": "red",
+      "level": "C2",
+      "translation": "rojo"
+    },
+    {
+      "id": 38088,
+      "word": "reddish",
+      "level": "C2",
+      "translation": "rojizo"
+    },
+    {
+      "id": 19268,
+      "word": "reds",
+      "level": "B2",
+      "translation": "rojos"
+    },
+    {
+      "id": 64739,
+      "word": "rose",
+      "level": "B1",
+      "translation": "rosa"
+    },
+    {
+      "id": 10668,
+      "word": "rosy",
+      "level": "C2",
+      "translation": "rosado"
+    },
+    {
+      "id": 18282,
+      "word": "rouge",
+      "level": "B2",
+      "translation": "colorete"
+    },
+    {
+      "id": 64726,
+      "word": "royal blue",
+      "level": "B2",
+      "translation": "azul real"
+    },
+    {
+      "id": 26198,
+      "word": "rubies",
+      "level": "C1",
+      "translation": "rubíes"
+    },
+    {
+      "id": 13085,
+      "word": "ruby",
+      "level": "B1",
+      "translation": "rubí"
+    },
+    {
+      "id": 64704,
+      "word": "rust",
+      "level": "C1",
+      "translation": "óxido"
+    },
+    {
+      "id": 64711,
+      "word": "saffron",
+      "level": "C2",
+      "translation": "azafrán"
+    },
+    {
+      "id": 64720,
+      "word": "sage",
+      "level": "C1",
+      "translation": "verde salvia"
+    },
+    {
+      "id": 64708,
+      "word": "salmon",
+      "level": "C1",
+      "translation": "salmón"
+    },
+    {
+      "id": 64730,
+      "word": "sapphire",
+      "level": "C1",
+      "translation": "azul zafiro"
+    },
+    {
+      "id": 17221,
+      "word": "scarlet",
+      "level": "B2",
+      "translation": "escarlata"
+    },
+    {
+      "id": 64540,
+      "word": "shade",
+      "level": "B1",
+      "translation": "tono"
+    },
+    {
+      "id": 64542,
+      "word": "shade",
+      "level": "B2",
+      "translation": "tono"
+    },
+    {
+      "id": 64544,
+      "word": "shade",
+      "level": "C1",
+      "translation": "tono"
+    },
+    {
+      "id": 64546,
+      "word": "shade",
+      "level": "C2",
+      "translation": "tono"
+    },
+    {
+      "id": 31243,
+      "word": "sienna",
+      "level": "C1",
+      "translation": "tierra de siena"
+    },
+    {
+      "id": 1789,
+      "word": "silver",
+      "level": "A2",
+      "translation": "plata"
+    },
+    {
+      "id": 4441,
+      "word": "silver",
+      "level": "B1",
+      "translation": "plata"
+    },
+    {
+      "id": 32119,
+      "word": "silvery",
+      "level": "C2",
+      "translation": "plateado"
+    },
+    {
+      "id": 64725,
+      "word": "sky blue",
+      "level": "B1",
+      "translation": "azul cielo"
+    },
+    {
+      "id": 64751,
+      "word": "slate",
+      "level": "C1",
+      "translation": "gris pizarra"
+    },
+    {
+      "id": 64755,
+      "word": "snow",
+      "level": "B1",
+      "translation": "blanco nieve"
+    },
+    {
+      "id": 64741,
+      "word": "tan",
+      "level": "C1",
+      "translation": "tostado"
+    },
+    {
+      "id": 44292,
+      "word": "tans",
+      "level": "C2",
+      "translation": "bronceados"
+    },
+    {
+      "id": 38456,
+      "word": "tawny",
+      "level": "C2",
+      "translation": "leonado"
+    },
+    {
+      "id": 17756,
+      "word": "teal",
+      "level": "B2",
+      "translation": "verde azulado"
+    },
+    {
+      "id": 49968,
+      "word": "tinge",
+      "level": "C2",
+      "translation": "tinte"
+    },
+    {
+      "id": 43891,
+      "word": "tint",
+      "level": "C2",
+      "translation": "tinte"
+    },
+    {
+      "id": 36094,
+      "word": "topaz",
+      "level": "C2",
+      "translation": "topacio"
+    },
+    {
+      "id": 30966,
+      "word": "turquoise",
+      "level": "C1",
+      "translation": "turquesa"
+    },
+    {
+      "id": 37875,
+      "word": "vermilion",
+      "level": "C2",
+      "translation": "bermellón"
+    },
+    {
+      "id": 13933,
+      "word": "violet",
+      "level": "B1",
+      "translation": "violeta"
+    },
+    {
+      "id": 64747,
+      "word": "walnut",
+      "level": "C1",
+      "translation": "nogal"
+    },
+    {
+      "id": 125,
+      "word": "white",
+      "level": "A1",
+      "translation": "blanco"
+    },
+    {
+      "id": 2104,
+      "word": "white",
+      "level": "A2",
+      "translation": "blanco"
+    },
+    {
+      "id": 4968,
+      "word": "white",
+      "level": "B1",
+      "translation": "blanco"
+    },
+    {
+      "id": 11202,
+      "word": "white",
+      "level": "C2",
+      "translation": "blanco"
+    },
+    {
+      "id": 47316,
+      "word": "whiteness",
+      "level": "C2",
+      "translation": "blancura"
+    },
+    {
+      "id": 64703,
+      "word": "wine",
+      "level": "C1",
+      "translation": "burdeos"
+    },
+    {
+      "id": 126,
+      "word": "yellow",
+      "level": "A1",
+      "translation": "amarillo"
+    },
+    {
+      "id": 2149,
+      "word": "yellow",
+      "level": "A2",
+      "translation": "amarillo"
+    },
+    {
+      "id": 5023,
+      "word": "yellow",
+      "level": "B1",
+      "translation": "amarillo"
+    },
+    {
+      "id": 37424,
+      "word": "yellows",
+      "level": "C2",
+      "translation": "amarillos"
+    }
+  ]
+}

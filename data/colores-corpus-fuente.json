@@ -1,0 +1,2344 @@
+{
+  "css147": [
+    "alice blue",
+    "antique white",
+    "aqua",
+    "aquamarine",
+    "azure",
+    "beige",
+    "bisque",
+    "black",
+    "blanched almond",
+    "blue",
+    "blue violet",
+    "brown",
+    "burlywood",
+    "cadet blue",
+    "chartreuse",
+    "chocolate",
+    "coral",
+    "cornflower blue",
+    "cornsilk",
+    "crimson",
+    "cyan",
+    "dark blue",
+    "dark cyan",
+    "dark goldenrod",
+    "dark gray",
+    "dark green",
+    "dark khaki",
+    "dark magenta",
+    "dark olive green",
+    "dark orange",
+    "dark orchid",
+    "dark red",
+    "dark salmon",
+    "dark sea green",
+    "dark slate blue",
+    "dark slate gray",
+    "dark turquoise",
+    "dark violet",
+    "deep pink",
+    "deep sky blue",
+    "dim gray",
+    "dodger blue",
+    "firebrick",
+    "floral white",
+    "forest green",
+    "fuchsia",
+    "gainsboro",
+    "ghost white",
+    "gold",
+    "goldenrod",
+    "gray",
+    "green",
+    "green yellow",
+    "honeydew",
+    "hot pink",
+    "indian red",
+    "indigo",
+    "ivory",
+    "khaki",
+    "lavender",
+    "lavender blush",
+    "lawn green",
+    "lemon chiffon",
+    "light blue",
+    "light coral",
+    "light cyan",
+    "light goldenrod yellow",
+    "light gray",
+    "light green",
+    "light pink",
+    "light salmon",
+    "light sea green",
+    "light sky blue",
+    "light slate gray",
+    "light steel blue",
+    "light yellow",
+    "lime",
+    "lime green",
+    "linen",
+    "magenta",
+    "maroon",
+    "medium aquamarine",
+    "medium blue",
+    "medium orchid",
+    "medium purple",
+    "medium sea green",
+    "medium slate blue",
+    "medium spring green",
+    "medium turquoise",
+    "medium violet red",
+    "midnight blue",
+    "mint cream",
+    "misty rose",
+    "moccasin",
+    "navajo white",
+    "navy",
+    "old lace",
+    "olive",
+    "olive drab",
+    "orange",
+    "orange red",
+    "orchid",
+    "pale goldenrod",
+    "pale green",
+    "pale turquoise",
+    "pale violet red",
+    "papaya whip",
+    "peach puff",
+    "peru",
+    "pink",
+    "plum",
+    "powder blue",
+    "purple",
+    "rebecca purple",
+    "red",
+    "rosy brown",
+    "royal blue",
+    "saddle brown",
+    "salmon",
+    "sandy brown",
+    "sea green",
+    "seashell",
+    "sienna",
+    "silver",
+    "sky blue",
+    "slate blue",
+    "slate gray",
+    "snow",
+    "spring green",
+    "steel blue",
+    "tan",
+    "teal",
+    "thistle",
+    "tomato",
+    "turquoise",
+    "violet",
+    "wheat",
+    "white",
+    "white smoke",
+    "yellow",
+    "yellow green"
+  ],
+  "wikipedia": [
+    "air force blue",
+    "alabaster",
+    "alizarin",
+    "amaranth",
+    "amber",
+    "amethyst",
+    "apricot",
+    "aquamarine",
+    "artichoke",
+    "ash",
+    "asparagus",
+    "auburn",
+    "avocado",
+    "baby blue",
+    "bistre",
+    "blush",
+    "bone",
+    "bottle green",
+    "brick red",
+    "bronze",
+    "buff",
+    "burgundy",
+    "burnt sienna",
+    "burnt umber",
+    "butterscotch",
+    "byzantium",
+    "cadmium yellow",
+    "camel",
+    "canary",
+    "caramel",
+    "cardinal",
+    "carmine",
+    "carolina blue",
+    "celadon",
+    "cerise",
+    "cerulean",
+    "chamois",
+    "champagne",
+    "charcoal",
+    "cherry",
+    "chestnut",
+    "chrome yellow",
+    "cinnabar",
+    "cinnamon",
+    "citrine",
+    "claret",
+    "cobalt",
+    "cobalt blue",
+    "coffee",
+    "copper",
+    "coral",
+    "cornflower",
+    "cream",
+    "crimson",
+    "cyan",
+    "dawn",
+    "denim",
+    "dusk",
+    "ebony",
+    "ecru",
+    "eggplant",
+    "eggshell",
+    "electric blue",
+    "emerald",
+    "fallow",
+    "fawn",
+    "feldgrau",
+    "fern",
+    "fire engine red",
+    "flax",
+    "forest green",
+    "fuchsia",
+    "fulvous",
+    "gamboge",
+    "ginger",
+    "glaucous",
+    "gold",
+    "grape",
+    "gunmetal",
+    "hazel",
+    "heliotrope",
+    "honey",
+    "hooker green",
+    "hot pink",
+    "hunter green",
+    "indigo",
+    "isabelline",
+    "ivory",
+    "ivory black",
+    "jade",
+    "jasmine",
+    "jet",
+    "kelly green",
+    "lamp black",
+    "lavender",
+    "lemon",
+    "lilac",
+    "lime green",
+    "magenta",
+    "magenta rose",
+    "mahogany",
+    "marigold",
+    "maroon",
+    "mauve",
+    "midnight blue",
+    "mint",
+    "mocha",
+    "moss green",
+    "mulberry",
+    "mustard",
+    "myrtle",
+    "naples yellow",
+    "navy blue",
+    "nude",
+    "oatmeal",
+    "ochre",
+    "off white",
+    "onyx",
+    "orange red",
+    "oxblood",
+    "peach",
+    "peacock blue",
+    "pearl",
+    "periwinkle",
+    "persian rose",
+    "pewter",
+    "pine",
+    "pine green",
+    "pistachio",
+    "platinum",
+    "plum",
+    "powder blue",
+    "prussian blue",
+    "puce",
+    "racing green",
+    "raspberry",
+    "raw sienna",
+    "raw umber",
+    "robin egg blue",
+    "rose",
+    "rose gold",
+    "royal blue",
+    "ruby",
+    "russet",
+    "rust",
+    "saffron",
+    "sage",
+    "salmon",
+    "sapphire",
+    "scarlet",
+    "seafoam",
+    "sepia",
+    "shamrock",
+    "silver",
+    "sky blue",
+    "slate",
+    "smalt",
+    "smoke",
+    "soot",
+    "sorrel",
+    "spruce",
+    "stone",
+    "straw",
+    "sunset",
+    "tangerine",
+    "taupe",
+    "teal",
+    "terracotta",
+    "titanium white",
+    "topaz",
+    "turquoise",
+    "tyrian purple",
+    "ultramarine",
+    "vandyke brown",
+    "vermilion",
+    "violet",
+    "viridian",
+    "walnut",
+    "warm white",
+    "wedgwood",
+    "wenge",
+    "wine",
+    "wisteria",
+    "xanadu",
+    "zinc white"
+  ],
+  "crayola": [
+    "bittersweet",
+    "black",
+    "blue green",
+    "blue violet",
+    "brick red",
+    "brown",
+    "burnt orange",
+    "burnt sienna",
+    "cadet blue",
+    "canary",
+    "carnation pink",
+    "chestnut",
+    "copper",
+    "cornflower",
+    "eggplant",
+    "forest green",
+    "gold",
+    "goldenrod",
+    "granny smith apple",
+    "jungle green",
+    "lavender",
+    "lemon yellow",
+    "mahogany",
+    "melon",
+    "midnight blue",
+    "mulberry",
+    "navy blue",
+    "orchid",
+    "peach",
+    "periwinkle",
+    "pine green",
+    "plum",
+    "raw umber",
+    "red orange",
+    "red violet",
+    "robin egg blue",
+    "salmon",
+    "scarlet",
+    "sepia",
+    "silver",
+    "sky blue",
+    "spring green",
+    "tan",
+    "tumbleweed",
+    "violet",
+    "violet blue",
+    "violet red",
+    "white",
+    "wild strawberry",
+    "yellow green",
+    "yellow orange"
+  ],
+  "union_dedup": [
+    {
+      "word": "air force blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "alabaster",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "alice blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "alizarin",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amaranth",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amber",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "amethyst",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "antique white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "apricot",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "aqua",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "aquamarine",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "artichoke",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ash",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "asparagus",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "auburn",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "avocado",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "azure",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "baby blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "beige",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "bisque",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "bistre",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bittersweet",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "black",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "blanched almond",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "blue green",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "blue violet",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "blush",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bone",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "bottle green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "brick red",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "bronze",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "brown",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "buff",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "burgundy",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "burlywood",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "burnt orange",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "burnt sienna",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "burnt umber",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "butterscotch",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "byzantium",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cadet blue",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "cadmium yellow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "camel",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "canary",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "caramel",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cardinal",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "carmine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "carnation pink",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "carolina blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "celadon",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cerise",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cerulean",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chamois",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "champagne",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "charcoal",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chartreuse",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cherry",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "chestnut",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "chocolate",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "chrome yellow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cinnabar",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cinnamon",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "citrine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "claret",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cobalt",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cobalt blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "coffee",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "copper",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "coral",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cornflower",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "cornflower blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cornsilk",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "cream",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "crimson",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "cyan",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "dark blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark cyan",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark goldenrod",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark khaki",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark magenta",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark olive green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark orange",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark orchid",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark salmon",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark slate blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark slate gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark turquoise",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dark violet",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dawn",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "deep pink",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "deep sky blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "denim",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "dim gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dodger blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "dusk",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ebony",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ecru",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "eggplant",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "eggshell",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "electric blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "emerald",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fallow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fawn",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "feldgrau",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fern",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fire engine red",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "firebrick",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "flax",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "floral white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "forest green",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "fuchsia",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "fulvous",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "gainsboro",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "gamboge",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ghost white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "ginger",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "glaucous",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "gold",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "goldenrod",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "granny smith apple",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "grape",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "green yellow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "gunmetal",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "hazel",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "heliotrope",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "honey",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "honeydew",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "hooker green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "hot pink",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "hunter green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "indian red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "indigo",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "isabelline",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ivory",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ivory black",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jade",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jasmine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jet",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "jungle green",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "kelly green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "khaki",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lamp black",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lavender",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "lavender blush",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lawn green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lemon",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lemon chiffon",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lemon yellow",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "light blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light coral",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light cyan",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light goldenrod yellow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light pink",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light salmon",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light sky blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light slate gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light steel blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "light yellow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lilac",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "lime",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "lime green",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "linen",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "magenta",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "magenta rose",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mahogany",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "marigold",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "maroon",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mauve",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "medium aquamarine",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium orchid",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium purple",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium slate blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium spring green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium turquoise",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "medium violet red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "melon",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "midnight blue",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "mint",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mint cream",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "misty rose",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "moccasin",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "mocha",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "moss green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "mulberry",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "mustard",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "myrtle",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "naples yellow",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "navajo white",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "navy",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "navy blue",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "nude",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "oatmeal",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ochre",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "off white",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "old lace",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "olive",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "olive drab",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "onyx",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "orange",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "orange red",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "orchid",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "oxblood",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pale goldenrod",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale turquoise",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pale violet red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "papaya whip",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peach",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "peach puff",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "peacock blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pearl",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "periwinkle",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "persian rose",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "peru",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pewter",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "pine green",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "pink",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "pistachio",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "platinum",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "plum",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "powder blue",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "prussian blue",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "puce",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "purple",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "racing green",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raspberry",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raw sienna",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "raw umber",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "rebecca purple",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "red",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "red orange",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "red violet",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "robin egg blue",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "rose",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "rose gold",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "rosy brown",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "royal blue",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ruby",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "russet",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "rust",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "saddle brown",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "saffron",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sage",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "salmon",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sandy brown",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sapphire",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "scarlet",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sea green",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "seafoam",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "seashell",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "sepia",
+      "sources": [
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "shamrock",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sienna",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "silver",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "sky blue",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "slate",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "slate blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "slate gray",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "smalt",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "smoke",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "snow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "soot",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sorrel",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "spring green",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "spruce",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "steel blue",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "stone",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "straw",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "sunset",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tan",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "tangerine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "taupe",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "teal",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "terracotta",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "thistle",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "titanium white",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tomato",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "topaz",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tumbleweed",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "turquoise",
+      "sources": [
+        "css",
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "tyrian purple",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "ultramarine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "vandyke brown",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "vermilion",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "violet",
+      "sources": [
+        "css",
+        "wikipedia",
+        "crayola"
+      ]
+    },
+    {
+      "word": "violet blue",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "violet red",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "viridian",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "walnut",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "warm white",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wedgwood",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wenge",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wheat",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "white",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "white smoke",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "wild strawberry",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "wine",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "wisteria",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "xanadu",
+      "sources": [
+        "wikipedia"
+      ]
+    },
+    {
+      "word": "yellow",
+      "sources": [
+        "css"
+      ]
+    },
+    {
+      "word": "yellow green",
+      "sources": [
+        "css",
+        "crayola"
+      ]
+    },
+    {
+      "word": "yellow orange",
+      "sources": [
+        "crayola"
+      ]
+    },
+    {
+      "word": "zinc white",
+      "sources": [
+        "wikipedia"
+      ]
+    }
+  ]
+}

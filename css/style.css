@@ -381,18 +381,28 @@ html, body {
   transition: all var(--trans); display: flex; flex-direction: column; align-items: center;
   min-width: 80px;
 }
-.lifeline-btn:hover:not(.used) {
-  background: rgba(255,215,0,0.15); border-color: var(--gold); color: var(--gold);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px var(--gold-glow);
+/* Hover solo en dispositivos con puntero real (evita hover sticky en móvil
+   que hacía parecer el botón "armado" aunque no lo estuviera). */
+@media (hover: hover) {
+  .lifeline-btn:hover:not(.used):not(.armed) {
+    background: rgba(255,215,0,0.15); border-color: var(--gold); color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--gold-glow);
+  }
 }
 .lifeline-btn.used { opacity: 0.25; cursor: not-allowed; }
+/* Estado armed: claramente diferenciado del estado base. Borde más grueso,
+   fondo dorado más intenso y un pulso para que se note el toggle. */
 .lifeline-btn.armed {
-  background: rgba(255,215,0,0.2);
+  background: rgba(255,215,0,0.32);
   border-color: var(--gold);
+  border-width: 2.5px;
   color: var(--gold);
-  box-shadow: 0 0 12px var(--gold-glow), inset 0 0 8px rgba(255,215,0,0.15);
+  box-shadow: 0 0 16px var(--gold-glow), inset 0 0 10px rgba(255,215,0,0.25);
+  transform: translateY(-1px);
 }
+.lifeline-btn.armed .lifeline-label { color: var(--gold); font-weight: 800; }
+.lifeline-btn.armed .lifeline-icon { filter: drop-shadow(0 0 4px rgba(255,215,0,0.6)); }
 .lifeline-icon { font-size: 1.4rem; }
 .lifeline-label { font-size: 0.65rem; color: var(--grey); }
 

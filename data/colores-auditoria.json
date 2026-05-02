@@ -1,0 +1,987 @@
+{
+  "generado": "2026-05-01T13:31:54.859Z",
+  "total": 108,
+  "resumen": {
+    "color_real": 76,
+    "derivada": 14,
+    "meta_color": 16,
+    "dudoso": 2
+  },
+  "filas": [
+    {
+      "id": 12951,
+      "word": "amber",
+      "translation": "ámbar",
+      "level": "B1",
+      "uk_ipa": "/ˈæmbɝ/",
+      "us_ipa": "/ˈæmbɝ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 52388,
+      "word": "aqua",
+      "translation": "aguamarina",
+      "level": "C1",
+      "uk_ipa": "/ˈækwə/",
+      "us_ipa": "/ˈækwə/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 52406,
+      "word": "argent",
+      "translation": "plata",
+      "level": "C2",
+      "uk_ipa": "/ˈɑɹdʒɪnt/",
+      "us_ipa": "/ˈɑɹdʒɪnt/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 36549,
+      "word": "auburn",
+      "translation": "castaño rojizo",
+      "level": "C2",
+      "uk_ipa": "/ˈɑbɝn/",
+      "us_ipa": "/ˈɑbɝn/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 39029,
+      "word": "azure",
+      "translation": "azul celeste",
+      "level": "C2",
+      "uk_ipa": "/ˈæʒɝ/",
+      "us_ipa": "/ˈæʒɝ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 23146,
+      "word": "beige",
+      "translation": "beige",
+      "level": "C1",
+      "uk_ipa": "/ˈbeɪʒ/",
+      "us_ipa": "/ˈbeɪʒ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 696,
+      "word": "black",
+      "translation": "negro",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 2429,
+      "word": "black",
+      "translation": "negro",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 28633,
+      "word": "blackness",
+      "translation": "negrura",
+      "level": "C1",
+      "uk_ipa": "/ˈbɫæknəs/",
+      "us_ipa": "/ˈbɫæknəs/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 16191,
+      "word": "blacks",
+      "translation": "negros",
+      "level": "B2",
+      "uk_ipa": "/ˈbɫæks/",
+      "us_ipa": "/ˈbɫæks/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 703,
+      "word": "blue",
+      "translation": "azul",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 2442,
+      "word": "blue",
+      "translation": "azul",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 7612,
+      "word": "blue",
+      "translation": "azul",
+      "level": "C1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 9304,
+      "word": "blue",
+      "translation": "azul",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 49137,
+      "word": "bluish",
+      "translation": "azulado",
+      "level": "C2",
+      "uk_ipa": "/ˈbɫuɪʃ/",
+      "us_ipa": "/ˈbɫuɪʃ/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 7631,
+      "word": "bronze",
+      "translation": "bronce",
+      "level": "C1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 9332,
+      "word": "bronze",
+      "translation": "bronce",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 741,
+      "word": "brown",
+      "translation": "marrón",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 2500,
+      "word": "brown",
+      "translation": "marrón",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 20069,
+      "word": "burgundy",
+      "translation": "burdeos",
+      "level": "C1",
+      "uk_ipa": "/ˈbɝɡəndi/",
+      "us_ipa": "/ˈbɝɡəndi/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 21590,
+      "word": "carmine",
+      "translation": "carmín",
+      "level": "C1",
+      "uk_ipa": "/ˈkɑɹmən/",
+      "us_ipa": "/ˈkɑɹmən/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 49664,
+      "word": "chartreuse",
+      "translation": "amarillo verdoso",
+      "level": "C2",
+      "uk_ipa": "/ʃɑɹˈtɹus/",
+      "us_ipa": "/ʃɑɹˈtɹus/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 15481,
+      "word": "colored",
+      "translation": "de colores",
+      "level": "B2",
+      "uk_ipa": "/ˈkəɫɝd/",
+      "us_ipa": "/ˈkəɫɝd/",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 24040,
+      "word": "coloring",
+      "translation": "coloración",
+      "level": "C1",
+      "uk_ipa": "/ˈkəɫɝɪŋ/",
+      "us_ipa": "/ˈkəɫɝɪŋ/",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 854,
+      "word": "colour",
+      "translation": "color",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 2680,
+      "word": "colour",
+      "translation": "color",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 7687,
+      "word": "colour",
+      "translation": "color",
+      "level": "C1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 9423,
+      "word": "colour",
+      "translation": "color",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 64228,
+      "word": "coral",
+      "translation": "coral",
+      "level": "B2",
+      "uk_ipa": "/ˈkɔɹəɫ/",
+      "us_ipa": "/ˈkɔɹəɫ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 20997,
+      "word": "crimson",
+      "translation": "carmesí",
+      "level": "C1",
+      "uk_ipa": "/ˈkɹɪmzən/",
+      "us_ipa": "/ˈkɹɪmzən/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 25241,
+      "word": "dun",
+      "translation": "pardo",
+      "level": "C1",
+      "uk_ipa": "/ˈdən/",
+      "us_ipa": "/ˈdən/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 27906,
+      "word": "ebony",
+      "translation": "ébano",
+      "level": "C1",
+      "uk_ipa": "/ˈɛbəni/",
+      "us_ipa": "/ˈɛbəni/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 17747,
+      "word": "emerald",
+      "translation": "esmeralda",
+      "level": "B2",
+      "uk_ipa": "/ˈɛmɝɹəɫd/",
+      "us_ipa": "/ˈɛmɝɹəɫd/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 25664,
+      "word": "emeralds",
+      "translation": "esmeraldas",
+      "level": "C1",
+      "uk_ipa": "/ˈɛmɝɹəɫdz/",
+      "us_ipa": "/ˈɛmɝɹəɫdz/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 27453,
+      "word": "garnet",
+      "translation": "granate",
+      "level": "C1",
+      "uk_ipa": "/ˈɡɑɹnət/",
+      "us_ipa": "/ˈɡɑɹnət/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 1153,
+      "word": "gold",
+      "translation": "oro",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 3254,
+      "word": "gold",
+      "translation": "oro",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 1154,
+      "word": "golden",
+      "translation": "dorado",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 3255,
+      "word": "golden",
+      "translation": "dorado",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 5998,
+      "word": "golden",
+      "translation": "dorado",
+      "level": "B2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 12508,
+      "word": "gray",
+      "translation": "gris",
+      "level": "A2",
+      "uk_ipa": "/ˈɡɹeɪ/",
+      "us_ipa": "/ˈɡɹeɪ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 51707,
+      "word": "grays",
+      "translation": "grises",
+      "level": "C2",
+      "uk_ipa": "/ˈɡɹeɪz/",
+      "us_ipa": "/ˈɡɹeɪz/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 1177,
+      "word": "green",
+      "translation": "verde",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 3283,
+      "word": "green",
+      "translation": "verde",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 6012,
+      "word": "green",
+      "translation": "verde",
+      "level": "B2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 9907,
+      "word": "green",
+      "translation": "verde",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 6013,
+      "word": "grey",
+      "translation": "gris",
+      "level": "B2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 8084,
+      "word": "grey",
+      "translation": "gris",
+      "level": "C1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 16662,
+      "word": "hazel",
+      "translation": "color avellana",
+      "level": "B2",
+      "uk_ipa": "/ˈheɪzəɫ/",
+      "us_ipa": "/ˈheɪzəɫ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 26480,
+      "word": "hue",
+      "translation": "matiz",
+      "level": "C1",
+      "uk_ipa": "/ˈhju/",
+      "us_ipa": "/ˈhju/",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 45115,
+      "word": "hues",
+      "translation": "tonalidades",
+      "level": "C2",
+      "uk_ipa": "/ˈhjuz/",
+      "us_ipa": "/ˈhjuz/",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 29970,
+      "word": "indigo",
+      "translation": "índigo",
+      "level": "C1",
+      "uk_ipa": "/ˈɪndəˌɡoʊ/",
+      "us_ipa": "/ˈɪndəˌɡoʊ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 33574,
+      "word": "khaki",
+      "translation": "caqui",
+      "level": "C2",
+      "uk_ipa": "/ˈkæki/",
+      "us_ipa": "/ˈkæki/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 29255,
+      "word": "lilac",
+      "translation": "lila",
+      "level": "C1",
+      "uk_ipa": "/ˈɫaɪˌɫæk/",
+      "us_ipa": "/ˈɫaɪˌɫæk/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 35477,
+      "word": "magenta",
+      "translation": "magenta",
+      "level": "C2",
+      "uk_ipa": "/məˈdʒɛntə/",
+      "us_ipa": "/məˈdʒɛntə/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 27360,
+      "word": "maroon",
+      "translation": "granate",
+      "level": "C1",
+      "uk_ipa": "/mɝˈun/",
+      "us_ipa": "/mɝˈun/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 41312,
+      "word": "mauve",
+      "translation": "malva",
+      "level": "C2",
+      "uk_ipa": "/ˈmɔv/",
+      "us_ipa": "/ˈmɔv/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 3766,
+      "word": "navy blue",
+      "translation": "azul marino",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 21789,
+      "word": "noir",
+      "translation": "negro",
+      "level": "C1",
+      "uk_ipa": "/ˈnɔɪɹ/",
+      "us_ipa": "/ˈnɔɪɹ/",
+      "tipo": "dudoso",
+      "nota": "Negro en francés; en inglés se usa principalmente como género cinematográfico, no como color"
+    },
+    {
+      "id": 1533,
+      "word": "orange",
+      "translation": "naranja",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 3866,
+      "word": "orange",
+      "translation": "naranja",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 45472,
+      "word": "pastel",
+      "translation": "pastel",
+      "level": "C2",
+      "uk_ipa": "/pæˈstɛɫ/",
+      "us_ipa": "/pæˈstɛɫ/",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 26756,
+      "word": "pied",
+      "translation": "de varios colores",
+      "level": "C1",
+      "uk_ipa": "/ˈpaɪd/",
+      "us_ipa": "/ˈpaɪd/",
+      "tipo": "meta_color",
+      "nota": "Adjetivo que significa multicolor/manchado, no es un color específico"
+    },
+    {
+      "id": 122,
+      "word": "pink",
+      "translation": "rosa",
+      "level": "A1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 1602,
+      "word": "pink",
+      "translation": "rosa",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 3982,
+      "word": "pink",
+      "translation": "rosa",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 40098,
+      "word": "pinks",
+      "translation": "rosas",
+      "level": "C2",
+      "uk_ipa": "/ˈpɪŋks/",
+      "us_ipa": "/ˈpɪŋks/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 123,
+      "word": "purple",
+      "translation": "púrpura",
+      "level": "A1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 1657,
+      "word": "purple",
+      "translation": "púrpura",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 4103,
+      "word": "purple",
+      "translation": "púrpura",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 124,
+      "word": "red",
+      "translation": "rojo",
+      "level": "A1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 1689,
+      "word": "red",
+      "translation": "rojo",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 4186,
+      "word": "red",
+      "translation": "rojo",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 6771,
+      "word": "red",
+      "translation": "rojo",
+      "level": "B2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 10560,
+      "word": "red",
+      "translation": "rojo",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 38088,
+      "word": "reddish",
+      "translation": "rojizo",
+      "level": "C2",
+      "uk_ipa": "/ˈɹɛdɪʃ/",
+      "us_ipa": "/ˈɹɛdɪʃ/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 19268,
+      "word": "reds",
+      "translation": "rojos",
+      "level": "B2",
+      "uk_ipa": "/ˈɹɛdz/",
+      "us_ipa": "/ˈɹɛdz/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 10668,
+      "word": "rosy",
+      "translation": "rosado",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "derivada"
+    },
+    {
+      "id": 18282,
+      "word": "rouge",
+      "translation": "colorete",
+      "level": "B2",
+      "uk_ipa": "/ˈɹuʒ/",
+      "us_ipa": "/ˈɹuʒ/",
+      "tipo": "dudoso",
+      "nota": "Colorete (maquillaje) en uso habitual; como color es el término francés para rojo, uso raro en inglés"
+    },
+    {
+      "id": 26198,
+      "word": "rubies",
+      "translation": "rubíes",
+      "level": "C1",
+      "uk_ipa": "/ˈɹubiz/",
+      "us_ipa": "/ˈɹubiz/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 13085,
+      "word": "ruby",
+      "translation": "rubí",
+      "level": "B1",
+      "uk_ipa": "/ˈɹubi/",
+      "us_ipa": "/ˈɹubi/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 17221,
+      "word": "scarlet",
+      "translation": "escarlata",
+      "level": "B2",
+      "uk_ipa": "/ˈskɑɹɫət/",
+      "us_ipa": "/ˈskɑɹɫət/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 64540,
+      "word": "shade",
+      "translation": "tono",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 64542,
+      "word": "shade",
+      "translation": "tono",
+      "level": "B2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 64544,
+      "word": "shade",
+      "translation": "tono",
+      "level": "C1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 64546,
+      "word": "shade",
+      "translation": "tono",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 31243,
+      "word": "sienna",
+      "translation": "tierra de siena",
+      "level": "C1",
+      "uk_ipa": "/siˈɛnə/",
+      "us_ipa": "/siˈɛnə/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 1789,
+      "word": "silver",
+      "translation": "plata",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 4441,
+      "word": "silver",
+      "translation": "plata",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 32119,
+      "word": "silvery",
+      "translation": "plateado",
+      "level": "C2",
+      "uk_ipa": "/ˈsɪɫvɝi/",
+      "us_ipa": "/ˈsɪɫvɝi/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 44292,
+      "word": "tans",
+      "translation": "bronceados",
+      "level": "C2",
+      "uk_ipa": "/ˈtænz/",
+      "us_ipa": "/ˈtænz/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 38456,
+      "word": "tawny",
+      "translation": "leonado",
+      "level": "C2",
+      "uk_ipa": "/ˈtɑni/",
+      "us_ipa": "/ˈtɑni/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 17756,
+      "word": "teal",
+      "translation": "verde azulado",
+      "level": "B2",
+      "uk_ipa": "/ˈtiɫ/",
+      "us_ipa": "/ˈtiɫ/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 49968,
+      "word": "tinge",
+      "translation": "tinte",
+      "level": "C2",
+      "uk_ipa": "/ˈtɪndʒ/",
+      "us_ipa": "/ˈtɪndʒ/",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 43891,
+      "word": "tint",
+      "translation": "tinte",
+      "level": "C2",
+      "uk_ipa": "/ˈtɪnt/",
+      "us_ipa": "/ˈtɪnt/",
+      "tipo": "meta_color"
+    },
+    {
+      "id": 36094,
+      "word": "topaz",
+      "translation": "topacio",
+      "level": "C2",
+      "uk_ipa": "/ˈtoʊˌpæz/",
+      "us_ipa": "/ˈtoʊˌpæz/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 30966,
+      "word": "turquoise",
+      "translation": "turquesa",
+      "level": "C1",
+      "uk_ipa": "/ˈtɝkwɔɪz/",
+      "us_ipa": "/ˈtɝkwɔɪz/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 37875,
+      "word": "vermilion",
+      "translation": "bermellón",
+      "level": "C2",
+      "uk_ipa": "/vɝˈmɪɫjən/",
+      "us_ipa": "/vɝˈmɪɫjən/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 13933,
+      "word": "violet",
+      "translation": "violeta",
+      "level": "B1",
+      "uk_ipa": "/ˈvaɪəɫɪt/",
+      "us_ipa": "/ˈvaɪəɫɪt/",
+      "tipo": "color_real"
+    },
+    {
+      "id": 125,
+      "word": "white",
+      "translation": "blanco",
+      "level": "A1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 2104,
+      "word": "white",
+      "translation": "blanco",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 4968,
+      "word": "white",
+      "translation": "blanco",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 11202,
+      "word": "white",
+      "translation": "blanco",
+      "level": "C2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 47316,
+      "word": "whiteness",
+      "translation": "blancura",
+      "level": "C2",
+      "uk_ipa": "/ˈhwaɪtnəs/",
+      "us_ipa": "/ˈhwaɪtnəs/",
+      "tipo": "derivada"
+    },
+    {
+      "id": 126,
+      "word": "yellow",
+      "translation": "amarillo",
+      "level": "A1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 2149,
+      "word": "yellow",
+      "translation": "amarillo",
+      "level": "A2",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 5023,
+      "word": "yellow",
+      "translation": "amarillo",
+      "level": "B1",
+      "uk_ipa": "",
+      "us_ipa": "",
+      "tipo": "color_real"
+    },
+    {
+      "id": 37424,
+      "word": "yellows",
+      "translation": "amarillos",
+      "level": "C2",
+      "uk_ipa": "/ˈjɛɫoʊz/",
+      "us_ipa": "/ˈjɛɫoʊz/",
+      "tipo": "derivada"
+    }
+  ]
+}
