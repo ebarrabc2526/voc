@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.2.0';
+const APP_VERSION = '2.2.1';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -951,12 +951,22 @@ function revealAnswer(selectedIndex) {
   const autoExpert = State.explainArmed && !State.expertUsedThisQuestion;
   const expertCtx  = isCorrect ? 'auto-correct' : 'auto-wrong';
 
-  if (autoExpert) {
+  const showImg = State.currentWord && State.showImages !== false && !isFlagMode(State.mode);
+
+  if (autoExpert && showImg) {
+    // Ambos activos: imagen y experto en paralelo. Avanzamos cuando los dos terminen.
+    let pending = 2;
+    const tryAdvance = () => { if (--pending <= 0) advance(); };
+    setTimeout(() => useExpert(tryAdvance, expertCtx), 600);
+    const fallbackTimer = setTimeout(tryAdvance, fallbackMs);
+    showWordImage(State.currentWord.word, State.currentWord.category, {
+      onStarted: () => clearTimeout(fallbackTimer),
+      onAdvance: tryAdvance,
+    });
+  } else if (autoExpert) {
     // Pequeña pausa para mostrar la respuesta correcta antes del experto
-    setTimeout(() => {
-      useExpert(() => { advance(); }, expertCtx);
-    }, 600);
-  } else if (State.currentWord && State.showImages !== false && !isFlagMode(State.mode)) {
+    setTimeout(() => useExpert(advance, expertCtx), 600);
+  } else if (showImg) {
     // En modos de banderas, la bandera ya está visible — no abrir el word-image-box
     const fallbackTimer = setTimeout(advance, fallbackMs);
     showWordImage(State.currentWord.word, State.currentWord.category, {
