@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.7';
+const APP_VERSION = '2.1.8';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -504,6 +504,16 @@ async function setMode(mode) {
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
     document.querySelector('[data-cat="flags"]')?.classList.add('active');
   }
+  updateLangSectionsVisibility();
+}
+
+// Nivel y Categoría solo aplican a modos de idiomas (en-es / es-en).
+function updateLangSectionsVisibility() {
+  const isLang = !isFlagMode(State.mode) && !isCapitalMode(State.mode);
+  const lvl = document.getElementById('setup-level');
+  const cat = document.getElementById('setup-category');
+  if (lvl) lvl.style.display = isLang ? '' : 'none';
+  if (cat) cat.style.display = isLang ? '' : 'none';
 }
 
 function isFlagMode(m)    { return m === 'flag-to-es' || m === 'es-to-flag'; }
@@ -594,6 +604,8 @@ function updateSetupUI() {
 
   // Challenge buttons — uses explicit ID-based function
   activateChallenge(State.challengeType);
+
+  updateLangSectionsVisibility();
 }
 
 // ─── Game Init ────────────────────────────────────────────────────────────────

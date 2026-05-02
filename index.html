@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>VOC – English Vocabulary Master</title>
   <meta name="description" content="Aprende vocabulario inglés jugando a ¿Quién quiere ser millonario?">
-  <link rel="stylesheet" href="css/style.css?v=2.1.7">
+  <link rel="stylesheet" href="css/style.css?v=2.1.8">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer
           onload="initGoogleSignIn()"></script>
@@ -94,8 +94,8 @@
       </div>
     </div>
 
-    <!-- Level -->
-    <div class="setup-section">
+    <!-- Level (solo modos de idiomas) -->
+    <div class="setup-section" id="setup-level">
       <h3>Nivel CEFR</h3>
       <div class="level-row">
         <button class="level-btn" data-level="A1"  onclick="setLevel('A1')">A1</button>
@@ -108,8 +108,8 @@
       </div>
     </div>
 
-    <!-- Category -->
-    <div class="setup-section">
+    <!-- Category (solo modos de idiomas) -->
+    <div class="setup-section" id="setup-category">
       <h3>Categoría</h3>
       <div id="cat-container"><!-- populated by JS --></div>
     </div>
@@ -118,10 +118,10 @@
     <div class="setup-section">
       <h3>Tipo de Reto</h3>
       <div class="challenge-row">
-        <button class="challenge-btn" id="ch-10"       onclick="setChallenge('10')">⚡ Reto 10</button>
-        <button class="challenge-btn" id="ch-100"      onclick="setChallenge('100')">🔥 Reto 100</button>
-        <button class="challenge-btn" id="ch-1000"     onclick="setChallenge('1000')">💎 Reto 1000</button>
-        <button class="challenge-btn" id="ch-infinite" onclick="setChallenge('infinite')">♾️ Infinito</button>
+        <button class="challenge-btn" id="ch-10"       onclick="setChallenge('10')">⚡ 10</button>
+        <button class="challenge-btn" id="ch-100"      onclick="setChallenge('100')">🔥 100</button>
+        <button class="challenge-btn" id="ch-1000"     onclick="setChallenge('1000')">💎 1000</button>
+        <button class="challenge-btn" id="ch-infinite" onclick="setChallenge('infinite')">♾️</button>
       </div>
     </div>
 
@@ -438,7 +438,7 @@
 <div id="confetti-container"></div>
 
 <!-- Scripts -->
-<script src="js/game.js?v=2.1.7"></script>
+<script src="js/game.js?v=2.1.8"></script>
 <script>
   // exitGame helper
   function exitGame() {
