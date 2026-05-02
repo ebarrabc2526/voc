@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.2.5';
+const APP_VERSION = '2.2.6';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -279,6 +279,7 @@ function loadPrefs() {
   if (p.showImages !== undefined)      State.showImages          = !!p.showImages;
   if (p.explainArmed !== undefined)    State.explainArmed        = !!p.explainArmed;
   if (p.expertVoice !== undefined)     State.expertVoice         = !!p.expertVoice;
+  if (p.gpsEnabled !== undefined)      State.gpsEnabled          = !!p.gpsEnabled;
 }
 
 function savePrefs() {
@@ -293,6 +294,7 @@ function savePrefs() {
     showImages:          State.showImages,
     explainArmed:        State.explainArmed,
     expertVoice:         State.expertVoice,
+    gpsEnabled:          State.gpsEnabled,
   });
 }
 
@@ -354,6 +356,7 @@ function applyServerPrefs(prefs) {
   if (prefs.showImages !== undefined)     State.showImages          = !!prefs.showImages;
   if (prefs.expertExplainButton !== undefined) State.explainArmed   = !!prefs.expertExplainButton;
   if (prefs.expertVoice !== undefined)    State.expertVoice         = !!prefs.expertVoice;
+  if (prefs.gpsEnabled !== undefined)     State.gpsEnabled          = !!prefs.gpsEnabled;
   window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   window.userPrefs.showImages          = State.showImages;
   savePrefs();
@@ -426,6 +429,7 @@ const State = {
   imageDisplaySeconds: 5,
   showImages: true,
   expertVoice: true,
+  gpsEnabled: true,
   expertUsedThisQuestion: false,
   explainArmed: false,
   questions: [],
@@ -750,6 +754,20 @@ function displayQuestion(word, { options, correctIndex }) {
   const esToCap  = mode === 'es-to-capital';
   const capToEs  = mode === 'capital-to-es';
 
+  // Helper: enlace GPS (📍) a Google Maps para el lugar dado
+  const renderGpsLink = (place) => {
+    const url = `https://www.google.com/maps/place/${encodeURIComponent(place)}`;
+    const a = document.createElement('a');
+    a.className = 'country-gps';
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.title = `Ver ${place} en Google Maps`;
+    a.setAttribute('aria-label', `Ver ${place} en Google Maps`);
+    a.textContent = '📍';
+    return a;
+  };
+
   // Helper: span con nombre del país + miniatura de bandera a la derecha
   const renderCountryWithFlag = (country, enWord) => {
     const wrap = document.createElement('span');
@@ -770,29 +788,28 @@ function displayQuestion(word, { options, correctIndex }) {
   if (flagQ) {
     wordTextEl.textContent = '';                // se muestra solo bandera
   } else if (flagOpt) {
-    // Nombre del país en español + icono GPS que abre Google Maps en nueva pestaña.
+    // Nombre del país en español + (opcional) icono GPS a Google Maps.
     const country = word.translation;
-    const mapsUrl = `https://www.google.com/maps/place/${encodeURIComponent(country)}`;
     wordTextEl.innerHTML = '';
     const nameSpan = document.createElement('span');
     nameSpan.className = 'country-name';
     nameSpan.textContent = country;
-    const gpsLink = document.createElement('a');
-    gpsLink.className = 'country-gps';
-    gpsLink.href = mapsUrl;
-    gpsLink.target = '_blank';
-    gpsLink.rel = 'noopener noreferrer';
-    gpsLink.title = `Ver ${country} en Google Maps`;
-    gpsLink.setAttribute('aria-label', `Ver ${country} en Google Maps`);
-    gpsLink.textContent = '📍';
-    wordTextEl.append(nameSpan, gpsLink);
+    wordTextEl.append(nameSpan);
+    if (State.gpsEnabled) wordTextEl.append(renderGpsLink(country));
   } else if (esToCap) {
     // País en español + bandera mini a la derecha → adivinar capital
     wordTextEl.innerHTML = '';
     wordTextEl.append(renderCountryWithFlag(word.translation, word.word));
+    if (State.gpsEnabled) wordTextEl.append(renderGpsLink(word.translation));
   } else if (capToEs) {
-    // Capital → adivinar país (sin bandera en pregunta)
-    wordTextEl.textContent = getCapital(word);
+    // Capital → adivinar país (con GPS opcional sobre la ciudad)
+    wordTextEl.innerHTML = '';
+    const capName = getCapital(word);
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'country-name';
+    nameSpan.textContent = capName;
+    wordTextEl.append(nameSpan);
+    if (State.gpsEnabled) wordTextEl.append(renderGpsLink(capName));
   } else {
     wordTextEl.textContent = isEnToEs ? word.word : word.translation;
   }
@@ -1039,6 +1056,7 @@ function useExplainButton() {
         showImages:          State.showImages,
         expertExplainButton: State.explainArmed,
         expertVoice:         State.expertVoice,
+        gpsEnabled:          State.gpsEnabled,
       }),
     }).catch(() => {});
   }
@@ -1410,6 +1428,9 @@ function saveOptions() {
   const voiceEl = document.getElementById('opt-expert-voice');
   if (voiceEl) State.expertVoice = voiceEl.checked;
 
+  const gpsEl = document.getElementById('opt-gps');
+  if (gpsEl) State.gpsEnabled = gpsEl.checked;
+
   savePrefs();
   // Guardar al servidor si está autenticado
   if (Auth.isLoggedIn()) {
@@ -1427,6 +1448,7 @@ function saveOptions() {
         showImages:          State.showImages,
         expertExplainButton: State.explainArmed,
         expertVoice:         State.expertVoice,
+        gpsEnabled:          State.gpsEnabled,
       }),
     }).catch(() => {});
   }
@@ -1600,6 +1622,8 @@ async function showProfile() {
   if (imgSecWrap) imgSecWrap.style.display = (State.showImages !== false) ? '' : 'none';
   const voiceEl = document.getElementById('opt-expert-voice');
   if (voiceEl) voiceEl.checked = State.expertVoice !== false;
+  const gpsEl = document.getElementById('opt-gps');
+  if (gpsEl) gpsEl.checked = State.gpsEnabled !== false;
 
   showScreen('screen-profile');
   showProfileTab('stats');

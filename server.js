@@ -47,6 +47,9 @@ if (fs.existsSync(MIGRATION_005)) {
   if (!cols005.includes('expert_voice')) {
     db.prepare('ALTER TABLE user_prefs ADD COLUMN expert_voice INTEGER NOT NULL DEFAULT 1').run();
   }
+  if (!cols005.includes('gps_enabled')) {
+    db.prepare('ALTER TABLE user_prefs ADD COLUMN gps_enabled INTEGER NOT NULL DEFAULT 1').run();
+  }
 }
 
 function requireAuth(req, res, next) {
@@ -255,11 +258,12 @@ app.get('/api/prefs', requireAuth, (req, res) => {
     showImages:          row.show_images == null ? true : !!row.show_images,
     expertExplainButton: !!row.expert_explain_button,
     expertVoice:         row.expert_voice == null ? true : !!row.expert_voice,
+    gpsEnabled:          row.gps_enabled == null ? true : !!row.gps_enabled,
   });
 });
 
 app.put('/api/prefs', requireAuth, (req, res) => {
-  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds, showImages, expertExplainButton, expertVoice } = req.body;
+  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds, showImages, expertExplainButton, expertVoice, gpsEnabled } = req.body;
   // Validar imageDisplaySeconds: entero 0-30
   let imgSecs = 5;
   if (imageDisplaySeconds !== undefined) {
@@ -269,9 +273,10 @@ app.put('/api/prefs', requireAuth, (req, res) => {
   const showImg = (showImages === undefined || showImages === null) ? 1 : (showImages ? 1 : 0);
   const explainBtn = expertExplainButton ? 1 : 0;
   const voice = (expertVoice === undefined || expertVoice === null) ? 1 : (expertVoice ? 1 : 0);
+  const gps   = (gpsEnabled  === undefined || gpsEnabled  === null) ? 1 : (gpsEnabled  ? 1 : 0);
   db.prepare(`
-    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds, show_images, expert_explain_button, expert_voice)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds, show_images, expert_explain_button, expert_voice, gps_enabled)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(sub) DO UPDATE SET
       level = excluded.level,
       mode = excluded.mode,
@@ -282,11 +287,12 @@ app.put('/api/prefs', requireAuth, (req, res) => {
       image_display_seconds = excluded.image_display_seconds,
       show_images = excluded.show_images,
       expert_explain_button = excluded.expert_explain_button,
-      expert_voice = excluded.expert_voice
+      expert_voice = excluded.expert_voice,
+      gps_enabled = excluded.gps_enabled
   `).run(req.user.sub, level||'A1', mode||'en-es', category||'all',
          challengeType||'10', autoPlay ? 1 : 0,
          JSON.stringify(autoPlayLangs || ['uk','us']),
-         imgSecs, showImg, explainBtn, voice);
+         imgSecs, showImg, explainBtn, voice, gps);
   res.json({ ok: true });
 });
 
