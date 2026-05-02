@@ -470,16 +470,18 @@ html, body {
 }
 .country-with-flag .flag-thumb {
   display: inline-block;
-  height: 1em;
-  width: auto;
-  max-height: 28px;
+  width: 32px;
+  height: 22px;
+  object-fit: contain;
   vertical-align: middle;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+  background: rgba(255,255,255,0.05);
+  flex-shrink: 0;
 }
 #word-text .country-with-flag .flag-thumb {
-  height: 0.8em;
-  max-height: 38px;
+  width: 44px;
+  height: 30px;
 }
 .answer-btn .country-with-flag {
   width: 100%;
