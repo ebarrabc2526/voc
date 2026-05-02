@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.2.1';
+const APP_VERSION = '2.2.2';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -457,9 +457,26 @@ function getPhasePrizes(phase) {
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 function showScreen(id) {
+  // Limpieza global al cambiar de pantalla: corta efectos en curso
+  // (audio del experto, mini indicador, modales y animaciones del card).
+  cleanupTransientUI();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
+}
+
+function cleanupTransientUI() {
+  // Cortar audio del experto si está sonando.
+  if (_currentSource) { try { _currentSource.stop(); } catch {} _currentSource = null; }
+  // Ocultar el mini indicador 🎧 (puede quedar pulsando si el usuario sale rápido).
+  document.getElementById('expert-mini')?.classList.add('hidden');
+  // Cerrar modales y overlay.
+  document.getElementById('overlay')?.classList.remove('active');
+  document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+  // Cancelar animaciones residuales de la tarjeta (evita estados de layout colgados).
+  document.getElementById('question-card')?.getAnimations?.().forEach(a => a.cancel());
+  // Ocultar overlay de imagen de palabra y limpiar su timer.
+  try { hideWordImage(); } catch {}
 }
 function showHome() { showScreen('screen-home'); }
 async function showSetup() {
