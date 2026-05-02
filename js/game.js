@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.3';
+const APP_VERSION = '2.1.4';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -276,6 +276,7 @@ function loadPrefs() {
   if (p.autoPlayLangs)                 State.autoPlayLangs       = p.autoPlayLangs;
   if (p.imageDisplaySeconds != null)   State.imageDisplaySeconds = p.imageDisplaySeconds;
   if (p.showImages !== undefined)      State.showImages          = !!p.showImages;
+  if (p.explainArmed !== undefined)    State.explainArmed        = !!p.explainArmed;
 }
 
 function savePrefs() {
@@ -288,6 +289,7 @@ function savePrefs() {
     autoPlayLangs:       State.autoPlayLangs,
     imageDisplaySeconds: State.imageDisplaySeconds,
     showImages:          State.showImages,
+    explainArmed:        State.explainArmed,
   });
 }
 
@@ -347,6 +349,7 @@ function applyServerPrefs(prefs) {
   if (prefs.autoPlayLangs)                State.autoPlayLangs       = prefs.autoPlayLangs;
   if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
   if (prefs.showImages !== undefined)     State.showImages          = !!prefs.showImages;
+  if (prefs.expertExplainButton !== undefined) State.explainArmed   = !!prefs.expertExplainButton;
   window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   window.userPrefs.showImages          = State.showImages;
   savePrefs();
@@ -419,7 +422,7 @@ const State = {
   imageDisplaySeconds: 5,
   showImages: true,
   expertUsedThisQuestion: false,
-  explainArmedThisQuestion: false,
+  explainArmed: false,
   questions: [],
   currentIndex: 0,
   currentPrize: 0,
@@ -636,7 +639,6 @@ function loadQuestion() {
   State.eliminatedOptions = [];
   State.answering = false;
   State.expertUsedThisQuestion = false;
-  State.explainArmedThisQuestion = false;
 
   const options = generateOptions(word);
   displayQuestion(word, options);
@@ -880,7 +882,7 @@ function revealAnswer(selectedIndex) {
 
   // Auto-experto tras responder: dispara si el usuario armó el botón 💡
   // para esta pregunta. No se repite si ya se usó el comodín del experto.
-  const autoExpert = State.explainArmedThisQuestion && !State.expertUsedThisQuestion;
+  const autoExpert = State.explainArmed && !State.expertUsedThisQuestion;
   const expertCtx  = isCorrect ? 'auto-correct' : 'auto-wrong';
 
   if (autoExpert) {
@@ -916,17 +918,35 @@ function useLifeline(type) {
   }
 }
 
-// Botón "Explicación tras responder": toggle por pregunta.
+// Botón "Explicación tras responder": toggle persistente por usuario.
 // Si está armado al responder, el experto da la explicación post-respuesta
-// (auto-correct si aciertas, auto-wrong si fallas) — igual que la opción
-// "Comentar siempre tras responder", pero solo para esta pregunta.
+// (auto-correct si aciertas, auto-wrong si fallas). Persiste en cookie y BD
+// (user_prefs.expert_explain_button) — sobrevive a recargas y otros dispositivos.
 function useExplainButton() {
   if (State.answering) return;
-  State.explainArmedThisQuestion = !State.explainArmedThisQuestion;
+  State.explainArmed = !State.explainArmed;
   try { primeExpertAudio(); } catch {}
-  if (State.explainArmedThisQuestion) Audio.playExplainArm();
-  else                                Audio.playExplainDisarm();
+  if (State.explainArmed) Audio.playExplainArm();
+  else                    Audio.playExplainDisarm();
   updateLifelineUI();
+  savePrefs();
+  if (Auth.isLoggedIn()) {
+    fetch('/api/prefs', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${Auth.token}` },
+      body: JSON.stringify({
+        level:               State.level,
+        mode:                State.mode,
+        category:            State.category,
+        challengeType:       State.challengeType,
+        autoPlay:            State.autoPlay,
+        autoPlayLangs:       State.autoPlayLangs,
+        imageDisplaySeconds: State.imageDisplaySeconds,
+        showImages:          State.showImages,
+        expertExplainButton: State.explainArmed,
+      }),
+    }).catch(() => {});
+  }
 }
 window.useExplainButton = useExplainButton;
 
@@ -1197,7 +1217,7 @@ function updateLifelineUI() {
   // lo ha activado para esta pregunta (el experto explicará tras responder).
   const explainBtn = document.getElementById('lifeline-explain');
   if (explainBtn) {
-    explainBtn.classList.toggle('armed', !!State.explainArmedThisQuestion);
+    explainBtn.classList.toggle('armed', !!State.explainArmed);
   }
 }
 
@@ -1270,6 +1290,7 @@ function saveOptions() {
         autoPlayLangs:       State.autoPlayLangs,
         imageDisplaySeconds: State.imageDisplaySeconds,
         showImages:          State.showImages,
+        expertExplainButton: State.explainArmed,
       }),
     }).catch(() => {});
   }
