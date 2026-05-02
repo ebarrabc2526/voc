@@ -229,6 +229,8 @@ app.get('/api/stats', requireAuth, (req, res) => {
   const catRows = db.prepare(`SELECT category, COUNT(*) as n FROM words GROUP BY category`).all();
   const categoryCounts = {};
   for (const r of catRows) categoryCounts[r.category] = r.n;
+  // Categoría sintética 'capitals': comparte el pool con 'flags' (mismos países)
+  if (categoryCounts.flags) categoryCounts.capitals = categoryCounts.flags;
   res.json({ sessions, categoryCounts });
 });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.2.2';
+const APP_VERSION = '2.2.3';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -36,6 +36,7 @@ const CATEGORY_NAMES = {
   religion:           'Religión',
   science:            'Ciencia',
   flags:              'Banderas',
+  capitals:           'Capitales',
 };
 
 // ─── Web Audio API para experto (autoplay-friendly) ──────────────────────────
@@ -1482,6 +1483,9 @@ function endGame(voluntary = false) {
 
 function saveGameStats(prize) {
   if (!Auth.isLoggedIn()) return;
+  // Categoría sintética 'capitals' para sesiones de modos País↔Capital
+  // (separa del pool de banderas en estadísticas y HOF).
+  const category = isCapitalMode(State.mode) ? 'capitals' : State.category;
   fetch('/api/stats', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${Auth.token}` },
@@ -1489,7 +1493,7 @@ function saveGameStats(prize) {
       level:      State.level,
       mode:       modeLabel(State.mode),
       challenge:  `Reto ${State.challengeType === 'infinite' ? '∞' : State.challengeType}`,
-      category:   State.category,
+      category:   category,
       prize:      prize,
       correct:    State.totalCorrect,
       total:      State.totalAnswered,
@@ -1535,11 +1539,12 @@ function showResultScreen(won, title, msg, prize) {
 function saveToHallOfFame() {
   if (!Auth.isLoggedIn()) { alert('Inicia sesión con Google para guardar'); return; }
 
+  const catKey = isCapitalMode(State.mode) ? 'capitals' : State.category;
   const entry = {
     level:     State.level,
     mode:      modeLabel(State.mode),
     challenge: `Reto ${State.challengeType === 'infinite' ? '∞' : State.challengeType}`,
-    category:  CATEGORY_NAMES[State.category] || State.category,
+    category:  CATEGORY_NAMES[catKey] || catKey,
     score:     State.challengeType === '10' ? State.currentPrize : State.totalPrize,
     correct:   State.totalCorrect,
     total:     State.totalAnswered,
@@ -1793,10 +1798,14 @@ function displayHallOfFame() {
       }
     })
     .then(hof => {
+      const FLAG_MODES = ['BAND→ES', 'ES→BAND'];
+      const CAP_MODES  = ['PAÍS→CAP', 'CAP→PAÍS'];
+      const NON_LANG = [...FLAG_MODES, ...CAP_MODES];
       let subset;
-      if (filter === 'global')      subset = hof;
-      else if (filter === 'flags')  subset = hof.filter(e => e.mode === 'BAND→ES' || e.mode === 'ES→BAND');
-      else                          subset = hof.filter(e => e.level === filter && e.mode !== 'BAND→ES' && e.mode !== 'ES→BAND');
+      if (filter === 'global')         subset = hof;
+      else if (filter === 'flags')     subset = hof.filter(e => FLAG_MODES.includes(e.mode));
+      else if (filter === 'capitals')  subset = hof.filter(e => CAP_MODES.includes(e.mode));
+      else                             subset = hof.filter(e => e.level === filter && !NON_LANG.includes(e.mode));
 
       const players = {};
       subset.forEach(e => {
@@ -1830,8 +1839,9 @@ function renderHofList(list, entries, filter) {
     '<span class="crown crown-silver">👑</span>',
     '<span class="crown crown-bronze">👑</span>'
   ];
-  const levelLabel = filter === 'global' ? 'todos los niveles'
-                   : filter === 'flags'  ? 'banderas'
+  const levelLabel = filter === 'global'   ? 'todos los niveles'
+                   : filter === 'flags'    ? 'banderas'
+                   : filter === 'capitals' ? 'capitales'
                    : `nivel ${filter}`;
   list.innerHTML = '';
   entries.forEach((entry, i) => {
