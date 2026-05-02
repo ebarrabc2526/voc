@@ -187,8 +187,11 @@ html, body {
   color: var(--gold); text-transform: uppercase;
 }
 
-.toggle-group, .level-row, .challenge-row {
+.toggle-group, .level-row {
   display: flex; gap: 0.6rem; flex-wrap: wrap;
+}
+.challenge-row {
+  display: flex; gap: 0.5rem; flex-wrap: nowrap;
 }
 
 .mode-btn {
@@ -267,13 +270,16 @@ html, body {
 .cat-count { font-size: 0.7em; opacity: 0.6; margin-left: 4px; }
 
 .challenge-btn {
-  flex: 1; min-width: 100px; padding: 0.85rem 0.5rem;
+  flex: 1 1 0; min-width: 0; padding: 0.85rem 0.4rem;
   background: var(--bg2); border: 2px solid rgba(255,255,255,0.1);
   border-radius: var(--radius); color: var(--grey);
   font-size: 0.9rem; font-weight: 700; cursor: pointer;
   transition: all var(--trans);
   -webkit-tap-highlight-color: transparent;
   outline: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .challenge-btn.active {
   background: linear-gradient(135deg, #3d1a00, #7a3500);
