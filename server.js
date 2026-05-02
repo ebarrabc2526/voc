@@ -44,6 +44,9 @@ if (fs.existsSync(MIGRATION_005)) {
   if (!cols005.includes('expert_explain_button')) {
     db.prepare('ALTER TABLE user_prefs ADD COLUMN expert_explain_button INTEGER NOT NULL DEFAULT 0').run();
   }
+  if (!cols005.includes('expert_voice')) {
+    db.prepare('ALTER TABLE user_prefs ADD COLUMN expert_voice INTEGER NOT NULL DEFAULT 1').run();
+  }
 }
 
 function requireAuth(req, res, next) {
@@ -243,11 +246,12 @@ app.get('/api/prefs', requireAuth, (req, res) => {
     imageDisplaySeconds: row.image_display_seconds != null ? row.image_display_seconds : 5,
     showImages:          row.show_images == null ? true : !!row.show_images,
     expertExplainButton: !!row.expert_explain_button,
+    expertVoice:         row.expert_voice == null ? true : !!row.expert_voice,
   });
 });
 
 app.put('/api/prefs', requireAuth, (req, res) => {
-  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds, showImages, expertExplainButton } = req.body;
+  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds, showImages, expertExplainButton, expertVoice } = req.body;
   // Validar imageDisplaySeconds: entero 0-30
   let imgSecs = 5;
   if (imageDisplaySeconds !== undefined) {
@@ -256,9 +260,10 @@ app.put('/api/prefs', requireAuth, (req, res) => {
   }
   const showImg = (showImages === undefined || showImages === null) ? 1 : (showImages ? 1 : 0);
   const explainBtn = expertExplainButton ? 1 : 0;
+  const voice = (expertVoice === undefined || expertVoice === null) ? 1 : (expertVoice ? 1 : 0);
   db.prepare(`
-    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds, show_images, expert_explain_button)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds, show_images, expert_explain_button, expert_voice)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(sub) DO UPDATE SET
       level = excluded.level,
       mode = excluded.mode,
@@ -268,11 +273,12 @@ app.put('/api/prefs', requireAuth, (req, res) => {
       auto_play_langs = excluded.auto_play_langs,
       image_display_seconds = excluded.image_display_seconds,
       show_images = excluded.show_images,
-      expert_explain_button = excluded.expert_explain_button
+      expert_explain_button = excluded.expert_explain_button,
+      expert_voice = excluded.expert_voice
   `).run(req.user.sub, level||'A1', mode||'en-es', category||'all',
          challengeType||'10', autoPlay ? 1 : 0,
          JSON.stringify(autoPlayLangs || ['uk','us']),
-         imgSecs, showImg, explainBtn);
+         imgSecs, showImg, explainBtn, voice);
   res.json({ ok: true });
 });
 
@@ -316,10 +322,15 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
   //   'explain'       — solo la explicación, sin comentar acierto/fallo
   const ctx = ['auto-correct', 'auto-wrong', 'explain'].includes(context) ? context : 'lifeline';
 
+  // Si el usuario ha desactivado la voz del experto, saltamos Fish Audio
+  // y devolvemos solo el HTML — ahorro de créditos TTS.
+  const voicePref = db.prepare('SELECT expert_voice FROM user_prefs WHERE sub = ?').get(req.user.sub);
+  const voiceEnabled = voicePref ? !!voicePref.expert_voice : true;
+
   const fishKey    = process.env.FISH_AUDIO_API_KEY;
   const voiceId    = process.env.FISH_AUDIO_VOICE_ID;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
-  if (!fishKey || !voiceId) return res.status(503).json({ error: 'TTS not configured' });
+  if (voiceEnabled && (!fishKey || !voiceId)) return res.status(503).json({ error: 'TTS not configured' });
 
   // 1. Explicación via Claude Haiku.
   //    - Modo banderas: SIGNIFICADO/ORIGEN de colores y símbolos + dato curioso del país (NO etimología).
@@ -376,6 +387,9 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
 
   const html = `<strong>${correctLabel}: "${answer}"</strong>`
              + (etymology ? `<br><small style="opacity:.8">📖 ${etymology}</small>` : '');
+
+  // Voz desactivada: devuelve solo HTML, sin generar audio
+  if (!voiceEnabled) return res.json({ html });
 
   // 3. Construir texto hablado según contexto
   try {

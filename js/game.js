@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.5';
+const APP_VERSION = '2.1.6';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -277,6 +277,7 @@ function loadPrefs() {
   if (p.imageDisplaySeconds != null)   State.imageDisplaySeconds = p.imageDisplaySeconds;
   if (p.showImages !== undefined)      State.showImages          = !!p.showImages;
   if (p.explainArmed !== undefined)    State.explainArmed        = !!p.explainArmed;
+  if (p.expertVoice !== undefined)     State.expertVoice         = !!p.expertVoice;
 }
 
 function savePrefs() {
@@ -290,6 +291,7 @@ function savePrefs() {
     imageDisplaySeconds: State.imageDisplaySeconds,
     showImages:          State.showImages,
     explainArmed:        State.explainArmed,
+    expertVoice:         State.expertVoice,
   });
 }
 
@@ -350,6 +352,7 @@ function applyServerPrefs(prefs) {
   if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
   if (prefs.showImages !== undefined)     State.showImages          = !!prefs.showImages;
   if (prefs.expertExplainButton !== undefined) State.explainArmed   = !!prefs.expertExplainButton;
+  if (prefs.expertVoice !== undefined)    State.expertVoice         = !!prefs.expertVoice;
   window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   window.userPrefs.showImages          = State.showImages;
   savePrefs();
@@ -421,6 +424,7 @@ const State = {
   autoPlayLangs: ['uk', 'us'],
   imageDisplaySeconds: 5,
   showImages: true,
+  expertVoice: true,
   expertUsedThisQuestion: false,
   explainArmed: false,
   questions: [],
@@ -944,6 +948,7 @@ function useExplainButton() {
         imageDisplaySeconds: State.imageDisplaySeconds,
         showImages:          State.showImages,
         expertExplainButton: State.explainArmed,
+        expertVoice:         State.expertVoice,
       }),
     }).catch(() => {});
   }
@@ -997,13 +1002,11 @@ async function useExpert(onFinished, context = 'lifeline') {
     ? correctText.translation
     : (State.mode === 'en-es' ? correctText.translation : correctText.word);
   const word         = correctText.word;
-  const flagHtml     = flagMode
-    ? `<img class="expert-flag" src="/api/word-image/${encodeURIComponent(word.toLowerCase())}/flags" alt="${answer}">`
-    : '';
-  const fallbackHtml = `${flagHtml}<strong>${correctLabel}: "${answer}"</strong>`;
+  const fallbackHtml = `<strong>${correctLabel}: "${answer}"</strong>`;
   const useMini      = context !== 'lifeline';
 
   const msgEl = document.getElementById('expert-message');
+  const flagWrap = document.getElementById('expert-flag-wrap');
   const miniEl = document.getElementById('expert-mini');
 
   const showUI = () => {
@@ -1011,6 +1014,15 @@ async function useExpert(onFinished, context = 'lifeline') {
       miniEl?.classList.remove('hidden');
     } else {
       msgEl.innerHTML = '🎧 <em>Consultando al experto...</em>';
+      if (flagWrap) {
+        if (flagMode) {
+          flagWrap.innerHTML = `<img class="expert-flag" src="/api/word-image/${encodeURIComponent(word.toLowerCase())}/flags" alt="">`;
+          flagWrap.classList.remove('hidden');
+        } else {
+          flagWrap.innerHTML = '';
+          flagWrap.classList.add('hidden');
+        }
+      }
       openModal('modal-expert');
     }
   };
@@ -1043,11 +1055,32 @@ async function useExpert(onFinished, context = 'lifeline') {
     });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
-    if (!useMini) msgEl.innerHTML = (flagHtml + (data.html || `<strong>${correctLabel}: "${answer}"</strong>`));
+    if (!useMini) msgEl.innerHTML = data.html || fallbackHtml;
 
     if (!data.audio) {
-      console.warn('[expert] sin audio en respuesta');
-      setTimeout(finish, 1500);
+      // Sin audio: voz del experto desactivada o TTS falló.
+      // En modo auto (useMini), abrimos el modal para mostrar el texto y
+      // damos tiempo proporcional al largo para leerlo antes de avanzar.
+      if (useMini) {
+        miniEl?.classList.add('hidden');
+        if (flagWrap) {
+          if (flagMode) {
+            flagWrap.innerHTML = `<img class="expert-flag" src="/api/word-image/${encodeURIComponent(word.toLowerCase())}/flags" alt="">`;
+            flagWrap.classList.remove('hidden');
+          } else {
+            flagWrap.innerHTML = '';
+            flagWrap.classList.add('hidden');
+          }
+        }
+        msgEl.innerHTML = data.html || fallbackHtml;
+        openModal('modal-expert');
+        const textLen = (msgEl.textContent || '').length;
+        const readMs = Math.min(12000, Math.max(3500, textLen * 60));
+        setTimeout(() => { closeModal(); finish(); }, readMs);
+      } else {
+        // Lifeline: el modal ya está abierto. El usuario cierra con "Colgar".
+        setTimeout(finish, 1200);
+      }
       return;
     }
 
@@ -1278,6 +1311,9 @@ function saveOptions() {
     window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   }
 
+  const voiceEl = document.getElementById('opt-expert-voice');
+  if (voiceEl) State.expertVoice = voiceEl.checked;
+
   savePrefs();
   // Guardar al servidor si está autenticado
   if (Auth.isLoggedIn()) {
@@ -1294,6 +1330,7 @@ function saveOptions() {
         imageDisplaySeconds: State.imageDisplaySeconds,
         showImages:          State.showImages,
         expertExplainButton: State.explainArmed,
+        expertVoice:         State.expertVoice,
       }),
     }).catch(() => {});
   }
@@ -1459,6 +1496,8 @@ async function showProfile() {
   if (showImgEl) showImgEl.checked = State.showImages !== false;
   const imgSecWrap = document.getElementById('opt-image-seconds-wrap');
   if (imgSecWrap) imgSecWrap.style.display = (State.showImages !== false) ? '' : 'none';
+  const voiceEl = document.getElementById('opt-expert-voice');
+  if (voiceEl) voiceEl.checked = State.expertVoice !== false;
 
   showScreen('screen-profile');
   showProfileTab('stats');
