@@ -695,6 +695,15 @@ html, body {
   padding: 1rem; color: var(--white); line-height: 1.6; font-size: 0.95rem;
 }
 .expert-message strong { color: var(--gold); }
+.expert-message .expert-flag {
+  display: block;
+  width: 140px;
+  max-width: 60%;
+  height: auto;
+  margin: 0 auto 0.75rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
 .modal-footer { display: flex; justify-content: center; }
 
 /* ── CONFETTI ── */

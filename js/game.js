@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.4';
+const APP_VERSION = '2.1.5';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -997,7 +997,10 @@ async function useExpert(onFinished, context = 'lifeline') {
     ? correctText.translation
     : (State.mode === 'en-es' ? correctText.translation : correctText.word);
   const word         = correctText.word;
-  const fallbackHtml = `<strong>${correctLabel}: "${answer}"</strong>`;
+  const flagHtml     = flagMode
+    ? `<img class="expert-flag" src="/api/word-image/${encodeURIComponent(word.toLowerCase())}/flags" alt="${answer}">`
+    : '';
+  const fallbackHtml = `${flagHtml}<strong>${correctLabel}: "${answer}"</strong>`;
   const useMini      = context !== 'lifeline';
 
   const msgEl = document.getElementById('expert-message');
@@ -1040,7 +1043,7 @@ async function useExpert(onFinished, context = 'lifeline') {
     });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
-    if (!useMini) msgEl.innerHTML = data.html || fallbackHtml;
+    if (!useMini) msgEl.innerHTML = (flagHtml + (data.html || `<strong>${correctLabel}: "${answer}"</strong>`));
 
     if (!data.audio) {
       console.warn('[expert] sin audio en respuesta');
