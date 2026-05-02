@@ -192,15 +192,18 @@ app.get('/api/hof', (_req, res) => {
 
 app.post('/api/hof', requireAuth, (req, res) => {
   const entry = req.body;
+  const mode = String(entry.mode || '');
+  const isCap = mode === 'PAÍS→CAP' || mode === 'CAP→PAÍS';
+  const category = isCap ? 'Capitales' : String(entry.category || '');
   db.prepare(`
     INSERT INTO hof (name, level, mode, challenge, category, score, correct, total, date)
     VALUES (@name, @level, @mode, @challenge, @category, @score, @correct, @total, @date)
   `).run({
     name:      req.user.name,
     level:     String(entry.level     || ''),
-    mode:      String(entry.mode      || ''),
+    mode:      mode,
     challenge: String(entry.challenge || ''),
-    category:  String(entry.category  || ''),
+    category:  category,
     score:     Number(entry.score)    || 0,
     correct:   Number(entry.correct)  || 0,
     total:     Number(entry.total)    || 0,
@@ -212,10 +215,13 @@ app.post('/api/hof', requireAuth, (req, res) => {
 // ─── Stats ────────────────────────────────────────────────────────────────────
 app.post('/api/stats', requireAuth, (req, res) => {
   const { level, mode, challenge, category, prize, correct, total, max_streak } = req.body;
+  // Robustez: para modos PAÍS↔CAPITAL, forzar category='capitals' aunque el
+  // cliente mande 'flags' (compat con clientes antiguos previos a v2.2.3).
+  const cat = (mode === 'PAÍS→CAP' || mode === 'CAP→PAÍS') ? 'capitals' : (category || '');
   db.prepare(`
     INSERT INTO game_sessions (user_email,level,mode,challenge,category,prize,correct,total,max_streak,date)
     VALUES (?,?,?,?,?,?,?,?,?,?)
-  `).run(req.user.email, level||'', mode||'', challenge||'', category||'',
+  `).run(req.user.email, level||'', mode||'', challenge||'', cat,
          Number(prize)||0, Number(correct)||0, Number(total)||0, Number(max_streak)||0,
          new Date().toISOString());
   res.json({ ok: true });
