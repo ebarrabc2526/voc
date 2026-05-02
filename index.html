@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>VOC – English Vocabulary Master</title>
   <meta name="description" content="Aprende vocabulario inglés jugando a ¿Quién quiere ser millonario?">
-  <link rel="stylesheet" href="css/style.css?v=2.1.0">
+  <link rel="stylesheet" href="css/style.css?v=2.1.1">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer
           onload="initGoogleSignIn()"></script>
@@ -153,6 +153,10 @@
       <button class="lifeline-btn" id="lifeline-expert" onclick="useLifeline('expert')">
         <span class="lifeline-icon">📞</span>
         <span class="lifeline-label">Experto</span>
+      </button>
+      <button class="lifeline-btn" id="lifeline-explain" onclick="useExplainButton()" style="display:none">
+        <span class="lifeline-icon">💡</span>
+        <span class="lifeline-label">Explicación</span>
       </button>
 
     </div>
@@ -394,6 +398,14 @@
           </label>
         </div>
         <div style="font-size:.8rem;opacity:.6;margin-top:4px">Si aciertas, el experto te confirma sin dudar. Si fallas, lamenta el fallo y te explica. No se repite si has usado el comodín del experto en esa pregunta.</div>
+        <div class="option-row" style="margin-top:12px">
+          <span>Botón de explicación rápida 💡</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="opt-expert-explain-button" onchange="saveOptions()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div style="font-size:.8rem;opacity:.6;margin-top:4px">Muestra un botón extra junto al del experto. Al pulsarlo, el experto da solo la explicación, sin comentar si has acertado o fallado. Un uso por pregunta.</div>
       </div>
 
       <div class="options-section">
@@ -428,7 +440,7 @@
 <div id="confetti-container"></div>
 
 <!-- Scripts -->
-<script src="js/game.js?v=2.1.0"></script>
+<script src="js/game.js?v=2.1.1"></script>
 <script>
   // exitGame helper
   function exitGame() {

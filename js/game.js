@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.1.0';
+const APP_VERSION = '2.1.1';
 
 // ─── Category Names ───────────────────────────────────────────────────────────
 const CATEGORY_NAMES = {
@@ -268,6 +268,7 @@ function loadPrefs() {
   if (p.imageDisplaySeconds != null)   State.imageDisplaySeconds = p.imageDisplaySeconds;
   if (p.showImages !== undefined)      State.showImages          = !!p.showImages;
   if (p.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!p.expertAfterCorrect;
+  if (p.expertExplainButton !== undefined) State.expertExplainButton = !!p.expertExplainButton;
 }
 
 function savePrefs() {
@@ -281,6 +282,7 @@ function savePrefs() {
     imageDisplaySeconds: State.imageDisplaySeconds,
     showImages:          State.showImages,
     expertAfterCorrect:  State.expertAfterCorrect,
+    expertExplainButton: State.expertExplainButton,
   });
 }
 
@@ -341,6 +343,7 @@ function applyServerPrefs(prefs) {
   if (prefs.imageDisplaySeconds != null)  State.imageDisplaySeconds = prefs.imageDisplaySeconds;
   if (prefs.showImages !== undefined)     State.showImages          = !!prefs.showImages;
   if (prefs.expertAfterCorrect !== undefined) State.expertAfterCorrect = !!prefs.expertAfterCorrect;
+  if (prefs.expertExplainButton !== undefined) State.expertExplainButton = !!prefs.expertExplainButton;
   window.userPrefs.imageDisplaySeconds = State.imageDisplaySeconds;
   window.userPrefs.showImages          = State.showImages;
   savePrefs();
@@ -413,7 +416,9 @@ const State = {
   imageDisplaySeconds: 5,
   showImages: true,
   expertAfterCorrect: false,
+  expertExplainButton: false,
   expertUsedThisQuestion: false,
+  explainUsedThisQuestion: false,
   questions: [],
   currentIndex: 0,
   currentPrize: 0,
@@ -630,6 +635,7 @@ function loadQuestion() {
   State.eliminatedOptions = [];
   State.answering = false;
   State.expertUsedThisQuestion = false;
+  State.explainUsedThisQuestion = false;
 
   const options = generateOptions(word);
   displayQuestion(word, options);
@@ -687,11 +693,29 @@ function displayQuestion(word, { options, correctIndex }) {
   const flagOpt  = mode === 'es-to-flag';
 
   // Pregunta principal
-  let questionText = '';
-  if (flagQ) questionText = '';                 // se muestra solo bandera
-  else if (flagOpt) questionText = word.translation;  // nombre en español
-  else questionText = isEnToEs ? word.word : word.translation;
-  document.getElementById('word-text').textContent = questionText;
+  const wordTextEl = document.getElementById('word-text');
+  if (flagQ) {
+    wordTextEl.textContent = '';                // se muestra solo bandera
+  } else if (flagOpt) {
+    // Nombre del país en español + icono GPS que abre Google Maps en nueva pestaña.
+    const country = word.translation;
+    const mapsUrl = `https://www.google.com/maps/place/${encodeURIComponent(country)}`;
+    wordTextEl.innerHTML = '';
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'country-name';
+    nameSpan.textContent = country;
+    const gpsLink = document.createElement('a');
+    gpsLink.className = 'country-gps';
+    gpsLink.href = mapsUrl;
+    gpsLink.target = '_blank';
+    gpsLink.rel = 'noopener noreferrer';
+    gpsLink.title = `Ver ${country} en Google Maps`;
+    gpsLink.setAttribute('aria-label', `Ver ${country} en Google Maps`);
+    gpsLink.textContent = '📍';
+    wordTextEl.append(nameSpan, gpsLink);
+  } else {
+    wordTextEl.textContent = isEnToEs ? word.word : word.translation;
+  }
 
   // Bandera de pregunta (modo flag-to-es)
   const flagBox = document.getElementById('question-flag');
@@ -889,6 +913,18 @@ function useLifeline(type) {
     useExpert();
   }
 }
+
+// Botón de explicación rápida (no es comodín contable, un uso por pregunta).
+function useExplainButton() {
+  if (!State.expertExplainButton) return;
+  if (State.explainUsedThisQuestion) return;
+  State.explainUsedThisQuestion = true;
+  try { primeExpertAudio(); } catch {}
+  Audio.playLifeline();
+  updateLifelineUI();
+  useExpert(undefined, 'explain');
+}
+window.useExplainButton = useExplainButton;
 
 function useFiftyFifty() {
   const labels = ['A', 'B', 'C', 'D'];
@@ -1153,6 +1189,13 @@ function updateLifelineUI() {
     const btn = document.getElementById(id);
     if (btn) btn.classList.toggle('used', !State.lifelines[key]);
   });
+  // Botón de explicación: visible solo si la opción está activa.
+  // Marca 'used' cuando ya se ha usado en esta pregunta.
+  const explainBtn = document.getElementById('lifeline-explain');
+  if (explainBtn) {
+    explainBtn.style.display = State.expertExplainButton ? '' : 'none';
+    explainBtn.classList.toggle('used', !!State.explainUsedThisQuestion);
+  }
 }
 
 // ─── Audio Pronunciation ──────────────────────────────────────────────────────
@@ -1211,6 +1254,9 @@ function saveOptions() {
 
   const eacEl = document.getElementById('opt-expert-after-correct');
   if (eacEl) State.expertAfterCorrect = eacEl.checked;
+  const eebEl = document.getElementById('opt-expert-explain-button');
+  if (eebEl) State.expertExplainButton = eebEl.checked;
+  updateLifelineUI();
 
   savePrefs();
   // Guardar al servidor si está autenticado
@@ -1228,6 +1274,7 @@ function saveOptions() {
         imageDisplaySeconds: State.imageDisplaySeconds,
         showImages:          State.showImages,
         expertAfterCorrect:  State.expertAfterCorrect,
+        expertExplainButton: State.expertExplainButton,
       }),
     }).catch(() => {});
   }
@@ -1395,6 +1442,8 @@ async function showProfile() {
   if (imgSecWrap) imgSecWrap.style.display = (State.showImages !== false) ? '' : 'none';
   const eacEl = document.getElementById('opt-expert-after-correct');
   if (eacEl) eacEl.checked = !!State.expertAfterCorrect;
+  const eebEl = document.getElementById('opt-expert-explain-button');
+  if (eebEl) eebEl.checked = !!State.expertExplainButton;
 
   showScreen('screen-profile');
   showProfileTab('stats');

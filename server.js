@@ -41,6 +41,9 @@ if (fs.existsSync(MIGRATION_005)) {
   if (!cols005.includes('show_images')) {
     db.prepare('ALTER TABLE user_prefs ADD COLUMN show_images INTEGER NOT NULL DEFAULT 1').run();
   }
+  if (!cols005.includes('expert_explain_button')) {
+    db.prepare('ALTER TABLE user_prefs ADD COLUMN expert_explain_button INTEGER NOT NULL DEFAULT 0').run();
+  }
 }
 
 function requireAuth(req, res, next) {
@@ -239,11 +242,12 @@ app.get('/api/prefs', requireAuth, (req, res) => {
     autoPlayLangs:       JSON.parse(row.auto_play_langs),
     imageDisplaySeconds: row.image_display_seconds != null ? row.image_display_seconds : 5,
     showImages:          row.show_images == null ? true : !!row.show_images,
+    expertExplainButton: !!row.expert_explain_button,
   });
 });
 
 app.put('/api/prefs', requireAuth, (req, res) => {
-  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds, showImages } = req.body;
+  const { level, mode, category, challengeType, autoPlay, autoPlayLangs, imageDisplaySeconds, showImages, expertExplainButton } = req.body;
   // Validar imageDisplaySeconds: entero 0-30
   let imgSecs = 5;
   if (imageDisplaySeconds !== undefined) {
@@ -251,9 +255,10 @@ app.put('/api/prefs', requireAuth, (req, res) => {
     imgSecs = (!isNaN(parsed) && parsed >= 0 && parsed <= 30) ? parsed : 5;
   }
   const showImg = (showImages === undefined || showImages === null) ? 1 : (showImages ? 1 : 0);
+  const explainBtn = expertExplainButton ? 1 : 0;
   db.prepare(`
-    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds, show_images)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO user_prefs (sub, level, mode, category, challenge_type, auto_play, auto_play_langs, image_display_seconds, show_images, expert_explain_button)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(sub) DO UPDATE SET
       level = excluded.level,
       mode = excluded.mode,
@@ -262,11 +267,12 @@ app.put('/api/prefs', requireAuth, (req, res) => {
       auto_play = excluded.auto_play,
       auto_play_langs = excluded.auto_play_langs,
       image_display_seconds = excluded.image_display_seconds,
-      show_images = excluded.show_images
+      show_images = excluded.show_images,
+      expert_explain_button = excluded.expert_explain_button
   `).run(req.user.sub, level||'A1', mode||'en-es', category||'all',
          challengeType||'10', autoPlay ? 1 : 0,
          JSON.stringify(autoPlayLangs || ['uk','us']),
-         imgSecs, showImg);
+         imgSecs, showImg, explainBtn);
   res.json({ ok: true });
 });
 
@@ -303,8 +309,12 @@ async function fishTTS(text, key, voiceId, normalize = true) {
 app.post('/api/tts-expert', requireAuth, async (req, res) => {
   const { word, answer, correctLabel, mode, context } = req.body || {};
   if (!word || !answer || !correctLabel) return res.status(400).json({ error: 'missing params' });
-  // context: 'lifeline' (default — duda y responde), 'auto-correct' (afirma directo), 'auto-wrong' (lamenta y explica)
-  const ctx = context === 'auto-correct' || context === 'auto-wrong' ? context : 'lifeline';
+  // context:
+  //   'lifeline'      — duda y responde (comodín manual)
+  //   'auto-correct'  — afirma directo (auto tras acierto)
+  //   'auto-wrong'    — lamenta y explica (auto tras fallo)
+  //   'explain'       — solo la explicación, sin comentar acierto/fallo
+  const ctx = ['auto-correct', 'auto-wrong', 'explain'].includes(context) ? context : 'lifeline';
 
   const fishKey    = process.env.FISH_AUDIO_API_KEY;
   const voiceId    = process.env.FISH_AUDIO_VOICE_ID;
@@ -372,9 +382,10 @@ app.post('/api/tts-expert', requireAuth, async (req, res) => {
     let spoken;
     const useEnPhonemes = !isFlagMode && mode === 'es-en';
 
-    if (ctx === 'auto-correct') {
-      // ACIERTO: directo a la explicación, sin "la a:", sin "por cierto",
-      // sin afirmaciones tipo "¡eso es!". Solo la etimología/dato.
+    if (ctx === 'auto-correct' || ctx === 'explain') {
+      // Directo a la explicación, sin "la a:", sin "por cierto",
+      // sin afirmaciones tipo "¡eso es!" ni comentarios sobre acierto/fallo.
+      // 'explain' lo invoca el botón manual; 'auto-correct' lo dispara el sistema tras acertar.
       if (etymology) {
         spoken = useEnPhonemes ? injectPhonemes(etymology, answer) : etymology;
       } else {

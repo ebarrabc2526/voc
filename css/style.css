@@ -35,6 +35,12 @@ html, body {
   position: relative;
 }
 .screen.active { display: flex; flex-direction: column; align-items: center; }
+/* Permite scroll vertical natural cuando el contenido excede el viewport
+   (necesario en móvil con la pantalla de setup, especialmente landscape) */
+#screen-setup.active,
+#screen-result.active,
+#screen-profile.active,
+#screen-hof.active { padding: 0 0 1rem; }
 
 /* ── Stars Background ── */
 .screen::before {
@@ -166,6 +172,7 @@ html, body {
   position: relative; z-index: 1;
   width: 100%; max-width: 680px;
   display: flex; flex-direction: column; gap: 1.5rem;
+  padding: 1.5rem 1rem 2.5rem;   /* bottom extra para que los botones nunca se corten */
 }
 
 .setup-inner h2 {
@@ -224,8 +231,8 @@ html, body {
   box-shadow: 0 0 16px rgba(255,215,0,0.35);
 }
 #cat-container {
-  display: flex; gap: 0.5rem; flex-wrap: wrap;
-  max-height: 200px; overflow-y: auto;
+  display: flex; gap: 0.45rem; flex-wrap: wrap;
+  max-height: 160px; overflow-y: auto;
   padding: 0.5rem;
   background: rgba(255,255,255,0.03);
   border-radius: var(--radius);
@@ -236,11 +243,16 @@ html, body {
 #cat-container::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 4px; }
 
 .cat-btn {
-  padding: 0.4rem 0.8rem;
+  padding: 0.35rem 0.75rem;
   background: var(--bg2); border: 1.5px solid rgba(255,255,255,0.1);
-  border-radius: 20px; color: var(--grey);
-  font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  border-radius: 18px; color: var(--grey);
+  font-size: 0.78rem; font-weight: 600; cursor: pointer;
   transition: all var(--trans); white-space: nowrap;
+}
+.cat-btn .cat-count {
+  margin-left: 0.35rem;
+  font-size: 0.7rem;
+  opacity: 0.6;
 }
 .cat-btn.active {
   background: rgba(100,100,255,0.2); border-color: var(--blue-glow); color: var(--white);
@@ -274,7 +286,7 @@ html, body {
   .challenge-btn:hover:not(.active) { border-color: var(--orange); color: var(--orange); }
 }
 
-.setup-footer { display: flex; gap: 1rem; justify-content: center; padding-top: 0.5rem; }
+.setup-footer { display: flex; gap: 1rem; justify-content: center; padding-top: 0.5rem; flex-wrap: wrap; }
 .setup-footer .btn-primary { min-width: 180px; }
 
 /* ── GAME SCREEN ── */
@@ -406,7 +418,26 @@ html, body {
   color: var(--white); letter-spacing: 1px;
   text-shadow: 0 2px 12px rgba(255,255,255,0.2);
   margin-bottom: 0.8rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  flex-wrap: wrap;
 }
+.country-gps {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.4rem; height: 2.4rem;
+  font-size: 1.4rem; line-height: 1;
+  text-decoration: none; cursor: pointer;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: transform .15s ease, background .15s ease;
+  text-shadow: none;
+}
+.country-gps:hover, .country-gps:focus-visible {
+  background: rgba(255,255,255,0.22);
+  transform: scale(1.08);
+  outline: none;
+}
+.country-gps:active { transform: scale(0.95); }
 
 .ipa-row {
   display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
@@ -776,18 +807,122 @@ html, body {
 }
 .lang-check input { accent-color: var(--gold); width: 16px; height: 16px; cursor: pointer; }
 
+/* Botón salir fijo arriba-derecha (botón cuadrado). En móvil se ajusta
+   en el bloque RESPONSIVE — esta regla base DEBE ir antes de los @media. */
+.btn-exit-fixed {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  bottom: auto;
+  left: auto;
+  z-index: 100;
+  padding: 0.5rem 0.6rem;
+  background: rgba(0,0,0,0.55);
+  border: 1.5px solid rgba(255,50,50,0.4);
+  border-radius: 12px;
+  color: #ff6666;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--trans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 56px;
+  height: 56px;
+  backdrop-filter: blur(4px);
+}
+.btn-exit-fixed:hover {
+  background: rgba(255,50,50,0.15);
+  border-color: #ff6666;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255,50,50,.3);
+}
+.btn-exit-fixed .lifeline-icon { font-size: 1.4rem; }
+.btn-exit-fixed .lifeline-label { font-size: 0.65rem; color: var(--grey); }
+
 /* ── RESPONSIVE ── */
-@media (max-width: 640px) {
-  .prize-ladder { width: 120px; min-width: 120px; }
-  .ladder-prize { font-size: 0.7rem; }
-  .answers-grid { grid-template-columns: 1fr; }
-  .game-main { padding: 0.8rem; }
-  #word-text { font-size: 1.8rem; }
+@media (max-width: 768px) {
+  /* Layout sigue en row para mantener la barra de premios visible.
+     El panel se acorta abajo (deja 64px) para que quepa el botón Salir
+     en la esquina inferior-izquierda SIN solapar la línea del panel. */
+  .prize-ladder {
+    width: 90px; min-width: 90px;
+    padding: 0.5rem 0.25rem;
+    /* altura natural del flex (stretch); el botón salir vive arriba-dcha */
+  }
+  .ladder-prize { font-size: 0.7rem; font-weight: 600; }
+  .ladder-num   { font-size: 0.62rem; min-width: 14px; }
+  .ladder-item  { padding: 0.2rem 0.35rem; }
+  .ladder-item.current .ladder-num,
+  .ladder-item.current .ladder-prize { font-size: 0.82rem; }
+  .phase-score { padding: 0.5rem 0.3rem; }
+  .phase-score .score-value { font-size: 1.15rem; }
+  .phase-score .lives-row   { font-size: 0.95rem; }
+  .score-panel { padding: 0.7rem 0.3rem; gap: 0.45rem; }
+  .score-value { font-size: 1.55rem; }
+  .lives-row   { font-size: 1.1rem; }
+  .streak-label{ font-size: 0.7rem; }
+
+  .game-main {
+    padding: 0.6rem 0.7rem 0.8rem;
+    gap: 0.85rem;
+    justify-content: flex-start;   /* alineado arriba, no centrado */
+    min-height: 100vh;
+  }
+
+  .lifelines { gap: 0.55rem; }
+  .lifeline-btn { min-width: 70px; padding: 0.55rem 0.7rem; }
+  .lifeline-icon { font-size: 1.35rem; }
+  .lifeline-label { font-size: 0.7rem; }
+
+  #question-card { padding: 1.3rem 1rem 1.1rem; }
+  #word-text { font-size: 2rem; }
+  .ipa-row { gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+  .ipa-item { padding: 0.45rem 0.7rem; }
+  .ipa-text { font-size: 0.95rem; }
+
+  .answers-grid { grid-template-columns: 1fr; gap: 0.65rem; }
+  .answer-btn { padding: 0.95rem 1rem; font-size: 1.05rem; }
+
+  .question-header { padding: 0 0.3rem; }
+  #current-prize { font-size: 1.05rem; }
+
+  .word-image-box { max-width: 280px; margin: 6px auto 0; }
+
+  /* Botón salir: cuadrado en la esquina arriba-derecha, respetando notch. */
+  .btn-exit-fixed {
+    top: calc(8px + env(safe-area-inset-top, 0px)) !important;
+    right: calc(8px + env(safe-area-inset-right, 0px)) !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0.3rem !important;
+    border-radius: 10px !important;
+  }
+  .btn-exit-fixed .lifeline-icon { font-size: 1rem; }
+  .btn-exit-fixed .lifeline-label { font-size: 0.55rem; line-height: 1; color: #ff8888; }
+
   .hof-entry { padding: 0.45rem 0.6rem; gap: 0.5rem; }
+  .setup-inner { padding: 1rem; }
+  #cat-container { max-height: 140px; }
+  .home-inner { padding: 1.5rem 1rem; }
 }
 
-@media (max-width: 400px) {
-  .prize-ladder { display: none; }
+@media (max-width: 480px) {
+  /* Móvil estrecho: ladder un poco más fino, fonts ligeramente menores */
+  .prize-ladder { width: 78px; min-width: 78px; padding: 0.4rem 0.18rem; }
+  .ladder-prize { font-size: 0.62rem; }
+  .ladder-num   { font-size: 0.55rem; min-width: 12px; }
+  .game-main { padding: 0.5rem 0.55rem 0.7rem; gap: 0.7rem; }
+  #word-text { font-size: 1.7rem; }
+  .lifeline-btn { min-width: 60px; padding: 0.45rem 0.55rem; }
+  .lifeline-label { font-size: 0.6rem; }
+  .answer-btn { font-size: 0.95rem; padding: 0.8rem 0.85rem; }
+  .word-image-box { max-width: 240px; }
 }
 
 /* ── WORD IMAGE BOX ── */
@@ -820,12 +955,7 @@ html, body {
   transition: none;
 }
 .progress-bar .progress-percent {
-  position: absolute;
-  right: 8px;
-  top: -18px;
-  font-size: 11px;
-  font-family: monospace;
-  color: var(--grey);
+  display: none;  /* % numérico oculto; la barra ya da el feedback visual */
 }
 .progress-bar.hidden { display: none; }
 
@@ -833,3 +963,134 @@ html, body {
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 3px; }
+
+/* ── BANDERAS: pregunta y opciones — banderas tan grandes como quepan ── */
+
+/* Forzar viewport exacto cuando hay banderas (sin scroll) */
+#screen-game:has(.flag-option),
+#screen-game:has(.question-flag:not(.hidden)) {
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Game main con banderas: rellena la altura del screen, sin scroll */
+.game-main:has(.flag-option),
+.game-main:has(.question-flag:not(.hidden)) {
+  padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+  gap: 0.4rem;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+/* En flag-to-es: el question-card crece para llenar el espacio disponible */
+#question-card:has(.question-flag:not(.hidden)) {
+  max-width: 100%;
+  padding: 0.5rem;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#question-card:has(.question-flag:not(.hidden)) #word-text {
+  display: none;
+}
+
+.question-flag {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+  border: 2px solid rgba(255,255,255,.15);
+  background: #1a1a3a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.question-flag img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+.question-flag.hidden { display: none; }
+
+/* En es-to-flag: 4 banderas apiladas verticalmente que rellenan toda la altura */
+.answers-grid:has(.flag-option) {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+  gap: 0.4rem;
+  flex: 1;
+  min-height: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+.answer-btn.flag-option {
+  padding: 0;
+  overflow: hidden;
+  align-items: stretch;
+  position: relative;
+  min-height: 0;
+  background: #1a1a3a;
+  display: flex;
+}
+.answer-btn.flag-option .answer-label {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  z-index: 2;
+  background: rgba(0,0,0,.65);
+  color: #fff;
+  padding: 1px .4em;
+  border-radius: 3px;
+  font-size: .8em;
+  line-height: 1.3;
+}
+.answer-btn.flag-option .answer-text {
+  flex: 1;
+  display: block;
+  padding: 0;
+  height: 100%;
+  min-height: 0;
+}
+.answer-btn.flag-option .answer-text img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+}
+
+/* ── INDICADOR MINI EXPERTO (auto-comentario tras responder) ── */
+.expert-mini {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.8rem;
+  background: radial-gradient(circle, rgba(255,215,0,0.95), rgba(180,120,0,0.85));
+  box-shadow: 0 0 60px 18px rgba(255,215,0,0.55), inset 0 0 18px rgba(255,255,255,0.25);
+  border: 2px solid rgba(255,215,0,0.9);
+  z-index: 9999;
+  pointer-events: none;
+  animation: expertPulse 0.85s ease-in-out infinite;
+}
+.expert-mini.hidden { display: none; }
+@keyframes expertPulse {
+  0%, 100% { opacity: 0.45; transform: translate(-50%, -50%) scale(0.92); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.08); }
+}
